@@ -33,7 +33,6 @@ module.exports = (config) => {
     frameworks: ['chai', 'mocha'],
     preprocessors: {
       [testFile]: ['webpack', 'sourcemap'],
-      '**/src/(?<!.test)(.jsx?)': ['coverage'],
     },
     reporters: ['progress', 'coverage'],
     coverageReporter: {
