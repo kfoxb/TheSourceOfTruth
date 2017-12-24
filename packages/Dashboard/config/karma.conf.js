@@ -1,6 +1,7 @@
 const webpackProdConfig = require('./webpack.config.prod.js');
 const webpack = require('webpack');
 const path = require('path');
+const puppeteer = require('puppeteer');
 const devManifest = require('../dist/devDependencies.dll.manifest.json');
 
 webpackProdConfig.plugins = [
@@ -10,11 +11,12 @@ webpackProdConfig.plugins = [
   }),
 ].concat(webpackProdConfig.plugins);
 
+process.env.CHROME_BIN = puppeteer.executablePath();
+
 const testFile = './setup.test.js';
 module.exports = (config) => {
   config.set({
-    browsers: ['Chrome'],
-    // karma only needs to know about the test bundle
+    browsers: ['ChromeHeadless'],
     files: [
       {
         pattern: '../dist/dependencies.dll.js/',
@@ -29,13 +31,11 @@ module.exports = (config) => {
       testFile,
     ],
     frameworks: ['chai', 'mocha'],
-    // run the bundle through the webpack and sourcemap plugins
     preprocessors: {
       [testFile]: ['webpack', 'sourcemap'],
     },
     reporters: ['progress'],
     singleRun: true,
-    // webpack config object
     webpack: webpackProdConfig,
     webpackMiddleware: {
       noInfo: true,
