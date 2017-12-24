@@ -8,7 +8,7 @@ Node is required to run the build process. This repo is tested with the latest L
 
 ##### Yarn
 
-Yarn is required to install dependencies, follow the instructions [here](https://yarnpkg.com/en/docs/install) to install.
+Yarn is required to install dependencies, follow the instructions [here](https://yarnpkg.com/en/docs/install) to install. Repo is tested with Yarn 1.3.2.
 
 ## Getting Started
 
