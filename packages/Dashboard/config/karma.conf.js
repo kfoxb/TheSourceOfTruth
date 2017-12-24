@@ -33,8 +33,14 @@ module.exports = (config) => {
     frameworks: ['chai', 'mocha'],
     preprocessors: {
       [testFile]: ['webpack', 'sourcemap'],
+      '**/src/*.js': ['coverage'],
+      '**/src/*.jsx': ['coverage'],
     },
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/',
+    },
     singleRun: true,
     webpack: webpackProdConfig,
     webpackMiddleware: {
