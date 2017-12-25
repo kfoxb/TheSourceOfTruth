@@ -8,7 +8,7 @@ export default function App() {
   return (
     <Fragment>
       <Route path="/login" component={Login} />
-      <ProtectedRoute path="/" component={Nav} />
+      <ProtectedRoute exact path="/" component={Nav} />
     </Fragment>
   );
 }
