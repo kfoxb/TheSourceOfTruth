@@ -1,26 +1,31 @@
 /* eslint-env browser */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
+import { AppContainer as HotReloadContainer } from 'react-hot-loader';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import App from './containers/App';
+import {
+  BrowserRouter as Router,
+} from 'react-router-dom';
+import AppContainer from './containers/AppContainer';
 import app from './reducers';
 
 const store = createStore(app);
 
 const render = (Component) => {
   ReactDOM.render(
-    <AppContainer>
+    <HotReloadContainer>
       <Provider store={store} >
-        <Component />
+        <Router basename="/dashboard">
+          <Component />
+        </Router>
       </Provider>
-    </AppContainer>,
+    </HotReloadContainer>,
     document.getElementById('app'),
   );
 };
 
-render(App);
+render(AppContainer);
 if (module.hot) {
-  module.hot.accept('./containers/App', () => { render(App); });
+  module.hot.accept('./containers/AppContainer', () => { render(AppContainer); });
 }
