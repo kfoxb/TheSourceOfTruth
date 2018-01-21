@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
-function ProtectedRoute({ component: Component, isAuthenticated, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props => (
-        isAuthenticated === true
+class ProtectedRoute extends Component {
+  protectRoute = () => {
+    // eslint-disable-next-line no-unused-vars
+    const { component = Component, isAuthenticated, ...props } = this.props;
+    return (
+      isAuthenticated === true
         ? <Component {...props} />
         : <Redirect to="/login" />
-      )}
-    />
-  );
+    );
+  };
+
+  render() {
+    return (
+      <Route
+        render={this.protectRoute}
+      />
+    );
+  }
 }
 
 ProtectedRoute.propTypes = {
