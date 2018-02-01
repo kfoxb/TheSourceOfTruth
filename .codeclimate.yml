@@ -1,7 +1,7 @@
 exclude_patterns:
   - "**/*test.js"
   - "**/*test.jsx"
-  - "**/config"
+  - "**/config/"
 plugins:
   eslint:
     channel: eslint-4
