@@ -12,7 +12,10 @@ export default class App extends Component {
     return (
       <Fragment>
         <SidebarTopOverlay toggleMenu={this.toggleVisibility} />
-        <SidebarLeftOverlay sideBarVisibility={this.state.visible} />
+        <SidebarLeftOverlay
+          sideBarVisibility={this.state.visible}
+          toggleMenu={this.toggleVisibility}
+        />
         <Button>Real Truth</Button>
       </Fragment>
     );
