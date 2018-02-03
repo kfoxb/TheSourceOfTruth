@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'semantic-ui-react';
-import SidebarLeftOverlay from './SidebarLeftOverlay';
-import SidebarTopOverlay from './SidebarTopOverlay';
+import { SidebarLeftOverlay, SidebarTopOverlay } from './Navigation';
 
 export default function App({ toggleVisibility, visible }) {
   return (
@@ -12,7 +10,6 @@ export default function App({ toggleVisibility, visible }) {
         sideBarVisibility={visible}
         toggleMenu={toggleVisibility}
       />
-      <Button>Real Truth</Button>
     </Fragment>
   );
 }
