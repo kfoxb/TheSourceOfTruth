@@ -18,9 +18,11 @@ export default class LargeCard extends Component {
         <Card>
           <Icon
             name="star"
-            onClick={starFilled}
+            color={starFilled ? 'yellow' : 'whitesmoke'}
+            onClick={this.toggleFav}
             size="huge"
             style={{
+              color: 'whitesmoke',
               position: 'absolute',
               zIndex: 1,
               right: 0,
