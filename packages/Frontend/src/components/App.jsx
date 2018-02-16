@@ -15,7 +15,7 @@ function App({
 }) {
   return (
     <Fragment>
-      <SidebarTopOverlay toggleMenu={toggleVisibility} />
+      <SidebarTopOverlay toggleMenu={toggleMenu} toggleSearch={toggleSearch} />
       <SidebarLeftOverlay
         isAuthenticated={isAuthenticated}
         logout={logout}

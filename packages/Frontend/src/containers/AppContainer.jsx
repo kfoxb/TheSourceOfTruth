@@ -25,13 +25,14 @@ class AppContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
+      menuVisible: false,
     };
   }
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible })
+  toggleMenu = () => this.setState({ menuVisible: !this.state.menuVisible })
 
   render() {
+    const { menuVisible } = this.state;
     return (
       <BrowserRouter>
         <App
