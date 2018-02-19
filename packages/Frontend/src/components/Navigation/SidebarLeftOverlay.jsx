@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Sidebar, Menu } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default class SidebarLeftOverlay extends Component {
@@ -27,22 +28,16 @@ export default class SidebarLeftOverlay extends Component {
       <div ref={(el) => { this.ref = el; }}>
         <Sidebar as={Menu} animation="overlay" width="thin" visible={this.props.sideBarVisibility} icon="labeled" vertical inverted>
           <Menu.Item name="home">
-            Home
+            <Link href="/" to="/">Home</Link>
           </Menu.Item>
-          <Menu.Item name="humanityParty">
-            Humanity Party
-          </Menu.Item>
-          <Menu.Item name="formatting">
-            Formatting
-          </Menu.Item>
-          <Menu.Item name="transcription">
-            Transcription
-          </Menu.Item>
-          <Menu.Item name="questions">
-            Questions
+          <Menu.Item name="library">
+            <Link href="/library" to="/library">Library</Link>
           </Menu.Item>
           <Menu.Item name="journal">
-            Journal
+            <Link href="/journal" to="/journal">Journal</Link>
+          </Menu.Item>
+          <Menu.Item name="signin">
+            <Link href="/signin" to="/signin">Sign In</Link>
           </Menu.Item>
         </Sidebar>
       </div>
