@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
@@ -9,25 +9,22 @@ import Library from './Library';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-class App extends Component {
-  render() {
-    const { toggleVisibility, visible } = this.props;
-    return (
-      <Fragment>
-        <SidebarTopOverlay toggleMenu={toggleVisibility} />
-        <SidebarLeftOverlay
-          sideBarVisibility={visible}
-          toggleMenu={toggleVisibility}
-        />
-        <div style={{ height: '40px' }} />
-        <Route exact path="/" component={Home} />
-        <Route path="/journal" component={Journal} />
-        <Route path="/library" component={Library} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-      </Fragment>
-    );
-  }
+function App({ toggleVisibility, visible }) {
+  return (
+    <Fragment>
+      <SidebarTopOverlay toggleMenu={toggleVisibility} />
+      <SidebarLeftOverlay
+        sideBarVisibility={visible}
+        toggleMenu={toggleVisibility}
+      />
+      <div style={{ height: '40px' }} />
+      <Route exact path="/" component={Home} />
+      <Route path="/journal" component={Journal} />
+      <Route path="/library" component={Library} />
+      <Route path="/signin" component={SignIn} />
+      <Route path="/signup" component={SignUp} />
+    </Fragment>
+  );
 }
 
 App.propTypes = {
