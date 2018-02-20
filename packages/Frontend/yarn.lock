@@ -1904,6 +1904,10 @@ domutils@^1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
+dotenv@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-5.0.0.tgz#0206eb5b336639bf377618a2a304ff00c6a1fddb"
+
 duplexify@^3.1.2, duplexify@^3.4.2:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/duplexify/-/duplexify-3.5.1.tgz#4e1516be68838bc90a49994f0b39a6e5960befcd"
