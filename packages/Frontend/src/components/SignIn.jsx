@@ -5,9 +5,10 @@ export default class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '', // eslint-disable-line react/no-unused-state
-      password: '', // eslint-disable-line react/no-unused-state
       error: '',
+      loading: false,
+      password: '', // eslint-disable-line react/no-unused-state
+      username: '', // eslint-disable-line react/no-unused-state
     };
   }
 
@@ -16,9 +17,12 @@ export default class SignIn extends Component {
 
   signin = () => {
     const { username, password } = this.state;
-    Auth.signIn(username, password)
-      .then(user => console.log(user))
-      .catch(error => this.setState({ error }));
+    this.setState({ loading: true }, () => {
+      Auth.signIn(username, password)
+        .then(user => console.log(user))
+        .catch(error => this.setState({ error }))
+        .finally(() => this.setState({ loading: false }));
+    });
   }
 
   submitIfEnter = ({ key }) => {
@@ -28,7 +32,7 @@ export default class SignIn extends Component {
   }
 
   render() {
-    const { error } = this.state;
+    const { error, loading } = this.state;
     return (
       <Fragment>
         <p>Username: </p>
@@ -36,7 +40,12 @@ export default class SignIn extends Component {
         <p>Password: </p>
         <input onChange={this.updatePassword} onKeyUp={this.submitIfEnter} type="password" />
         <button disabled={this.state.password.length < 8}onClick={this.signin}>Submit</button>
-        { error && error.message ? error.message : null }
+        <p>
+          { loading ? 'Loading...' : null }
+        </p>
+        <p>
+          { error && error.message ? error.message : null }
+        </p>
       </Fragment>
     );
   }
