@@ -21,14 +21,20 @@ export default class SignIn extends Component {
       .catch(error => this.setState({ error }));
   }
 
+  submitIfEnter = ({ key }) => {
+    if (key === 'Enter') {
+      this.signin();
+    }
+  }
+
   render() {
     const { error } = this.state;
     return (
       <Fragment>
         <p>Username: </p>
-        <input onChange={this.updateUsername} />
+        <input onChange={this.updateUsername} onKeyUp={this.submitIfEnter} />
         <p>Password: </p>
-        <input type="password" onChange={this.updatePassword} />
+        <input onChange={this.updatePassword} onKeyUp={this.submitIfEnter} type="password" />
         <button disabled={this.state.password.length < 8}onClick={this.signin}>Submit</button>
         { error && error.message ? error.message : null }
       </Fragment>
