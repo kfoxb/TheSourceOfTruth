@@ -7,13 +7,12 @@ export default class SignIn extends Component {
     this.state = {
       error: '',
       loading: false,
-      password: '', // eslint-disable-line react/no-unused-state
-      username: '', // eslint-disable-line react/no-unused-state
+      password: '',
+      username: '',
     };
   }
 
-  updateUsername = ({ target }) => { this.setState({ username: target.value }); }
-  updatePassword = ({ target }) => { this.setState({ password: target.value }); }
+  updateFormByKey = key => ({ target }) => this.setState({ [key]: target.value });
 
   signin = () => {
     const { username, password } = this.state;
@@ -36,9 +35,9 @@ export default class SignIn extends Component {
     return (
       <Fragment>
         <p>Username: </p>
-        <input onChange={this.updateUsername} onKeyUp={this.submitIfEnter} />
+        <input onChange={this.updateFormByKey('username')} onKeyUp={this.submitIfEnter} />
         <p>Password: </p>
-        <input onChange={this.updatePassword} onKeyUp={this.submitIfEnter} type="password" />
+        <input onChange={this.updateFormByKey('password')} onKeyUp={this.submitIfEnter} type="password" />
         <button disabled={this.state.password.length < 8}onClick={this.signin}>Submit</button>
         <p>
           { loading ? 'Loading...' : null }
