@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 export default class SidebarLeftOverlay extends Component {
   static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    logout: PropTypes.func.isRequired,
     sideBarVisibility: PropTypes.bool.isRequired,
     toggleMenu: PropTypes.func.isRequired,
   }
@@ -29,13 +31,30 @@ export default class SidebarLeftOverlay extends Component {
         <Link href={path} to={path}>{label}</Link>
       </Menu.Item>
     );
+
+    const Logout = (
+      <Menu.Item
+        as="div"
+        name="logout"
+        onClick={() => {
+        this.props.logout();
+        this.props.toggleMenu();
+      }}
+      >
+      Log Out
+      </Menu.Item>
+    );
+
     return (
       <div ref={(el) => { this.ref = el; }}>
         <Sidebar as={Menu} animation="overlay" width="thin" visible={this.props.sideBarVisibility} icon="labeled" vertical inverted>
           {MenuItem('home', 'Home', '/')}
           {MenuItem('library', 'Library', '/library')}
           {MenuItem('journal', 'Journal', '/journal')}
-          {MenuItem('signin', 'Sign In', '/signin')}
+          { this.props.isAuthenticated
+              ? Logout
+              : MenuItem('signin', 'Sign In', '/signin')
+          }
         </Sidebar>
       </div>
     );

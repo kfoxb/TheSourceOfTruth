@@ -1,51 +1,29 @@
-import React, { Component, Fragment } from 'react';
-import { Auth } from 'aws-amplify';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
-export default class SignIn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: '',
-      loading: false,
-      password: '',
-      username: '',
-    };
-  }
-
-  updateFormByKey = key => ({ target }) => this.setState({ [key]: target.value });
-
-  signin = () => {
-    const { username, password } = this.state;
-    this.setState({ loading: true }, () => {
-      Auth.signIn(username, password)
-        .then(user => console.log(user))
-        .catch(error => this.setState({ error }))
-        .finally(() => this.setState({ loading: false }));
-    });
-  }
-
-  submitIfEnter = ({ key }) => {
-    if (key === 'Enter') {
-      this.signin();
-    }
-  }
-
-  render() {
-    const { error, loading } = this.state;
-    return (
-      <Fragment>
-        <p>Username: </p>
-        <input onChange={this.updateFormByKey('username')} onKeyUp={this.submitIfEnter} />
-        <p>Password: </p>
-        <input onChange={this.updateFormByKey('password')} onKeyUp={this.submitIfEnter} type="password" />
-        <button disabled={this.state.password.length < 8}onClick={this.signin}>Submit</button>
-        <p>
-          { loading ? 'Loading...' : null }
-        </p>
-        <p>
-          { error && error.message ? error.message : null }
-        </p>
-      </Fragment>
-    );
-  }
+export default function SignIn({
+  error, loading, signIn, submitIfEnter, updateFormByKey,
+}) {
+  return (
+    <Fragment>
+      <p>Username: </p>
+      <input onChange={updateFormByKey('username')} onKeyUp={submitIfEnter} />
+      <p>Password: </p>
+      <input onChange={updateFormByKey('password')} onKeyUp={submitIfEnter} type="password" />
+      <button onClick={signIn}>Submit</button>
+      { loading ? <p>Loading...</p> : null }
+      { error ? <p>{error}</p> : null }
+    </Fragment>
+  );
 }
+
+SignIn.propTypes = {
+  error: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]).isRequired,
+  loading: PropTypes.bool.isRequired,
+  signIn: PropTypes.func.isRequired,
+  submitIfEnter: PropTypes.func.isRequired,
+  updateFormByKey: PropTypes.func.isRequired,
+};

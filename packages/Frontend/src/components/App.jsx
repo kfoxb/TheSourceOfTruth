@@ -6,14 +6,18 @@ import { SidebarLeftOverlay, SidebarTopOverlay } from './Navigation';
 import Home from './Home';
 import Journal from './Journal';
 import Library from './Library';
-import SignIn from './SignIn';
+import SignInContainer from '../containers/SignInContainer';
 import SignUp from './SignUp';
 
-function App({ toggleVisibility, visible }) {
+function App({
+  isAuthenticated, logout, toggleVisibility, visible,
+}) {
   return (
     <Fragment>
       <SidebarTopOverlay toggleMenu={toggleVisibility} />
       <SidebarLeftOverlay
+        isAuthenticated={isAuthenticated}
+        logout={logout}
         sideBarVisibility={visible}
         toggleMenu={toggleVisibility}
       />
@@ -21,13 +25,15 @@ function App({ toggleVisibility, visible }) {
       <Route exact path="/" component={Home} />
       <Route path="/journal" component={Journal} />
       <Route path="/library" component={Library} />
-      <Route path="/signin" component={SignIn} />
+      <Route path="/signin" component={SignInContainer} />
       <Route path="/signup" component={SignUp} />
     </Fragment>
   );
 }
 
 App.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
   toggleVisibility: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
 };
