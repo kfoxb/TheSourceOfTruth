@@ -25,35 +25,37 @@ export default class SidebarLeftOverlay extends Component {
     }
   };
 
-  render() {
-    const MenuItem = (name, label, path) => (
-      <Menu.Item as="div" name={name} onClick={this.props.toggleMenu}>
-        <Link href={path} to={path}>{label}</Link>
-      </Menu.Item>
-    );
-
-    const Logout = (
-      <Menu.Item
-        as="div"
-        name="logout"
-        onClick={() => {
+  renderLogout = () => (
+    <Menu.Item
+      as="div"
+      name="logout"
+      onClick={() => {
         this.props.logout();
         this.props.toggleMenu();
       }}
-      >
+    >
       Log Out
-      </Menu.Item>
-    );
+    </Menu.Item>
+  )
 
+
+  renderMenuItem = (name, label, path) => (
+    <Menu.Item as="div" name={name} onClick={this.props.toggleMenu}>
+      <Link href={path} to={path}>{label}</Link>
+    </Menu.Item>
+  );
+
+  render() {
+    const { renderMenuItem } = this;
     return (
       <div ref={(el) => { this.ref = el; }}>
         <Sidebar as={Menu} animation="overlay" width="thin" visible={this.props.sideBarVisibility} icon="labeled" vertical inverted>
-          {MenuItem('home', 'Home', '/')}
-          {MenuItem('library', 'Library', '/library')}
-          {MenuItem('journal', 'Journal', '/journal')}
+          {renderMenuItem('home', 'Home', '/')}
+          {renderMenuItem('library', 'Library', '/library')}
+          {renderMenuItem('journal', 'Journal', '/journal')}
           { this.props.isAuthenticated
-              ? Logout
-              : MenuItem('signin', 'Sign In', '/signin')
+              ? this.renderLogout()
+              : renderMenuItem('signin', 'Sign In', '/signin')
           }
         </Sidebar>
       </div>
