@@ -1,19 +1,28 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { Button, Divider, Form, Segment, Loader, Message } from 'semantic-ui-react';
 
 export default function SignIn({
   error, loading, signIn, submitIfEnter, updateFormByKey,
 }) {
   return (
-    <Fragment>
-      <p>Username: </p>
-      <input onChange={updateFormByKey('username')} onKeyUp={submitIfEnter} />
-      <p>Password: </p>
-      <input onChange={updateFormByKey('password')} onKeyUp={submitIfEnter} type="password" />
-      <button onClick={signIn}>Submit</button>
-      { loading ? <p>Loading...</p> : null }
-      { error ? <p>{error}</p> : null }
-    </Fragment>
+    <div>
+      <Segment>
+        <Form>
+          <Form.Input placeholder="Username" onChange={updateFormByKey('username')} onKeyUp={submitIfEnter} />
+          <Form.Input placeholder="Password" onChange={updateFormByKey('password')} onKeyUp={submitIfEnter} type="password" />
+          <Button onClick={signIn} fluid>Sign In</Button>
+          <Divider horizontal>Or</Divider>
+          <Button fluid>Sign Up Now</Button>
+        </Form>
+        { loading && <Loader active inline /> }
+        { error &&
+          <Message negative>
+            <p>{error}</p>
+          </Message>
+        }
+      </Segment>
+    </div>
   );
 }
 
