@@ -1,0 +1,267 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SidebarLeftOverlay rendering should not render a sidebar when sideBarVisibility is false 1`] = `
+<div>
+  <Sidebar
+    animation="overlay"
+    as={[Function]}
+    direction="left"
+    icon="labeled"
+    inverted={true}
+    vertical={true}
+    visible={false}
+    width="thin"
+  >
+    <MenuItem
+      as="div"
+      name="home"
+      onClick={[Function]}
+    >
+      <Link
+        href="/"
+        replace={false}
+        to="/"
+      >
+        Home
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="library"
+      onClick={[Function]}
+    >
+      <Link
+        href="/library"
+        replace={false}
+        to="/library"
+      >
+        Library
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="journal"
+      onClick={[Function]}
+    >
+      <Link
+        href="/journal"
+        replace={false}
+        to="/journal"
+      >
+        Journal
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="signin"
+      onClick={[Function]}
+    >
+      <Link
+        href="/signin"
+        replace={false}
+        to="/signin"
+      >
+        Sign In
+      </Link>
+    </MenuItem>
+  </Sidebar>
+</div>
+`;
+
+exports[`SidebarLeftOverlay rendering should render a sidebar when sideBarVisibility is true 1`] = `
+<div>
+  <Sidebar
+    animation="overlay"
+    as={[Function]}
+    direction="left"
+    icon="labeled"
+    inverted={true}
+    vertical={true}
+    visible={true}
+    width="thin"
+  >
+    <MenuItem
+      as="div"
+      name="home"
+      onClick={[Function]}
+    >
+      <Link
+        href="/"
+        replace={false}
+        to="/"
+      >
+        Home
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="library"
+      onClick={[Function]}
+    >
+      <Link
+        href="/library"
+        replace={false}
+        to="/library"
+      >
+        Library
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="journal"
+      onClick={[Function]}
+    >
+      <Link
+        href="/journal"
+        replace={false}
+        to="/journal"
+      >
+        Journal
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="signin"
+      onClick={[Function]}
+    >
+      <Link
+        href="/signin"
+        replace={false}
+        to="/signin"
+      >
+        Sign In
+      </Link>
+    </MenuItem>
+  </Sidebar>
+</div>
+`;
+
+exports[`SidebarLeftOverlay rendering should render a sign in menu item when not authenticated 1`] = `
+<div>
+  <Sidebar
+    animation="overlay"
+    as={[Function]}
+    direction="left"
+    icon="labeled"
+    inverted={true}
+    vertical={true}
+    visible={true}
+    width="thin"
+  >
+    <MenuItem
+      as="div"
+      name="home"
+      onClick={[Function]}
+    >
+      <Link
+        href="/"
+        replace={false}
+        to="/"
+      >
+        Home
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="library"
+      onClick={[Function]}
+    >
+      <Link
+        href="/library"
+        replace={false}
+        to="/library"
+      >
+        Library
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="journal"
+      onClick={[Function]}
+    >
+      <Link
+        href="/journal"
+        replace={false}
+        to="/journal"
+      >
+        Journal
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="signin"
+      onClick={[Function]}
+    >
+      <Link
+        href="/signin"
+        replace={false}
+        to="/signin"
+      >
+        Sign In
+      </Link>
+    </MenuItem>
+  </Sidebar>
+</div>
+`;
+
+exports[`SidebarLeftOverlay rendering should render a sign out menu item when authenticated 1`] = `
+<div>
+  <Sidebar
+    animation="overlay"
+    as={[Function]}
+    direction="left"
+    icon="labeled"
+    inverted={true}
+    vertical={true}
+    visible={true}
+    width="thin"
+  >
+    <MenuItem
+      as="div"
+      name="home"
+      onClick={[Function]}
+    >
+      <Link
+        href="/"
+        replace={false}
+        to="/"
+      >
+        Home
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="library"
+      onClick={[Function]}
+    >
+      <Link
+        href="/library"
+        replace={false}
+        to="/library"
+      >
+        Library
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="journal"
+      onClick={[Function]}
+    >
+      <Link
+        href="/journal"
+        replace={false}
+        to="/journal"
+      >
+        Journal
+      </Link>
+    </MenuItem>
+    <MenuItem
+      as="div"
+      name="logout"
+      onClick={[Function]}
+    >
+      Log Out
+    </MenuItem>
+  </Sidebar>
+</div>
+`;
