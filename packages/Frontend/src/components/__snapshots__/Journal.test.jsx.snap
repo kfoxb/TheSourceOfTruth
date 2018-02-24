@@ -5,3 +5,9 @@ exports[`Home should render 1`] = `
   Journal
 </h3>
 `;
+
+exports[`Journal should render 1`] = `
+<h3>
+  Journal
+</h3>
+`;

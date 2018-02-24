@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Journal from './Journal';
 
-describe('Home', () => {
+describe('Journal', () => {
   it('should render', () => {
     expect(shallow(<Journal />)).toMatchSnapshot();
   });
