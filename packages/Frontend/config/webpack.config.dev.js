@@ -13,6 +13,7 @@ module.exports = {
       inject: false,
       links: ['https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css'],
       template,
+      mobile: true,
       title: 'Dashboard',
     }),
     new webpack.NamedModulesPlugin(),
