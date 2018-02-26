@@ -53,6 +53,7 @@ export default class SidebarLeftOverlay extends Component {
           {renderMenuItem('home', 'Home', '/')}
           {renderMenuItem('library', 'Library', '/library')}
           {renderMenuItem('journal', 'Journal', '/journal')}
+          {renderMenuItem('new journal', 'New Journal', '/')}
           { this.props.isAuthenticated
               ? this.renderLogout()
               : renderMenuItem('signin', 'Sign In', '/signin')
