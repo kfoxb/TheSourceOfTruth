@@ -3,6 +3,16 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 export default class NewJournal extends Component {
+  static modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }, { list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'image', 'video'],
+    ],
+  }
+
   constructor(props) {
     super(props);
     this.state = { text: '' };
@@ -17,9 +27,9 @@ export default class NewJournal extends Component {
     return (
       <div>
         <ReactQuill
-          value={this.state.text}
+          modules={NewJournal.modules}
           onChange={this.handleChange}
-          theme="snow"
+          value={this.state.text}
         />
       </div>
     );
