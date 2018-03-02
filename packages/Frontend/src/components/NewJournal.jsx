@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 import ReactQuill from 'react-quill';
+import styled from 'styled-components';
 import 'react-quill/dist/quill.snow.css';
+
+const StyledDiv = styled.div`
+  height: 90%;
+  display: block;
+  position: relative;
+  .quill {
+    height: 90%;
+  }
+`;
 
 export default class NewJournal extends Component {
   static modules = {
@@ -32,18 +42,21 @@ export default class NewJournal extends Component {
           position: 'relative',
           top: 40,
           width: '70%',
-          height: 1000,
+          height: '50em',
         }}
       >
-        <ReactQuill
-          modules={NewJournal.modules}
-          onChange={this.handleChange}
-          value={this.state.text}
-        />
+        <StyledDiv>
+          <ReactQuill
+            modules={NewJournal.modules}
+            onChange={this.handleChange}
+            value={this.state.text}
+          />
+        </StyledDiv>
         <div style={{
+          display: 'block',
           float: 'right',
           position: 'relative',
-          top: 5,
+          top: '1em',
         }}
         >
           <Button color="blue">Save</Button>
