@@ -1,4 +1,4 @@
-export class Auth {
+export default class Auth {
   username = 'user'
 
   password = 'password'
