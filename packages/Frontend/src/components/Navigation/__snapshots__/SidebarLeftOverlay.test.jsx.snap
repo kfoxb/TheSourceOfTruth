@@ -12,58 +12,85 @@ exports[`SidebarLeftOverlay rendering should not render a sidebar when sideBarVi
     visible={false}
     width="thin"
   >
-    <MenuItem
-      as="div"
-      name="home"
-      onClick={[Function]}
+    <Link
+      href="/"
+      replace={false}
+      to="/"
     >
-      <Link
-        href="/"
-        replace={false}
-        to="/"
+      <MenuItem
+        as="div"
+        name="home"
+        onClick={[Function]}
       >
         Home
-      </Link>
-    </MenuItem>
-    <MenuItem
-      as="div"
-      name="library"
-      onClick={[Function]}
+      </MenuItem>
+    </Link>
+    <Link
+      href="/library"
+      replace={false}
+      to="/library"
     >
-      <Link
-        href="/library"
-        replace={false}
-        to="/library"
+      <MenuItem
+        as="div"
+        name="library"
+        onClick={[Function]}
       >
         Library
-      </Link>
-    </MenuItem>
+      </MenuItem>
+    </Link>
+    <Link
+      href="/"
+      replace={false}
+      to="/"
+    >
+      <MenuItem
+        as="div"
+        name="new journal"
+        onClick={[Function]}
+      >
+        New Journal
+      </MenuItem>
+    </Link>
     <MenuItem
       as="div"
       name="journal"
       onClick={[Function]}
     >
-      <Link
-        href="/journal"
-        replace={false}
-        to="/journal"
-      >
-        Journal
-      </Link>
+      Journal
+      <MenuMenu>
+        <Link
+          href="/journal"
+          replace={false}
+          to="/journal"
+        >
+          <MenuItem>
+            Read
+          </MenuItem>
+        </Link>
+        <Link
+          href="/newJournal"
+          replace={false}
+          to="/newJournal"
+        >
+          <MenuItem>
+            Create
+          </MenuItem>
+        </Link>
+      </MenuMenu>
     </MenuItem>
-    <MenuItem
-      as="div"
-      name="signin"
-      onClick={[Function]}
+    <Link
+      href="/signin"
+      replace={false}
+      to="/signin"
     >
-      <Link
-        href="/signin"
-        replace={false}
-        to="/signin"
+      <MenuItem
+        as="div"
+        name="signin"
+        onClick={[Function]}
       >
         Sign In
-      </Link>
-    </MenuItem>
+      </MenuItem>
+    </Link>
   </Sidebar>
 </div>
 `;
@@ -80,58 +107,85 @@ exports[`SidebarLeftOverlay rendering should render a sidebar when sideBarVisibi
     visible={true}
     width="thin"
   >
-    <MenuItem
-      as="div"
-      name="home"
-      onClick={[Function]}
+    <Link
+      href="/"
+      replace={false}
+      to="/"
     >
-      <Link
-        href="/"
-        replace={false}
-        to="/"
+      <MenuItem
+        as="div"
+        name="home"
+        onClick={[Function]}
       >
         Home
-      </Link>
-    </MenuItem>
-    <MenuItem
-      as="div"
-      name="library"
-      onClick={[Function]}
+      </MenuItem>
+    </Link>
+    <Link
+      href="/library"
+      replace={false}
+      to="/library"
     >
-      <Link
-        href="/library"
-        replace={false}
-        to="/library"
+      <MenuItem
+        as="div"
+        name="library"
+        onClick={[Function]}
       >
         Library
-      </Link>
-    </MenuItem>
+      </MenuItem>
+    </Link>
+    <Link
+      href="/"
+      replace={false}
+      to="/"
+    >
+      <MenuItem
+        as="div"
+        name="new journal"
+        onClick={[Function]}
+      >
+        New Journal
+      </MenuItem>
+    </Link>
     <MenuItem
       as="div"
       name="journal"
       onClick={[Function]}
     >
-      <Link
-        href="/journal"
-        replace={false}
-        to="/journal"
-      >
-        Journal
-      </Link>
+      Journal
+      <MenuMenu>
+        <Link
+          href="/journal"
+          replace={false}
+          to="/journal"
+        >
+          <MenuItem>
+            Read
+          </MenuItem>
+        </Link>
+        <Link
+          href="/newJournal"
+          replace={false}
+          to="/newJournal"
+        >
+          <MenuItem>
+            Create
+          </MenuItem>
+        </Link>
+      </MenuMenu>
     </MenuItem>
-    <MenuItem
-      as="div"
-      name="signin"
-      onClick={[Function]}
+    <Link
+      href="/signin"
+      replace={false}
+      to="/signin"
     >
-      <Link
-        href="/signin"
-        replace={false}
-        to="/signin"
+      <MenuItem
+        as="div"
+        name="signin"
+        onClick={[Function]}
       >
         Sign In
-      </Link>
-    </MenuItem>
+      </MenuItem>
+    </Link>
   </Sidebar>
 </div>
 `;
@@ -148,58 +202,85 @@ exports[`SidebarLeftOverlay rendering should render a sign in menu item when not
     visible={true}
     width="thin"
   >
-    <MenuItem
-      as="div"
-      name="home"
-      onClick={[Function]}
+    <Link
+      href="/"
+      replace={false}
+      to="/"
     >
-      <Link
-        href="/"
-        replace={false}
-        to="/"
+      <MenuItem
+        as="div"
+        name="home"
+        onClick={[Function]}
       >
         Home
-      </Link>
-    </MenuItem>
-    <MenuItem
-      as="div"
-      name="library"
-      onClick={[Function]}
+      </MenuItem>
+    </Link>
+    <Link
+      href="/library"
+      replace={false}
+      to="/library"
     >
-      <Link
-        href="/library"
-        replace={false}
-        to="/library"
+      <MenuItem
+        as="div"
+        name="library"
+        onClick={[Function]}
       >
         Library
-      </Link>
-    </MenuItem>
+      </MenuItem>
+    </Link>
+    <Link
+      href="/"
+      replace={false}
+      to="/"
+    >
+      <MenuItem
+        as="div"
+        name="new journal"
+        onClick={[Function]}
+      >
+        New Journal
+      </MenuItem>
+    </Link>
     <MenuItem
       as="div"
       name="journal"
       onClick={[Function]}
     >
-      <Link
-        href="/journal"
-        replace={false}
-        to="/journal"
-      >
-        Journal
-      </Link>
+      Journal
+      <MenuMenu>
+        <Link
+          href="/journal"
+          replace={false}
+          to="/journal"
+        >
+          <MenuItem>
+            Read
+          </MenuItem>
+        </Link>
+        <Link
+          href="/newJournal"
+          replace={false}
+          to="/newJournal"
+        >
+          <MenuItem>
+            Create
+          </MenuItem>
+        </Link>
+      </MenuMenu>
     </MenuItem>
-    <MenuItem
-      as="div"
-      name="signin"
-      onClick={[Function]}
+    <Link
+      href="/signin"
+      replace={false}
+      to="/signin"
     >
-      <Link
-        href="/signin"
-        replace={false}
-        to="/signin"
+      <MenuItem
+        as="div"
+        name="signin"
+        onClick={[Function]}
       >
         Sign In
-      </Link>
-    </MenuItem>
+      </MenuItem>
+    </Link>
   </Sidebar>
 </div>
 `;
@@ -216,44 +297,71 @@ exports[`SidebarLeftOverlay rendering should render a sign out menu item when au
     visible={true}
     width="thin"
   >
-    <MenuItem
-      as="div"
-      name="home"
-      onClick={[Function]}
+    <Link
+      href="/"
+      replace={false}
+      to="/"
     >
-      <Link
-        href="/"
-        replace={false}
-        to="/"
+      <MenuItem
+        as="div"
+        name="home"
+        onClick={[Function]}
       >
         Home
-      </Link>
-    </MenuItem>
-    <MenuItem
-      as="div"
-      name="library"
-      onClick={[Function]}
+      </MenuItem>
+    </Link>
+    <Link
+      href="/library"
+      replace={false}
+      to="/library"
     >
-      <Link
-        href="/library"
-        replace={false}
-        to="/library"
+      <MenuItem
+        as="div"
+        name="library"
+        onClick={[Function]}
       >
         Library
-      </Link>
-    </MenuItem>
+      </MenuItem>
+    </Link>
+    <Link
+      href="/"
+      replace={false}
+      to="/"
+    >
+      <MenuItem
+        as="div"
+        name="new journal"
+        onClick={[Function]}
+      >
+        New Journal
+      </MenuItem>
+    </Link>
     <MenuItem
       as="div"
       name="journal"
       onClick={[Function]}
     >
-      <Link
-        href="/journal"
-        replace={false}
-        to="/journal"
-      >
-        Journal
-      </Link>
+      Journal
+      <MenuMenu>
+        <Link
+          href="/journal"
+          replace={false}
+          to="/journal"
+        >
+          <MenuItem>
+            Read
+          </MenuItem>
+        </Link>
+        <Link
+          href="/newJournal"
+          replace={false}
+          to="/newJournal"
+        >
+          <MenuItem>
+            Create
+          </MenuItem>
+        </Link>
+      </MenuMenu>
     </MenuItem>
     <MenuItem
       as="div"
