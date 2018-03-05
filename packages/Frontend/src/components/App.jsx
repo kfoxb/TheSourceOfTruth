@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { SidebarLeftOverlay, SidebarTopOverlay } from './Navigation';
 import Home from './Home';
 import Journal from './Journal';
-import Editor from './NewJournal';
+import Editor from './Editor';
 import Library from './Library';
 import SignInContainer from '../containers/SignInContainer';
 import SignUp from './SignUp';
@@ -25,7 +25,7 @@ function App({
       <div style={{ height: '40px' }} />
       <Route exact path="/" component={Home} />
       <Route path="/journal" component={Journal} />
-      <Route path="/newJournal" component={Editor} />
+      <Route path="/editor" component={Editor} />
       <Route path="/library" component={Library} />
       <Route path="/signin" component={SignInContainer} />
       <Route path="/signup" component={SignUp} />
