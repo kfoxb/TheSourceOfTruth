@@ -48,12 +48,7 @@ class SignInContainer extends Component {
 
     const { error, loading } = this.state;
     let errMessage;
-    if (error && typeof error === 'string') {
-      errMessage = error;
-    }
-    if (error && error.message && typeof error.message === 'string') {
-      errMessage = error.message;
-    }
+    if (error) { errMessage = typeof error === 'string' ? error : error.message; }
     return (<SignIn
       error={errMessage || false}
       loading={loading}

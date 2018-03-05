@@ -1,18 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Divider, Form, Header, Icon, Loader, Segment, Message } from 'semantic-ui-react';
+import styled from 'styled-components';
+
+const StyledLoader = styled.div`
+    padding: 10px;
+`;
+
+const StyledDiv = styled.div`
+  margin: auto;
+  position: relative;
+  top: 100px;
+  width: 50%;
+`;
 
 export default function SignIn({
   error, loading, signIn, submitIfEnter, updateFormByKey,
 }) {
   return (
-    <div style={{
-        margin: 'auto',
-        position: 'relative',
-        top: 100,
-        width: '50%',
-      }}
-    >
+    <StyledDiv>
       <Segment>
         <Header as="h1" icon textAlign="center">
           <Icon name="user" circular />
@@ -27,14 +33,18 @@ export default function SignIn({
           <Divider horizontal>Or</Divider>
           <Button color="blue" fluid>Sign Up Now</Button>
         </Form>
-        { loading && <Loader active inline /> }
+        { loading &&
+          <StyledLoader>
+            <Loader active inline="centered" />
+          </StyledLoader>
+        }
         { error &&
           <Message negative>
             <p>{error}</p>
           </Message>
         }
       </Segment>
-    </div>
+    </StyledDiv>
   );
 }
 
