@@ -2,12 +2,8 @@
 
 exports[`SidebarLeftOverlay should render 1`] = `
 <React.Fragment>
-  <Sidebar
-    animation="overlay"
-    as={[Function]}
-    direction="top"
+  <Menu
     inverted={true}
-    visible={true}
   >
     <MenuItem
       name="Menu"
@@ -51,6 +47,6 @@ exports[`SidebarLeftOverlay should render 1`] = `
         name="search"
       />
     </MenuItem>
-  </Sidebar>
+  </Menu>
 </React.Fragment>
 `;

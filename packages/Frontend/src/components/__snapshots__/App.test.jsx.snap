@@ -11,13 +11,6 @@ exports[`App should render correctly 1`] = `
     sideBarVisibility={true}
     toggleMenu={[Function]}
   />
-  <div
-    style={
-      Object {
-        "height": "40px",
-      }
-    }
-  />
   <Route
     component={[Function]}
     exact={true}

@@ -38,19 +38,6 @@ exports[`SidebarLeftOverlay rendering should not render a sidebar when sideBarVi
         Library
       </MenuItem>
     </Link>
-    <Link
-      href="/"
-      replace={false}
-      to="/"
-    >
-      <MenuItem
-        as="div"
-        name="new journal"
-        onClick={[Function]}
-      >
-        New Journal
-      </MenuItem>
-    </Link>
     <MenuItem
       as="div"
       name="journal"
@@ -131,19 +118,6 @@ exports[`SidebarLeftOverlay rendering should render a sidebar when sideBarVisibi
         onClick={[Function]}
       >
         Library
-      </MenuItem>
-    </Link>
-    <Link
-      href="/"
-      replace={false}
-      to="/"
-    >
-      <MenuItem
-        as="div"
-        name="new journal"
-        onClick={[Function]}
-      >
-        New Journal
       </MenuItem>
     </Link>
     <MenuItem
@@ -228,19 +202,6 @@ exports[`SidebarLeftOverlay rendering should render a sign in menu item when not
         Library
       </MenuItem>
     </Link>
-    <Link
-      href="/"
-      replace={false}
-      to="/"
-    >
-      <MenuItem
-        as="div"
-        name="new journal"
-        onClick={[Function]}
-      >
-        New Journal
-      </MenuItem>
-    </Link>
     <MenuItem
       as="div"
       name="journal"
@@ -321,19 +282,6 @@ exports[`SidebarLeftOverlay rendering should render a sign out menu item when au
         onClick={[Function]}
       >
         Library
-      </MenuItem>
-    </Link>
-    <Link
-      href="/"
-      replace={false}
-      to="/"
-    >
-      <MenuItem
-        as="div"
-        name="new journal"
-        onClick={[Function]}
-      >
-        New Journal
       </MenuItem>
     </Link>
     <MenuItem

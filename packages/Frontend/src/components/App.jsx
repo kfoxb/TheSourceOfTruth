@@ -15,14 +15,13 @@ function App({
 }) {
   return (
     <Fragment>
-      <SidebarTopOverlay toggleMenu={toggleMenu} />
+      <SidebarTopOverlay toggleMenu={toggleVisibility} />
       <SidebarLeftOverlay
         isAuthenticated={isAuthenticated}
         logout={logout}
         sideBarVisibility={visible}
         toggleMenu={toggleVisibility}
       />
-      <div style={{ height: '40px' }} />
       <Route exact path="/" component={Home} />
       <Route path="/journal" component={Journal} />
       <Route path="/newJournal" component={NewJournal} />

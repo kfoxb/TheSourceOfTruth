@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
-import SealedPortion from './assets/SealedPortion.jpg';
-
 
 export default class LargeCard extends Component {
   constructor(props) {
@@ -29,7 +27,7 @@ export default class LargeCard extends Component {
               top: 9,
             }}
           />
-          <Image src={SealedPortion} />
+          <Image />
           <Card.Content>
             <Card.Header>
               The Sealed Portion

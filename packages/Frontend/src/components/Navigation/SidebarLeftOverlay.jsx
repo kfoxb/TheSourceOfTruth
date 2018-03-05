@@ -58,7 +58,6 @@ export default class SidebarLeftOverlay extends Component {
         <Sidebar as={Menu} animation="overlay" width="thin" visible={this.props.sideBarVisibility} icon="labeled" vertical inverted>
           {renderMenuItem('home', 'Home', '/')}
           {renderMenuItem('library', 'Library', '/library')}
-          {renderMenuItem('new journal', 'New Journal', '/')}
           <Menu.Item as="div" name="journal" onClick={this.props.toggleMenu}>
             Journal
             <Menu.Menu>
