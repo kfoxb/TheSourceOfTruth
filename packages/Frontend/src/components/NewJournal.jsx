@@ -4,16 +4,31 @@ import ReactQuill from 'react-quill';
 import styled from 'styled-components';
 import 'react-quill/dist/quill.snow.css';
 
+const StyledButton = styled.a`
+    display: block;
+    float: right;
+    margin-top: 5px;
+    position: relative;
+`;
+
 const StyledDiv = styled.div`
-  height: 90%;
-  display: block;
+  height: 60em;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
+  display: block;
+  top: 3em;
+  width: 70%;
+`;
+
+const StyledQuill = styled.div`
+  height: 90%;
   .quill {
     height: 90%;
   }
 `;
 
-export default class NewJournal extends Component {
+export default class Editor extends Component {
   static modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -36,33 +51,18 @@ export default class NewJournal extends Component {
 
   render() {
     return (
-      <div style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          position: 'relative',
-          top: 40,
-          width: '70%',
-          height: '50em',
-        }}
-      >
-        <StyledDiv>
+      <StyledDiv>
+        <StyledQuill>
           <ReactQuill
-            modules={NewJournal.modules}
+            modules={Editor.modules}
             onChange={this.handleChange}
             value={this.state.text}
           />
-        </StyledDiv>
-        <div style={{
-          display: 'block',
-          float: 'right',
-          position: 'relative',
-          top: '1em',
-        }}
-        >
-          <Button color="blue">Save</Button>
-          <Button color="violet">Save & Publish</Button>
-        </div>
-      </div>
+        </StyledQuill>
+        <StyledButton>
+          <Button color="violet">Publish</Button>
+        </StyledButton>
+      </StyledDiv>
     );
   }
 }
