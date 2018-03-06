@@ -26,40 +26,45 @@ export default function Authenticate({
     <Button color="violet" onClick={authenticate} fluid>Sign In</Button>
   );
 
+  const SIGN_IN = 'Sign In';
+  const SIGN_UP = 'Sign Up';
+
   return (
     <StyledDiv>
       <Segment>
         <Header as="h1" icon textAlign="center">
           <Icon name="user" circular />
           <Header.Content>
-            {signingin ? 'Sign In' : 'Sign Up'}
+            {signingin ? SIGN_IN : SIGN_UP}
           </Header.Content>
         </Header>
         <Form>
           <Form.Input placeholder="Email" onChange={updateFormByKey('email')} />
           <Form.Input placeholder="Password" onChange={updateFormByKey('password')} type="password" />
-          {signingin ? null : (<Form.Input placeholder="Confirm Password" onChange={updateFormByKey('confirmPassword')} type="password" />) }
+          {!signingin && (
+            <Form.Input placeholder="Confirm Password" onChange={updateFormByKey('confirmPassword')} type="password" />
+          )}
           {signingin ? signInButton : signUpButton}
           <Divider horizontal>Or</Divider>
           {signingin ?
             <Link href="/signup" to="/signup">
-              <Button color="blue" fluid>Sign Up</Button>
+              <Button color="blue" fluid>{SIGN_UP}</Button>
             </Link> :
             <Link href="/signin" to="/signin">
-              <Button color="violet" fluid>Sign In</Button>
+              <Button color="violet" fluid>{SIGN_IN}</Button>
             </Link>
           }
         </Form>
-        { loading &&
+        { loading && (
           <StyledLoader>
             <Loader active inline="centered" />
           </StyledLoader>
-        }
-        { error &&
+        )}
+        { error && (
           <Message negative>
             <p>{error}</p>
           </Message>
-        }
+        )}
       </Segment>
     </StyledDiv>
   );
