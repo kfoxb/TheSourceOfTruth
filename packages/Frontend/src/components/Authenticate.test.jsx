@@ -1,8 +1,8 @@
 /* eslint-env jest */
 import { createAssertWithPropsToMatchSnapshot } from '../../test-utils';
-import SignIn from './SignIn';
+import Authenticate from './Authenticate';
 
-describe('SignIn', () => {
+describe('Authenticate', () => {
   const noOp = () => {};
   const defaultProps = {
     error: false,
@@ -12,7 +12,7 @@ describe('SignIn', () => {
     updateFormByKey: noOp,
   };
   const assertWithPropsToMatchSnapshot =
-    createAssertWithPropsToMatchSnapshot(SignIn, defaultProps);
+    createAssertWithPropsToMatchSnapshot(Authenticate, defaultProps);
   it('should render', () => {
     assertWithPropsToMatchSnapshot();
   });

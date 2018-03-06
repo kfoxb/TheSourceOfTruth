@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Divider, Form, Header, Icon, Loader, Segment, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -14,8 +15,8 @@ const StyledDiv = styled.div`
   width: 50%;
 `;
 
-export default function SignIn({
-  authenticate, error, loading, signingin, signingup, updateFormByKey,
+export default function Authenticate({
+  authenticate, error, loading, signingin, updateFormByKey,
 }) {
   const signUpButton = (
     <Button color="blue" onClick={authenticate} fluid>Sign Up</Button>
@@ -38,9 +39,16 @@ export default function SignIn({
           <Form.Input placeholder="Email" onChange={updateFormByKey('email')} />
           <Form.Input placeholder="Password" onChange={updateFormByKey('password')} type="password" />
           {signingin ? null : (<Form.Input placeholder="Confirm Password" onChange={updateFormByKey('confirmPassword')} type="password" />) }
-          {signingin ? signInButton : signUpButton }
+          {signingin ? signInButton : signUpButton}
           <Divider horizontal>Or</Divider>
-          {signingin ? signUpButton : signInButton }
+          {signingin ?
+            <Link href="/signup" to="/signup">
+              <Button color="blue" fluid>Sign Up</Button>
+            </Link> :
+            <Link href="/signin" to="/signin">
+              <Button color="violet" fluid>Sign In</Button>
+            </Link>
+          }
         </Form>
         { loading &&
           <StyledLoader>
@@ -57,12 +65,17 @@ export default function SignIn({
   );
 }
 
-SignIn.propTypes = {
+Authenticate.propTypes = {
   authenticate: PropTypes.func.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
   ]).isRequired,
   loading: PropTypes.bool.isRequired,
+  signingin: PropTypes.bool,
   updateFormByKey: PropTypes.func.isRequired,
+};
+
+Authenticate.defaultProps = {
+  signingin: false,
 };

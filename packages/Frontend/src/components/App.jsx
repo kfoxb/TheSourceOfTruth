@@ -7,8 +7,7 @@ import Home from './Home';
 import Journal from './Journal';
 import NewJournal from './NewJournal';
 import Library from './Library';
-import SignInContainer from '../containers/SignInContainer';
-import SignUp from './SignUp';
+import AuthenticateContainer from '../containers/AuthenticateContainer';
 
 function App({
   isAuthenticated, logout, toggleVisibility, visible,
@@ -27,8 +26,8 @@ function App({
       <Route path="/journal" component={Journal} />
       <Route path="/newJournal" component={NewJournal} />
       <Route path="/library" component={Library} />
-      <Route path="/signin" render={() => (<SignInContainer signingin />)} />
-      <Route path="/signup" render={() => (<SignInContainer signingup />)} />
+      <Route path="/signin" render={() => (<AuthenticateContainer signingin />)} />
+      <Route path="/signup" component={AuthenticateContainer} />
     </Fragment>
   );
 }
