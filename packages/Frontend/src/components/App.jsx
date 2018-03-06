@@ -27,8 +27,8 @@ function App({
       <Route path="/journal" component={Journal} />
       <Route path="/newJournal" component={NewJournal} />
       <Route path="/library" component={Library} />
-      <Route path="/signin" component={SignInContainer} />
-      <Route path="/signup" component={SignUp} />
+      <Route path="/signin" render={() => (<SignInContainer signingin />)} />
+      <Route path="/signup" render={() => (<SignInContainer signingup />)} />
     </Fragment>
   );
 }

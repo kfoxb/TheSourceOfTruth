@@ -10,24 +10,29 @@ class SignInContainer extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     login: PropTypes.func.isRequired,
+    signingin: PropTypes.bool.isRequired,
+    signingup: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
     super(props);
     this.state = {
+      confirmPassword: '',
       error: '',
       loading: false,
       password: '',
-      username: '',
+      email: '',
     };
   }
 
-  updateFormByKey = key => ({ target }) => this.setState({ [key]: target.value });
+  updateFormByKey = key => ({ target }) => {
+    this.setState({ [key]: target.value });
+  };
 
   signIn = () => {
-    const { username, password } = this.state;
+    const { email, password } = this.state;
     this.setState({ error: '', loading: true }, () => {
-      Auth.signIn(username, password)
+      Auth.signIn(email, password)
         .then(() => Auth.currentAuthenticatedUser())
         .then(user => this.props.login(user))
         .catch(error => this.setState({ error }))
@@ -53,6 +58,8 @@ class SignInContainer extends Component {
       error={errMessage || false}
       loading={loading}
       signIn={this.signIn}
+      signingin={this.props.signingin}
+      signingup={this.props.signingup}
       submitIfEnter={this.submitIfEnter}
       updateFormByKey={this.updateFormByKey}
     />);

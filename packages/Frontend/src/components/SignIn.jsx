@@ -15,7 +15,7 @@ const StyledDiv = styled.div`
 `;
 
 export default function SignIn({
-  error, loading, signIn, submitIfEnter, updateFormByKey,
+  error, loading, signIn, signingin, signingup, submitIfEnter, updateFormByKey,
 }) {
   return (
     <StyledDiv>
@@ -23,12 +23,13 @@ export default function SignIn({
         <Header as="h1" icon textAlign="center">
           <Icon name="user" circular />
           <Header.Content>
-            Sign In
+            {signingin ? 'Sign In' : 'Sign Up'}
           </Header.Content>
         </Header>
         <Form>
-          <Form.Input placeholder="Username" onChange={updateFormByKey('username')} onKeyUp={submitIfEnter} />
+          <Form.Input placeholder="Email" onChange={updateFormByKey('email')} onKeyUp={submitIfEnter} />
           <Form.Input placeholder="Password" onChange={updateFormByKey('password')} onKeyUp={submitIfEnter} type="password" />
+          {signingin ? null : (<Form.Input placeholder="Confirm Password" onChange={updateFormByKey('confirmPassword')} onKeyUp={submitIfEnter} type="password" />) }
           <Button color="violet" onClick={signIn} fluid>Sign In</Button>
           <Divider horizontal>Or</Divider>
           <Button color="blue" fluid>Sign Up Now</Button>
