@@ -15,8 +15,16 @@ const StyledDiv = styled.div`
 `;
 
 export default function SignIn({
-  error, loading, signIn, signingin, signingup, submitIfEnter, updateFormByKey,
+  authenticate, error, loading, signingin, signingup, updateFormByKey,
 }) {
+  const signUpButton = (
+    <Button color="blue" onClick={authenticate} fluid>Sign Up</Button>
+  );
+
+  const signInButton = (
+    <Button color="violet" onClick={authenticate} fluid>Sign In</Button>
+  );
+
   return (
     <StyledDiv>
       <Segment>
@@ -27,12 +35,12 @@ export default function SignIn({
           </Header.Content>
         </Header>
         <Form>
-          <Form.Input placeholder="Email" onChange={updateFormByKey('email')} onKeyUp={submitIfEnter} />
-          <Form.Input placeholder="Password" onChange={updateFormByKey('password')} onKeyUp={submitIfEnter} type="password" />
-          {signingin ? null : (<Form.Input placeholder="Confirm Password" onChange={updateFormByKey('confirmPassword')} onKeyUp={submitIfEnter} type="password" />) }
-          <Button color="violet" onClick={signIn} fluid>Sign In</Button>
+          <Form.Input placeholder="Email" onChange={updateFormByKey('email')} />
+          <Form.Input placeholder="Password" onChange={updateFormByKey('password')} type="password" />
+          {signingin ? null : (<Form.Input placeholder="Confirm Password" onChange={updateFormByKey('confirmPassword')} type="password" />) }
+          {signingin ? signInButton : signUpButton }
           <Divider horizontal>Or</Divider>
-          <Button color="blue" fluid>Sign Up Now</Button>
+          {signingin ? signUpButton : signInButton }
         </Form>
         { loading &&
           <StyledLoader>
@@ -50,12 +58,11 @@ export default function SignIn({
 }
 
 SignIn.propTypes = {
+  authenticate: PropTypes.func.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
   ]).isRequired,
   loading: PropTypes.bool.isRequired,
-  signIn: PropTypes.func.isRequired,
-  submitIfEnter: PropTypes.func.isRequired,
   updateFormByKey: PropTypes.func.isRequired,
 };

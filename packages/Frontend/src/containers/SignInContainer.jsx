@@ -29,6 +29,10 @@ class SignInContainer extends Component {
     this.setState({ [key]: target.value });
   };
 
+  authenticate = () => {
+    console.log('authenticating');
+  }
+
   signIn = () => {
     const { email, password } = this.state;
     this.setState({ error: '', loading: true }, () => {
@@ -40,10 +44,8 @@ class SignInContainer extends Component {
     });
   }
 
-  submitIfEnter = ({ key }) => {
-    if (key === 'Enter') {
-      this.signIn();
-    }
+  signUp = () => {
+    console.log('signingup');
   }
 
   render() {
@@ -55,12 +57,11 @@ class SignInContainer extends Component {
     let errMessage;
     if (error) { errMessage = typeof error === 'string' ? error : error.message; }
     return (<SignIn
+      authenticate={this.authenticate}
       error={errMessage || false}
       loading={loading}
-      signIn={this.signIn}
       signingin={this.props.signingin}
       signingup={this.props.signingup}
-      submitIfEnter={this.submitIfEnter}
       updateFormByKey={this.updateFormByKey}
     />);
   }
