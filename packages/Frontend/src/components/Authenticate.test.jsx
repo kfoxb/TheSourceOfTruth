@@ -5,10 +5,9 @@ import Authenticate from './Authenticate';
 describe('Authenticate', () => {
   const noOp = () => {};
   const defaultProps = {
+    authenticate: noOp,
     error: false,
     loading: false,
-    signIn: noOp,
-    submitIfEnter: noOp,
     updateFormByKey: noOp,
   };
   const assertWithPropsToMatchSnapshot =
