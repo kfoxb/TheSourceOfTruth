@@ -27,7 +27,6 @@ export default class EditorViewContainer extends Component {
         'bill',
         '339FFF',
       );
-      console.log('editor', this.quill.getEditor().getModule('cursors').setCursor);
     }
   }
 
@@ -40,7 +39,6 @@ export default class EditorViewContainer extends Component {
       range: JSON.parse(data.range),
     }, () => {
       this.quill.getEditor().getModule('cursors').moveCursor(1, this.state.range);
-      console.log('cursors here', this.quill.getEditor().getModule('cursors'));
     });
   }
 
