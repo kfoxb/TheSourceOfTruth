@@ -17,18 +17,20 @@ export default class EditorContainer extends Component {
     }
   }
 
-  onChange = (content) => {
-    this.db.collection('editor').doc('test').set({
-      value: content,
+  onChange = (value) => {
+    this.db.collection('editor').doc('test').update({
+      value,
     })
-      .catch(err => console.log('err writing to firebase: ', err));
-    this.setState({ value: content });
+      .catch(err => console.log('err writing value to firebase: ', err));
+    this.setState({ value });
   }
 
-  onChangeSelection = (range, source, editor) => {
+  onChangeSelection = (range) => {
     console.log('this is range', range);
-    console.log('this is source', source);
-    console.log('this is editor', editor);
+    this.db.collection('editor').doc('test').update({
+      range: JSON.stringify(range),
+    })
+      .catch(err => console.log('err writing range to firebase: ', err));
   }
 
   setRef = (ref) => { this.quill = ref; };

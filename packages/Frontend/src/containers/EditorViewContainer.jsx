@@ -16,7 +16,12 @@ export default class EditorViewContainer extends Component {
   }
 
   handleSnapshot = (doc) => {
-    this.setState({ value: doc.data().value });
+    const data = doc.data();
+    console.log('data', data);
+    this.setState({
+      value: data.value,
+      range: JSON.parse(data.range),
+    });
   }
 
   render() {
