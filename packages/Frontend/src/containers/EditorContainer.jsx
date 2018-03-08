@@ -7,34 +7,48 @@ export default class EditorContainer extends Component {
     super(props);
     this.db = firebase.firestore();
     this.state = {
+      loading: true,
       value: '',
     };
   }
 
   componentDidMount() {
-    if (this.quill) {
-      this.quill.focus();
-    }
+    this.db.collection('editor').doc('test').get()
+      .then((doc) => {
+        if (doc.exists) {
+          this.setState({ value: doc.data().value, loading: false }, () => {
+            if (this.quill) {
+              this.quill.focus();
+              const editor = this.quill.getEditor();
+              editor.setSelection(editor.getLength());
+            }
+          });
+        } else {
+          this.setState({ loading: false });
+        }
+      });
   }
 
   onChange = () => {}
 
   onChangeSelection = (range, source, editor) => {
-    const getRange = () => {
-      if (range === null) {
-        return range;
-      }
-      const { index, length } = range;
-      return { index, length };
-    };
+    if (!this.state.loading) {
+      const getRange = () => {
+        if (range === null) {
+          return range;
+        }
+        const { index, length } = range;
+        return { index, length };
+      };
 
-    this.setState({ value: editor.getHTML(), range: getRange() }, () => {
-      this.db.collection('editor').doc('test').update({
-        value: this.state.value,
-        range: this.state.range,
-      })
-        .catch(err => console.log('err writing value to firebase: ', err));
-    });
+      this.setState({ value: editor.getHTML(), range: getRange() }, () => {
+        this.db.collection('editor').doc('test').update({
+          value: this.state.value,
+          range: this.state.range,
+        })
+          .catch(err => console.log('err writing value to firebase: ', err));
+      });
+    }
   }
 
   setRef = (ref) => { this.quill = ref; };
