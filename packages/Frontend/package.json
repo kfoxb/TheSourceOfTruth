@@ -9,6 +9,7 @@
   "dependencies": {
     "aws-amplify": "0.2.6",
     "aws-amplify-react": "0.1.32",
+    "firebase": "4.10.1",
     "immutable": "3.8.2",
     "prop-types": "15.6.0",
     "react": "16.2.0",
@@ -62,6 +63,9 @@
       "enzyme-to-json/serializer"
     ],
     "setupTestFrameworkScriptFile": "./config/setup.test.js",
-    "testPathIgnorePatterns": ["/node_modules", "./config/setup.test.js"]
+    "testPathIgnorePatterns": [
+      "/node_modules",
+      "./config/setup.test.js"
+    ]
   }
 }
