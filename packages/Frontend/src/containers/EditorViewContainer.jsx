@@ -21,6 +21,18 @@ export default class EditorViewContainer extends Component {
   componentDidMount() {
     if (this.quill) {
       Quill.register('modules/cursors', QuillCursors);
+      this.setCursor();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.range === null && this.state.range !== null) {
+      this.setCursor();
+    }
+  }
+
+  setCursor = () => {
+    if (this.quill) {
       this.quill.getEditor().getModule('cursors').setCursor(
         1,
         this.state.range,
@@ -30,7 +42,7 @@ export default class EditorViewContainer extends Component {
     }
   }
 
-  setRef= (ref) => { this.quill = ref; };
+  setRef = (ref) => { this.quill = ref; };
 
   handleSnapshot = (doc) => {
     const data = doc.data();
