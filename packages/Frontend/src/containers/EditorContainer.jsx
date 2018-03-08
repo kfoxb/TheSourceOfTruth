@@ -17,18 +17,9 @@ export default class EditorContainer extends Component {
     }
   }
 
-  onChange = (value, delta, source, editor) => {
-    this.setState({ value }, () => {
-      const { index, length } = editor.getSelection();
-      this.db.collection('editor').doc('test').update({
-        value,
-        range: { index, length },
-      })
-        .catch(err => console.log('err writing value to firebase: ', err));
-    });
-  }
+  onChange = () => {}
 
-  onChangeSelection = (range) => {
+  onChangeSelection = (range, source, editor) => {
     const getRange = () => {
       if (range === null) {
         return range;
@@ -36,12 +27,14 @@ export default class EditorContainer extends Component {
       const { index, length } = range;
       return { index, length };
     };
-    if (getRange() && getRange().length > 0) {
+
+    this.setState({ value: editor.getHTML(), range: getRange() }, () => {
       this.db.collection('editor').doc('test').update({
-        range: getRange(),
+        value: this.state.value,
+        range: this.state.range,
       })
-        .catch(err => console.log('err writing range to firebase: ', err));
-    }
+        .catch(err => console.log('err writing value to firebase: ', err));
+    });
   }
 
   setRef = (ref) => { this.quill = ref; };
