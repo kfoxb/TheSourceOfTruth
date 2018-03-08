@@ -25,7 +25,7 @@ export default class EditorViewContainer extends Component {
         1,
         this.state.range,
         'bill',
-        'red',
+        '339FFF',
       );
       console.log('editor', this.quill.getEditor().getModule('cursors').setCursor);
     }
