@@ -25,7 +25,7 @@ export default class EditorViewContainer extends Component {
         1,
         this.state.range,
         'bill',
-        '339FFF',
+        'blue',
       );
     }
   }
