@@ -25,11 +25,22 @@ export default class EditorContainer extends Component {
     this.setState({ value: content });
   }
 
+  onChangeSelection = (range, source, editor) => {
+    console.log('this is range', range);
+    console.log('this is source', source);
+    console.log('this is editor', editor);
+  }
+
   setRef = (ref) => { this.quill = ref; };
 
   render() {
     return (
-      <Editor onChange={this.onChange} setRef={this.setRef} value={this.state.value} />
+      <Editor
+        onChange={this.onChange}
+        onChangeSelection={this.onChangeSelection}
+        setRef={this.setRef}
+        value={this.state.value}
+      />
     );
   }
 }

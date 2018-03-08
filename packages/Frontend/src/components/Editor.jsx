@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import 'react-quill/dist/quill.snow.css';
 
 export default function Editor({
-  modules, onChange, readOnly, setRef, value,
+  modules, onChange, onChangeSelection, readOnly, setRef, value,
 }) {
   return (
     <ReactQuill
       modules={modules}
       onChange={onChange}
+      onChangeSelection={onChangeSelection}
       readOnly={readOnly}
       ref={setRef}
       value={value}
@@ -22,6 +23,7 @@ Editor.propTypes = {
     toolbar: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
   }),
   onChange: PropTypes.func,
+  onChangeSelection: PropTypes.func,
   readOnly: PropTypes.bool,
   setRef: PropTypes.func,
   value: PropTypes.string.isRequired,
@@ -40,6 +42,7 @@ const modules = {
 Editor.defaultProps = {
   modules,
   onChange: Function.prototype,
+  onChangeSelection: Function.prototype,
   readOnly: false,
   setRef: Function.prototype,
 };
