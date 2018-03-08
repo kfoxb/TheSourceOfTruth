@@ -38,7 +38,12 @@ export default class EditorViewContainer extends Component {
       value: data.value,
       range: data.range,
     }, () => {
-      this.quill.getEditor().getModule('cursors').moveCursor(1, this.state.range);
+      const cursors = this.quill.getEditor().getModule('cursors');
+      if (this.state.range) {
+        cursors.moveCursor(1, this.state.range);
+      } else {
+        cursors.removeCursor(1);
+      }
     });
   }
 
