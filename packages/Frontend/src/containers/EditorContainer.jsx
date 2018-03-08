@@ -28,12 +28,20 @@ export default class EditorContainer extends Component {
     });
   }
 
-  onChangeSelection = () => {
-    // const range = args[0];
-    // this.db.collection('editor').doc('test').update({
-    //   range: JSON.stringify(range),
-    // })
-    //   .catch(err => console.log('err writing range to firebase: ', err));
+  onChangeSelection = (range) => {
+    const getRange = () => {
+      if (range === null) {
+        return range;
+      }
+      const { index, length } = range;
+      return { index, length };
+    };
+    if (getRange() && getRange().length > 0) {
+      this.db.collection('editor').doc('test').update({
+        range: getRange(),
+      })
+        .catch(err => console.log('err writing range to firebase: ', err));
+    }
   }
 
   setRef = (ref) => { this.quill = ref; };
