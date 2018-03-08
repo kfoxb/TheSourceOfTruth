@@ -34,11 +34,10 @@ export default class EditorViewContainer extends Component {
 
   handleSnapshot = (doc) => {
     const data = doc.data();
+    this.quill.getEditor().getModule('cursors').moveCursor(1, this.state.range);
     this.setState({
       value: data.value,
-      range: JSON.parse(data.range),
-    }, () => {
-      this.quill.getEditor().getModule('cursors').moveCursor(1, this.state.range);
+      range: data.range,
     });
   }
 
