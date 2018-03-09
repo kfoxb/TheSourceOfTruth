@@ -7,6 +7,7 @@
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "@firebase/app-types": "0.1.2",
     "aws-amplify": "0.2.6",
     "aws-amplify-react": "0.1.32",
     "css-loader": "0.28.10",
