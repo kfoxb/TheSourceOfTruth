@@ -12,6 +12,7 @@ module.exports = {
       appMountId: 'app',
       inject: false,
       links: ['https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css'],
+      mobile: true,
       template,
       title: 'Dashboard',
     }),
