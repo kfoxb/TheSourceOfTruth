@@ -15,6 +15,21 @@ const StyledDiv = styled.div`
   width: 50%;
 `;
 
+const handleErrorMessage = (error) => {
+  switch (error.code) {
+    case 'auth/invalid-email':
+      return 'Invalid email, please try again';
+    case 'auth/email-already-in-use':
+      return 'This email already exists, please sign in';
+    case 'auth/weak-password':
+      return 'Password is too weak';
+    case 'auth/operation-not-allowed':
+      return 'Could not sign in, please contact the site administrator';
+    default:
+      return 'Could not sign in, please check your email and password and try again';
+  }
+};
+
 export default function Authenticate({
   authenticate, error, loading, signingin, updateFormByKey,
 }) {
@@ -62,7 +77,7 @@ export default function Authenticate({
         )}
         { error && (
           <Message negative>
-            <p>{error}</p>
+            <p>{handleErrorMessage(error)}</p>
           </Message>
         )}
       </Segment>

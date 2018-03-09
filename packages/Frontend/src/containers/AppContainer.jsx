@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
+import { auth } from 'firebase';
 import App from '../components/App';
 import logout from '../actions/logout';
+import login from '../actions/login';
 
 class AppContainer extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     logout: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -18,6 +21,16 @@ class AppContainer extends Component {
     };
   }
 
+  componentDidMount() {
+    auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.props.login(user);
+      } else {
+        this.props.logout();
+      }
+    });
+  }
+
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
@@ -25,7 +38,6 @@ class AppContainer extends Component {
       <BrowserRouter>
         <App
           isAuthenticated={this.props.isAuthenticated}
-          logout={this.props.logout}
           toggleVisibility={this.toggleVisibility}
           visible={this.state.visible}
         />
@@ -40,6 +52,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
+  login: user => dispatch(login(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
