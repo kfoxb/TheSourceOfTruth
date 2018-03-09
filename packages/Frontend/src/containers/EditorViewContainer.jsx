@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import firebase from 'firebase';
-import QuillCursors from 'quill-cursors';
-import { Quill } from 'react-quill';
 import Editor from '../components/Editor';
 
 export default class EditorViewContainer extends Component {
@@ -21,7 +19,6 @@ export default class EditorViewContainer extends Component {
 
   componentDidMount() {
     if (this.quill) {
-      Quill.register('modules/cursors', QuillCursors);
       this.setCursor();
     }
   }

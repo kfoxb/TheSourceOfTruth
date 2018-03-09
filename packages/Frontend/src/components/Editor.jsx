@@ -1,11 +1,8 @@
 import React from 'react';
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
 import PropTypes from 'prop-types';
-import QuillCursors from 'quill-cursors';
 import 'quill-cursors/dist/quill-cursors.css';
 import 'react-quill/dist/quill.snow.css';
-
-Quill.register('modules/cursors', QuillCursors);
 
 export default function Editor({
   modules, onChangeSelection, readOnly, setRef, value,

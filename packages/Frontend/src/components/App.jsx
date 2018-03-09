@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { Quill } from 'react-quill';
+import QuillCursors from 'quill-cursors';
 import PropTypes from 'prop-types';
 import { SidebarLeftOverlay, SidebarTopOverlay } from './Navigation';
 import Home from './Home';
@@ -9,6 +11,8 @@ import NewJournal from './NewJournal';
 import Library from './Library';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
 
+
+Quill.register('modules/cursors', QuillCursors);
 function App({
   isAuthenticated, logout, toggleVisibility, visible,
 }) {
