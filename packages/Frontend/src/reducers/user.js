@@ -1,5 +1,4 @@
 const user = (state, action) => {
-  console.log('payload', action.payload);
   switch (action.type) {
     case 'LOGIN':
       return { ...action.payload, isAuthenticated: true };
