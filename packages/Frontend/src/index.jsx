@@ -9,6 +9,8 @@ import {
 } from 'react-router-dom';
 import firebase from 'firebase';
 import 'firebase/firestore';
+import { Quill } from 'react-quill';
+import QuillCursors from 'quill-cursors';
 import AppContainer from './containers/AppContainer';
 import app from './reducers';
 
@@ -26,6 +28,8 @@ const store = createStore(
   // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
+
+Quill.register('modules/cursors', QuillCursors);
 
 const render = (Component) => {
   ReactDOM.render(
