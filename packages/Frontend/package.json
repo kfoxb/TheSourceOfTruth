@@ -60,7 +60,7 @@
     "build": "webpack --config ./config/webpack.config.prod.js",
     "clean": "rm -rf ./dist",
     "lint": "eslint --ext .js --ext .jsx .",
-    "start": "webpack-dev-server --progress --open --config ./config/webpack.config.dev.js",
+    "start": "webpack-dev-server --progress --config ./config/webpack.config.dev.js",
     "test": "node --harmony-promise-finally ./node_modules/.bin/jest",
     "validate": "yarn lint && yarn test"
   },
