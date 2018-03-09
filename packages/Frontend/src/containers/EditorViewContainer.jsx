@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import firebase from 'firebase';
 import QuillCursors from 'quill-cursors';
 import { Quill } from 'react-quill';
@@ -13,8 +13,9 @@ export default class EditorViewContainer extends Component {
       .doc('test')
       .onSnapshot(this.handleSnapshot);
     this.state = {
-      value: '',
       range: { index: 0, length: 0 },
+      title: '',
+      value: '',
     };
   }
 
@@ -47,8 +48,9 @@ export default class EditorViewContainer extends Component {
   handleSnapshot = (doc) => {
     const data = doc.data();
     this.setState({
-      value: data.value,
       range: data.range,
+      title: data.title,
+      value: data.value,
     }, () => {
       const cursors = this.quill.getEditor().getModule('cursors');
       if (this.state.range) {
@@ -61,15 +63,18 @@ export default class EditorViewContainer extends Component {
 
   render() {
     return (
-      <Editor
-        modules={{
+      <Fragment>
+        <h1>{this.state.title}</h1>
+        <Editor
+          modules={{
           toolbar: false,
           cursors: true,
         }}
-        readOnly
-        setRef={this.setRef}
-        value={this.state.value}
-      />
+          readOnly
+          setRef={this.setRef}
+          value={this.state.value}
+        />
+      </Fragment>
     );
   }
 }
