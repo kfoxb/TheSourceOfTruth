@@ -23,13 +23,13 @@ firebase.initializeApp({
   messagingSenderId: process.env.FB_MESSAGING_SENDER_ID,
 });
 
+Quill.register('modules/cursors', QuillCursors);
+
 const store = createStore(
   app,
   // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
-
-Quill.register('modules/cursors', QuillCursors);
 
 const render = (Component) => {
   ReactDOM.render(
