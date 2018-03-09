@@ -9,7 +9,6 @@ import NewJournal from './NewJournal';
 import Library from './Library';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
 
-
 function App({
   isAuthenticated, logout, toggleVisibility, visible,
 }) {
