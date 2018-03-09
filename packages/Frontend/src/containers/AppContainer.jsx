@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
-import Amplify from 'aws-amplify';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
 import App from '../components/App';
 import logout from '../actions/logout';
-
-Amplify.configure({
-  Auth: {
-    identityPoolId: process.env.AWS_AUTH_IDENTITYPOOLID,
-    region: process.env.AWS_AUTH_REGION,
-    userPoolId: process.env.AWS_AUTH_USERPOOLID,
-    userPoolWebClientId: process.env.AWS_AUTH_USERPOOLWEBCLIENTID,
-    mandatorySignIn: false,
-  },
-});
 
 class AppContainer extends Component {
   static propTypes = {
