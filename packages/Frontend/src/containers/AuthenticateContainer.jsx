@@ -41,21 +41,13 @@ class AuthenticateContainer extends Component {
   }
 
   signIn = () => {
-    // const { email, password } = this.state;
-    // this.setState({ error: '', loading: true }, () => {
-    //   Auth.signIn(email, password)
-    //     .then(() => Auth.currentAuthenticatedUser())
-    //     .then(user => this.props.login(user))
-    //     .catch(error => this.setState({ error }))
-    //     .finally(() => this.setState({ loading: false }));
-    // });
-    auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(() => console.log('signed in')).catch(error => this.setState({ error }));
+    auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      .catch(error => this.setState({ error }));
   }
 
   signUp = () => {
-    auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(() => {
-      console.log('signed up');
-    }).catch(error => this.setState({ error }));
+    auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .catch(error => this.setState({ error }));
   }
 
   render() {
