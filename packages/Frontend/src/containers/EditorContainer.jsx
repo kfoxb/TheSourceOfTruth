@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import firebase from 'firebase';
 import Editor from '../components/Editor';
 
@@ -8,6 +8,7 @@ export default class EditorContainer extends Component {
     this.db = firebase.firestore();
     this.state = {
       loading: true,
+      title: '',
       value: '',
     };
   }
@@ -16,7 +17,12 @@ export default class EditorContainer extends Component {
     this.db.collection('editor').doc('test').get()
       .then((doc) => {
         if (doc.exists) {
-          this.setState({ value: doc.data().value, loading: false }, () => {
+          const { title, value } = doc.data();
+          this.setState({
+            loading: false,
+            title,
+            value,
+          }, () => {
             if (this.quill) {
               this.quill.focus();
               const editor = this.quill.getEditor();
@@ -29,7 +35,6 @@ export default class EditorContainer extends Component {
       });
   }
 
-  onChange = () => {}
 
   onChangeSelection = (range, source, editor) => {
     if (!this.state.loading) {
@@ -42,25 +47,38 @@ export default class EditorContainer extends Component {
       };
 
       this.setState({ value: editor.getHTML(), range: getRange() }, () => {
-        this.db.collection('editor').doc('test').update({
+        this.updateDb({
           value: this.state.value,
           range: this.state.range,
-        })
-          .catch(err => console.log('err writing value to firebase: ', err));
+        });
       });
     }
   }
 
   setRef = (ref) => { this.quill = ref; };
 
+  updateDb = (value) => {
+    this.db.collection('editor').doc('test').update(value)
+      .catch(err => console.log('err writing value to firebase: ', err));
+  }
+
+  handleTitleChange = ({ target: { value } }) => {
+    const update = { title: value };
+    this.setState(update, () => {
+      this.updateDb(update);
+    });
+  }
+
   render() {
     return (
-      <Editor
-        onChange={this.onChange}
-        onChangeSelection={this.onChangeSelection}
-        setRef={this.setRef}
-        value={this.state.value}
-      />
+      <Fragment>
+        <input onChange={this.handleTitleChange} value={this.state.title} />
+        <Editor
+          onChangeSelection={this.onChangeSelection}
+          setRef={this.setRef}
+          value={this.state.value}
+        />
+      </Fragment>
     );
   }
 }

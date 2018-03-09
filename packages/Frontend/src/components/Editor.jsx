@@ -8,12 +8,11 @@ import 'react-quill/dist/quill.snow.css';
 Quill.register('modules/cursors', QuillCursors);
 
 export default function Editor({
-  modules, onChange, onChangeSelection, readOnly, setRef, value,
+  modules, onChangeSelection, readOnly, setRef, value,
 }) {
   return (
     <ReactQuill
       modules={modules}
-      onChange={onChange}
       onChangeSelection={onChangeSelection}
       readOnly={readOnly}
       ref={setRef}
@@ -26,7 +25,6 @@ Editor.propTypes = {
   modules: PropTypes.shape({
     toolbar: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
   }),
-  onChange: PropTypes.func,
   onChangeSelection: PropTypes.func,
   readOnly: PropTypes.bool,
   setRef: PropTypes.func,
@@ -46,7 +44,6 @@ const modules = {
 
 Editor.defaultProps = {
   modules,
-  onChange: Function.prototype,
   onChangeSelection: Function.prototype,
   readOnly: false,
   setRef: Function.prototype,
