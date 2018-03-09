@@ -49,6 +49,7 @@
     "file-loader": "1.1.5",
     "html-webpack-plugin": "2.30.1",
     "html-webpack-template": "6.1.0",
+    "identity-obj-proxy": "3.0.0",
     "jest": "22.4.2",
     "uglifyjs-webpack-plugin": "1.1.2",
     "webpack": "3.9.1",
