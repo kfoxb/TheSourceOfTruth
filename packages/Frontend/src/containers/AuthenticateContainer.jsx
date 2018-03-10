@@ -28,13 +28,43 @@ class AuthenticateContainer extends Component {
     };
   }
 
+  componentDidMount = () => {
+    this.setState({ loading: true }, () => {
+      auth().getRedirectResult().then((result) => {
+        this.setState({ loading: false });
+        console.log('success', result);
+      }, (error) => {
+        this.setState({ loading: false });
+        // The provider's account email, can be used in case of
+        // auth/account-exists-with-different-credential to fetch the providers
+        // linked to the email:
+        console.error(error);
+        console.error(error.message);
+        console.error(error.code);
+        // In case of auth/account-exists-with-different-credential error,
+        // you can fetch the providers using this:
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          auth().fetchProvidersForEmail(error.email).then((providers) => {
+            console.log('other providers', providers);
+          // The returned 'providers' is a list of the available providers
+          // linked to the email address. Please refer to the guide for a more
+          // complete explanation on how to recover from this error.
+          });
+        }
+      });
+    });
+  };
+
   updateFormByKey = key => ({ target }) => {
     this.setState({ [key]: target.value });
   };
 
   authenticate = (provider) => {
     if (provider === 'google') {
-      return this.authenticateWithGoogle();
+      return this.authenticateWithProvider(new auth.GoogleAuthProvider());
+    }
+    if (provider === 'facebook') {
+      return this.authenticateWithProvider(new auth.FacebookAuthProvider());
     }
     if (this.props.match.url === signInRoute) {
       return this.signIn();
@@ -52,12 +82,13 @@ class AuthenticateContainer extends Component {
       .catch(error => this.setState({ error }));
   }
 
-  authenticateWithGoogle = () => {
-    const provider = new auth.GoogleAuthProvider();
+  authenticateWithProvider = (provider) => {
+    console.log('in authenticateWithProvider');
     auth().useDeviceLanguage();
+    console.log('in useDeviceLanguage');
     auth().signInWithRedirect(provider);
-  }
-
+    console.log('in signInWithRedirect');
+  };
 
   render() {
     if (this.props.isAuthenticated) {
