@@ -11,7 +11,6 @@ const signInRoute = '/signin';
 class AuthenticateContainer extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    login: PropTypes.func.isRequired,
     match: PropTypes.shape({
       isExact: PropTypes.bool.isRequired,
       path: PropTypes.string.isRequired,
