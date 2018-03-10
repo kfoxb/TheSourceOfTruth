@@ -91,7 +91,10 @@ Authenticate.propTypes = {
   authenticate: PropTypes.func.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.string,
+    PropTypes.shape({
+      message: PropTypes.string,
+      code: PropTypes.string,
+    }),
   ]).isRequired,
   loading: PropTypes.bool.isRequired,
   signingin: PropTypes.bool,
