@@ -69,6 +69,7 @@ export default function Authenticate({
               <Button color="violet" fluid>{SIGN_IN}</Button>
             </Link>
           }
+          <Button color="blue" onClick={() => authenticate('google')} fluid>Sign In With Google</Button>
         </Form>
         { loading && (
           <StyledLoader>

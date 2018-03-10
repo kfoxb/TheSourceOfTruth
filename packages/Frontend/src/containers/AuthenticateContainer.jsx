@@ -33,7 +33,10 @@ class AuthenticateContainer extends Component {
     this.setState({ [key]: target.value });
   };
 
-  authenticate = () => {
+  authenticate = (provider) => {
+    if (provider === 'google') {
+      return this.authenticateWithGoogle();
+    }
     if (this.props.match.url === signInRoute) {
       return this.signIn();
     }
@@ -49,6 +52,13 @@ class AuthenticateContainer extends Component {
     auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .catch(error => this.setState({ error }));
   }
+
+  authenticateWithGoogle = () => {
+    const provider = new auth.GoogleAuthProvider();
+    auth().useDeviceLanguage();
+    auth().signInWithRedirect(provider);
+  }
+
 
   render() {
     if (this.props.isAuthenticated) {
