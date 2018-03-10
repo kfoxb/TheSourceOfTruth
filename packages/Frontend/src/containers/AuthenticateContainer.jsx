@@ -22,7 +22,7 @@ class AuthenticateContainer extends Component {
     super(props);
     this.state = {
       email: '',
-      error: '',
+      error: false,
       loading: false,
       password: '',
     };
@@ -73,8 +73,11 @@ class AuthenticateContainer extends Component {
   }
 
   signIn = () => {
-    auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-      .catch(error => this.setState({ error }));
+    this.setState({ loading: true, error: false }, () => {
+      auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(() => this.setState({ loading: false }))
+        .catch(error => this.setState({ loading: false, error }));
+    });
   }
 
   signUp = () => {
