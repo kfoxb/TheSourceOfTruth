@@ -30,25 +30,20 @@ class AuthenticateContainer extends Component {
 
   componentDidMount = () => {
     this.setState({ loading: true }, () => {
-      auth().getRedirectResult().then((result) => {
+      auth().getRedirectResult().then(() => {
         this.setState({ loading: false });
-        console.log('success', result);
       }, (error) => {
         this.setState({ loading: false });
-        // The provider's account email, can be used in case of
-        // auth/account-exists-with-different-credential to fetch the providers
-        // linked to the email:
-        console.error(error);
-        console.error(error.message);
-        console.error(error.code);
-        // In case of auth/account-exists-with-different-credential error,
-        // you can fetch the providers using this:
         if (error.code === 'auth/account-exists-with-different-credential') {
+          // eslint-disable-next-line no-unused-vars
           auth().fetchProvidersForEmail(error.email).then((providers) => {
-            console.log('other providers', providers);
-          // The returned 'providers' is a list of the available providers
-          // linked to the email address. Please refer to the guide for a more
-          // complete explanation on how to recover from this error.
+            // this means that they are trying to sign up for an account but
+            // they already have one with a different provider. providers here
+            // is an array of all of the providers they have an account through.
+            // We need to follow the guide here:
+            // https://firebase.google.com/docs/auth/web/account-linking
+            // to offer to link to their other accounts if they want, or just
+            // let them sign in with the other provider(s).
           });
         }
       });
@@ -86,11 +81,8 @@ class AuthenticateContainer extends Component {
   }
 
   authenticateWithProvider = (provider) => {
-    console.log('in authenticateWithProvider');
     auth().useDeviceLanguage();
-    console.log('in useDeviceLanguage');
     auth().signInWithRedirect(provider);
-    console.log('in signInWithRedirect');
   };
 
   render() {
