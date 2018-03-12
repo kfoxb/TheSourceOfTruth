@@ -35,8 +35,7 @@ module.exports = {
       files: ['**/__mocks__/*.js'],
       env: {
         jest: true,
-      },
-      plugins: ['jest'],
+      }
     }
   ]
 };
