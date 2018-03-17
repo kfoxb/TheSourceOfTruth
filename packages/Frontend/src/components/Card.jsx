@@ -5,6 +5,10 @@ import { Divider, Header, Icon, Image, Segment } from 'semantic-ui-react';
 import Placeholder from './assets/Placeholder.png';
 
 const StyledSegment = styled(Segment)`
+  @media (min-width: 600px) {
+    height: 400px;
+    width: 300px;
+  }
   @media (max-width: 600px) {
     height: 150px;
   }
