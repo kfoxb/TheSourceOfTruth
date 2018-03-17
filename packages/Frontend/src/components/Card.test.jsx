@@ -1,13 +1,14 @@
 /* eslint-env jest */
 import { createAssertWithPropsToMatchSnapshot } from '../../test-utils';
-import LargeCard from './LargeCard';
+import Card from './Card';
 
-describe('LargeCard', () => {
+describe('Card', () => {
   const defaultProps = {
     starFilled: false,
+    toggleFav: () => {},
   };
   const assertWithPropsToMatchSnapshot =
-    createAssertWithPropsToMatchSnapshot(LargeCard, defaultProps);
+    createAssertWithPropsToMatchSnapshot(Card, defaultProps);
   it('should render', () => {
     assertWithPropsToMatchSnapshot();
   });

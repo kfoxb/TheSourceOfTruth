@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Divider, Header, Icon, Image, Segment } from 'semantic-ui-react';
-import Placeholder from './assets/Placeholder.png';
 
 const StyledSegment = styled(Segment)`
   @media (max-width: 600px) {
@@ -67,7 +66,7 @@ export default function Card(props) {
           top: 9,
         }}
       />
-      <StyledImage src={Placeholder} />
+      <StyledImage />
       <StyledBody>
         <Header>
             props.title
