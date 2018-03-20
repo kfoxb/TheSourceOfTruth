@@ -9,10 +9,12 @@
   "scripts": {
     "deploy": "firebase deploy --only functions",
     "firebase-login": "firebase login",
+    "lint": "eslint index.js",
     "logs": "firebase functions:log",
     "serve": "firebase serve --only functions",
     "shell": "firebase experimental:functions:shell",
-    "start": "yarn shell"
+    "start": "yarn shell",
+    "validate": "yarn lint"
   },
   "dependencies": {
     "express": "4.16.3",
