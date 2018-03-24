@@ -10,12 +10,16 @@ const schema = buildSchema(`
   }
 
   type Query {
-    getDocument(id: Int!): Document
+    document(id: Int!): Document
+  }
+
+  type Mutation {
+    document: Document
   }
 `);
 
 const rootValue = {
-  getDocument: ({ id }) => new Document({ id }),
+  document: ({ id }) => new Document({ id }),
 };
 
 const app = express();
