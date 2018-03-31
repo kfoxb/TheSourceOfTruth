@@ -7,6 +7,7 @@
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
   "license": "Apache-2.0",
   "scripts": {
+    "build": "webpack",
     "deploy": "firebase deploy --only functions",
     "firebase-login": "firebase login",
     "lint": "eslint index.js",
