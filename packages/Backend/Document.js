@@ -2,7 +2,7 @@ const knex = require('./db');
 
 const createId = () => knex.insert({}).into('documents').returning('id');
 
-class Documents {
+export default class Documents {
   constructor({ id }) {
     if (!id) {
       this.id = createId();
@@ -11,5 +11,3 @@ class Documents {
     }
   }
 }
-
-module.exports = Documents;
