@@ -1,4 +1,4 @@
-const knex = require('./db');
+import knex from './db';
 
 const createId = () => knex.insert({}).into('documents').returning('id');
 
