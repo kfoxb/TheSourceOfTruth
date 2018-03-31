@@ -8,12 +8,32 @@ const PRODUCTION = 'production';
 module.exports = {
   entry: './index.js',
   externals: [nodeExternals()],
+  mode: PRODUCTION,
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['babel-preset-env', {
+                targets: {
+                  node: '6.11.5',
+                },
+              }],
+            ],
+          },
+        },
+        exclude: /node_modules/,
+      },
+    ],
+  },
   output: {
     filename: 'index.js',
     libraryTarget: 'commonjs',
     path: path.resolve(__dirname, 'dist'),
   },
-  mode: PRODUCTION,
   plugins: [
     new CopyWebpackPlugin([
       {
