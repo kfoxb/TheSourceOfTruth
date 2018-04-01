@@ -1,6 +1,6 @@
-import knex from './db';
+import db from './db';
 
-const createId = () => knex.insert({}).into('documents').returning('id');
+const createId = () => db.insert({}).into('documents').returning('id');
 
 export default class Documents {
   constructor({ id }) {
