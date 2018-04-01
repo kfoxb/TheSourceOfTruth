@@ -5,7 +5,6 @@ const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PRODUCTION = 'production';
-
 module.exports = {
   entry: './index.js',
   // we need to use nodeExternals twice here,
