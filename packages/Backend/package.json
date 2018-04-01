@@ -14,6 +14,7 @@
     "logs": "firebase functions:log",
     "shell": "firebase experimental:functions:shell",
     "start": "firebase serve --only functions",
+    "test": "echo 'no tests created'",
     "validate": "yarn lint"
   },
   "dependencies": {
