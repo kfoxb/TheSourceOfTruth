@@ -9,7 +9,7 @@
   "clean": "lerna clean",
   "lint": "lerna exec -- yarn lint",
   "test": "lerna exec -- yarn test",
-  "validate": "lerna exec -- yarn validate"
+  "validate": "yarn lint && yarn test"
  },
  "workspaces": ["packages/*"]
 }
