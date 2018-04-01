@@ -10,7 +10,7 @@
     "build": "webpack",
     "deploy": "firebase deploy --only functions",
     "firebase-login": "firebase login",
-    "lint": "eslint index.js",
+    "lint": "eslint .",
     "logs": "firebase functions:log",
     "shell": "firebase experimental:functions:shell",
     "start": "firebase serve --only functions",
