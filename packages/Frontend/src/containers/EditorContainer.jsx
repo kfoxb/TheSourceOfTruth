@@ -5,7 +5,7 @@ import Editor from '../components/Editor';
 
 export default class EditorContainer extends Component {
   static getCollection = (url) => {
-    if (url.includes('journal')) {
+    if (url.includes('journals')) {
       return 'journals';
     }
     return '';
@@ -19,6 +19,9 @@ export default class EditorContainer extends Component {
   }
 
   static propTypes = {
+    history: PropTypes.shape({
+      replace: PropTypes.func.isRequired,
+    }).isRequired,
     match: PropTypes.shape({
       url: PropTypes.string.isRequired,
       params: PropTypes.shape({
@@ -41,7 +44,21 @@ export default class EditorContainer extends Component {
 
   componentDidMount() {
     if (!this.state.documentId) {
-      // create a new document in firebase
+      this.db.collection(this.state.collection).add({
+        title: '',
+        value: '',
+      })
+        .then((docRef) => {
+          this.props.history.replace(`/${this.state.collection}/${docRef.id}`);
+          this.setState({
+            documentId: docRef.id,
+            loading: false,
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.error('Could not create new document: ', error);
+        });
     } else {
       this.db.collection(this.state.collection).doc(this.state.documentId).get()
         .then((doc) => {
@@ -64,7 +81,6 @@ export default class EditorContainer extends Component {
         });
     }
   }
-
 
   onChangeSelection = (range, source, editor) => {
     if (!this.state.loading) {
@@ -89,7 +105,8 @@ export default class EditorContainer extends Component {
 
   updateDb = (value) => {
     this.db.collection(this.state.collection).doc(this.state.documentId).update(value)
-      .catch(err => console.log('err writing value to firebase: ', err));
+    // eslint-disable-next-line no-console
+      .catch(err => console.error('err writing value to firebase: ', err));
   }
 
   handleTitleChange = ({ target: { value } }) => {
@@ -100,6 +117,9 @@ export default class EditorContainer extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (<p>Loading...</p>);
+    }
     return (
       <Fragment>
         <input onChange={this.handleTitleChange} value={this.state.title} />

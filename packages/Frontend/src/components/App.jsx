@@ -23,8 +23,8 @@ function App({
       <div style={{ height: '40px' }} />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/journal" component={JournalContainer} />
-        <Route path="/journal/:id" component={EditorContainer} />
+        <Route exact path="/journals" component={JournalContainer} />
+        <Route path="/journals/:id" component={EditorContainer} />
         <Route path="/library" component={Library} />
         <Route path="/sign(up|in)" component={AuthenticateContainer} />
       </Switch>

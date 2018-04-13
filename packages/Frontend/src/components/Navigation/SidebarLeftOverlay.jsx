@@ -58,7 +58,7 @@ export default class SidebarLeftOverlay extends Component {
         <Sidebar as={Menu} animation="overlay" width="thin" visible={this.props.sideBarVisibility} icon="labeled" vertical inverted>
           {renderMenuItem('home', 'Home', '/')}
           {renderMenuItem('library', 'Library', '/library')}
-          {renderMenuItem('journal', 'Journal', '/journal')}
+          {renderMenuItem('journals', 'Journals', '/journals')}
           { this.props.isAuthenticated
               ? this.renderLogout()
               : renderMenuItem('signin', 'Sign In', '/signin')
