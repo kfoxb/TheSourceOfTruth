@@ -28,9 +28,9 @@ export default class JournalContainer extends Component {
     }
     return (
       <Fragment>
-        <button><a href="/journals/create">Create Journal</a></button>
+        <button><a href="/journals/edit/create">Create Journal</a></button>
         { this.state.journals.map((journal) => {
-          const href = `/journals/${journal.get('id')}`;
+          const href = `/journals/view/${journal.get('id')}`;
           return (
             <div key={journal.get('id')} >
               <Link

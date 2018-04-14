@@ -8,6 +8,7 @@ import JournalContainer from '../containers/JournalContainer';
 import Library from './Library';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
 import EditorContainer from '../containers/EditorContainer';
+import EditorViewContainer from '../containers/EditorViewContainer';
 
 function App({
   isAuthenticated, toggleVisibility, visible,
@@ -24,7 +25,8 @@ function App({
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/journals" component={JournalContainer} />
-        <Route path="/journals/:id" component={EditorContainer} />
+        <Route path="/journals/edit/:id" component={EditorContainer} />
+        <Route path="/journals/view/:id" component={EditorViewContainer} />
         <Route path="/library" component={Library} />
         <Route path="/sign(up|in)" component={AuthenticateContainer} />
       </Switch>
