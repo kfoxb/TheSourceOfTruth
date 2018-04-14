@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import { List, Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
-export default class JournalContainer extends Component {
+export default class JournalsContainer extends Component {
   constructor(props) {
     super(props);
     this.db = firebase.firestore();
