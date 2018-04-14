@@ -30,14 +30,21 @@ export default class JournalContainer extends Component {
       <Fragment>
         <button><a href="/journals/edit/create">Create Journal</a></button>
         { this.state.journals.map((journal) => {
-          const href = `/journals/view/${journal.get('id')}`;
+          const viewHref = `/journals/view/${journal.get('id')}`;
+          const editHref = `/journals/edit/${journal.get('id')}`;
           return (
             <div key={journal.get('id')} >
               <Link
-                to={href}
-                href={href}
+                to={viewHref}
+                href={viewHref}
               >
                 {journal.get('title')}
+              </Link>
+              <Link
+                to={editHref}
+                href={editHref}
+              >
+                (edit)
               </Link>
             </div>
           );
