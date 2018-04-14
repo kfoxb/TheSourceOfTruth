@@ -13,9 +13,11 @@ class MockDocument {
 }
 
 const mockQuerySnapshot = [1, 2, 3].map(id => new MockDocument(id));
+
 const firestore = {
   collection: jest.fn(() => ({
     get: jest.fn(() => Promise.resolve(mockQuerySnapshot)),
+    add: jest.fn(() => Promise.resolve(new MockDocument(1))),
   })),
 };
 
