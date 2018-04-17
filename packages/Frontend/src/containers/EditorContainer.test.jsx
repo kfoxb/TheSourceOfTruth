@@ -1,6 +1,4 @@
 /* eslint-env jest */
-import React from 'react';
-import { shallow } from 'enzyme';
 import { createAssertWithPropsToMatchSnapshot, makeShallowCreateWrapper } from '../../test-utils';
 import EditorContainer from './EditorContainer';
 
