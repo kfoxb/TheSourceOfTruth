@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import PropTypes from 'prop-types';
 import ContentBody from '../components/ContentBody';
-import Header from 'somnium';
+import { Header } from 'somnium';
 import Editor from '../components/Editor';
 import { getCollection, getDocumentId } from '../helpers/firestore';
 
