@@ -110,20 +110,22 @@ export default class EditorContainer extends Component {
       return (<p>Loading...</p>);
     }
     return (
-      <ContentBody>
+      <div>
         <Header headerTitle="Add New Post" />
-        <input
-          onChange={this.handleTitleChange}
-          style={{ width: '100%' }}
-          placeholder="Add New Title Here"
-          value={this.state.title}
-        />
-        <Editor
-          onChangeSelection={this.onChangeSelection}
-          setRef={this.setRef}
-          value={this.state.value}
-        />
-      </ContentBody>
+        <ContentBody>
+          <input
+            onChange={this.handleTitleChange}
+            style={{ width: '100%' }}
+            placeholder="Add New Title Here"
+            value={this.state.title}
+          />
+          <Editor
+            onChangeSelection={this.onChangeSelection}
+            setRef={this.setRef}
+            value={this.state.value}
+          />
+        </ContentBody>
+      </div>
     );
   }
 }
