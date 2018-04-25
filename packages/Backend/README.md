@@ -6,9 +6,13 @@
  - Change the project name in example.firebaserc to match your project name and rename the file to .firebaserc
 
 ### Develop
+Run webpack in a watch
+```sh
+yarn build --watch
+```
 Run
 ```sh
-yarn serve
+yarn start
 ```
 to serve cloud functions on localhost
 
