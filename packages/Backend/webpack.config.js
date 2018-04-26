@@ -1,5 +1,5 @@
-require('dotenv').config();
 const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -47,6 +47,7 @@ module.exports = {
     ]),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(PRODUCTION),
+      'process.env.FB_DATABASE_URL': JSON.stringify(process.env.FB_DATABASE_URL),
     }),
   ],
   target: 'node',
