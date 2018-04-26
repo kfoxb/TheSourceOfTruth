@@ -5,6 +5,9 @@
  ```
  - Change the project name in example.firebaserc to match your project name and rename the file to .firebaserc
 
+ - Follow instructions here: https://firebase.google.com/docs/admin/setup
+ Change name to serviceAccountKey.json and put the file in the Backend folder.
+
 ### Develop
 Run webpack in a watch
 ```sh
