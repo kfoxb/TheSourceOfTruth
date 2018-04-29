@@ -9,21 +9,36 @@ admin.initializeApp({
 
 exports.updatePermissions = firestore
   .document('permissions/{userId}')
-  .onCreate((snapshot) => {
-    // Get the userId from the document id
-    const { id } = snapshot;
-    // Use the userId to get the user's current claims
+  .onWrite((change, context) => {
+    const id = context.params.userId;
+    const snapshot = change.after;
     return admin.auth().getUser(id).then((user) => {
       const currentCustomClaims = user.customClaims;
       const newCustomClaims = snapshot.data();
       return admin.auth().setCustomUserClaims(id, Object.assign({}, currentCustomClaims, newCustomClaims));
-    }).catch((error) => {
-      console.log(error);
-    });
-    // Use the document content to add/remove claims
-    // Write a new permissionUpdateTime key to users/userId
-    // Delete permissions/{userId}
-    // access a particular field as you would any JS property
-    const { title } = newValue;
-    // perform desired operations ...
+    }).then(() => {
+      const db = admin.firestore();
+      if (id) {
+        const timeStamp = db.collection('users').doc(id);
+        const setWithMerge = timeStamp.set({
+          timestamp: new Date(),
+        }, { merge: true });
+        return (
+          setWithMerge
+        );
+      }
+      return (
+        db.collection('users').doc(id).set({
+          timestamp: new Date(),
+        })
+          .catch((error) => {
+            // eslint-disable-next-line no-console
+            console.error('Error updating timestamp: ', error);
+          })
+      );
+    })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      });
   });
