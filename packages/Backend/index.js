@@ -1,9 +1,6 @@
 import * as admin from 'firebase-admin';
-import serviceAccount from './serviceAccountKey.json';
+import { config } from 'firebase-functions';
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: process.env.FB_DATABASE_URL,
-});
+admin.initializeApp(config().firebase);
 
 export * from './permissions';

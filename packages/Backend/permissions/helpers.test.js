@@ -1,4 +1,4 @@
-import { setClaims, validateClaims } from './helpers';
+import { validateClaims } from './helpers';
 import { permissionConstants } from './constants';
 
 describe('permission helpers', () => {
