@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 import { permissionConstants, PERMISSIONS, USER_ID } from './constants';
 
-const validateClaims = claims =>
+export const validateClaims = (claims = {}) =>
   Object.keys(claims).reduce((acc, claim) => {
     const claimValue = claims[claim];
     const formattedClaim = claim.toLowerCase().trim();
@@ -16,7 +16,6 @@ const validateClaims = claims =>
     return acc;
   }, {});
 
-// eslint-disable-next-line import/prefer-default-export
 export function setClaims(newCustomClaims, context) {
   const id = context.params[USER_ID];
   const db = admin.firestore();

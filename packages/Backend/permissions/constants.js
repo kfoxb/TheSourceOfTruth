@@ -1,6 +1,8 @@
+const author = 'author';
+const editor = 'editor';
 export const permissionConstants = {
-  author: 'author',
-  editor: 'editor',
+  author,
+  editor,
 };
 export const PERMISSIONS = 'permissions';
 export const USER_ID = 'userId';
