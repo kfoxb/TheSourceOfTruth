@@ -1,5 +1,6 @@
 import { firestore } from 'firebase-functions';
-import { DOC_PATH, setClaims } from './helpers';
+import { DOC_PATH } from './constants';
+import { setClaims } from './helpers';
 
 const createPermissions = firestore
   .document(DOC_PATH)
