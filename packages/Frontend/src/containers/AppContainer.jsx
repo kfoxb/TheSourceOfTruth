@@ -26,8 +26,6 @@ class AppContainer extends Component {
   }
 
   componentDidMount() {
-    // if sign up for new account combine w/ anonymous account
-    // When app mounts, check to see if user is logged in
     auth().onAuthStateChanged((user) => {
       if (user) {
         const {
@@ -38,10 +36,10 @@ class AppContainer extends Component {
         });
       } else {
         this.props.logout();
-        // if not logged in log in anonymously
         auth().signInAnonymously().catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          // eslint-disable-next-line no-console
           return console.log(errorCode, errorMessage);
         });
       }
