@@ -9,9 +9,13 @@ import login from '../actions/login';
 
 class AppContainer extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
+    isAnonymous: PropTypes.bool,
     logout: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    isAnonymous: false,
   }
 
   constructor(props) {
@@ -22,6 +26,8 @@ class AppContainer extends Component {
   }
 
   componentDidMount() {
+    // if sign up for new account combine w/ anonymous account
+    // When app mounts, check to see if user is logged in
     auth().onAuthStateChanged((user) => {
       if (user) {
         const {
@@ -32,6 +38,12 @@ class AppContainer extends Component {
         });
       } else {
         this.props.logout();
+        // if not logged in log in anonymously
+        auth().signInAnonymously().catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          return console.log(errorCode, errorMessage);
+        });
       }
     });
   }
@@ -42,7 +54,7 @@ class AppContainer extends Component {
     return (
       <BrowserRouter>
         <App
-          isAuthenticated={this.props.isAuthenticated}
+          isAnonymous={this.props.isAnonymous}
           toggleVisibility={this.toggleVisibility}
           visible={this.state.visible}
         />
@@ -52,7 +64,7 @@ class AppContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated,
+  isAnonymous: state.user.isAnonymous,
 });
 
 const mapDispatchToProps = dispatch => ({
