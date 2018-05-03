@@ -15,7 +15,7 @@ class AppContainer extends Component {
   }
 
   static defaultProps = {
-    isAnonymous: false,
+    isAnonymous: true,
   }
 
   constructor(props) {
