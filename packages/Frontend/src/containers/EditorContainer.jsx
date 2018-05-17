@@ -3,14 +3,11 @@ import firebase from 'firebase';
 import PropTypes from 'prop-types';
 import { Header } from 'somnium';
 import ContentBody from '../components/ContentBody';
-import Editor from '../components/Editor';
 import { getCollection, getDocumentId } from '../helpers/firestore';
+
 
 export default class EditorContainer extends Component {
   static propTypes = {
-    history: PropTypes.shape({
-      replace: PropTypes.func.isRequired,
-    }).isRequired,
     match: PropTypes.shape({
       url: PropTypes.string.isRequired,
       params: PropTypes.shape({
@@ -32,71 +29,63 @@ export default class EditorContainer extends Component {
   }
 
   componentDidMount() {
-    if (!this.state.documentId) {
-      this.db.collection(this.state.collection).add({
-        title: '',
-        value: '',
-      })
-        .then((docRef) => {
-          this.props.history.replace(`/${this.state.collection}/edit/${docRef.id}`);
-          this.setState({
-            documentId: docRef.id,
-            loading: false,
-          });
-        })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.error('Could not create new document: ', error);
-        });
-    } else {
-      this.db.collection(this.state.collection).doc(this.state.documentId).get()
-        .then((doc) => {
-          if (doc.exists) {
-            const { title, value } = doc.data();
-            this.setState({
-              loading: false,
-              title,
-              value,
-            }, () => {
-              if (this.quill) {
-                this.quill.focus();
-                const editor = this.quill.getEditor();
-                editor.setSelection(editor.getLength());
-              }
-            });
-          } else {
-            this.setState({ loading: false });
-          }
-        });
-    }
-  }
-
-  onChangeSelection = (range, source, editor) => {
-    if (!this.state.loading) {
-      const getRange = () => {
-        if (range === null) {
-          return range;
-        }
-        const { index, length } = range;
-        return { index, length };
-      };
-
-      this.setState({ value: editor.getHTML(), range: getRange() }, () => {
-        this.updateDb({
-          value: this.state.value,
-          range: this.state.range,
-        });
-      });
-    }
+    const firepadRef = this.getExampleRef();
+    // // Create CodeMirror (with lineWrapping on).
+    const codeMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true });
+    // // Create Firepad (with rich text toolbar and shortcuts enabled).
+    const firepad = Firepad.fromCodeMirror(
+      firepadRef, codeMirror,
+      { richTextToolbar: true, richTextShortcuts: true },
+    );
+    firepad.on('ready', () => {
+      if (firepad.isHistoryEmpty()) {
+        firepad.setHtml('<span style="font-size: 24px;">Rich-text editing with <span style="color: red">Firepad!</span></span><br/>\n' +
+              '<br/>' +
+              '<div style="font-size: 18px">' +
+              'Supports:<br/>' +
+              '<ul>' +
+                '<li>Different ' +
+                  '<span style="font-family: impact">fonts,</span>' +
+                  '<span style="font-size: 24px;"> sizes, </span>' +
+                  '<span style="color: blue">and colors.</span>' +
+                '</li>' +
+                '<li>' +
+                  '<b>Bold, </b>' +
+                  '<i>italic, </i>' +
+                  '<u>and underline.</u>' +
+                '</li>' +
+                '<li>Lists' +
+                  '<ol>' +
+                    '<li>One</li>' +
+                    '<li>Two</li>' +
+                  '</ol>' +
+                '</li>' +
+                '<li>Undo / redo</li>' +
+                '<li>Cursor / selection synchronization.</li>' +
+                '<li><checkbox></checkbox> It supports customized entities.</li>' +
+                '<li>And it\'s all fully collaborative!</li>' +
+              '</ul>' +
+              '</div>');
+      }
+    });
   }
 
   setRef = (ref) => { this.quill = ref; };
 
-  updateDb = (value) => {
-    this.db.collection(this.state.collection).doc(this.state.documentId).update(value)
-    // eslint-disable-next-line no-console
-      .catch(err => console.error('err writing value to firebase: ', err));
-  }
+  getExampleRef = () => {
+    let ref = firebase.database().ref();
+    const hash = window.location.hash.replace(/#/g, '');
+    if (hash) {
+      ref = ref.child(hash);
+    } else {
+      ref = ref.push(); // generate unique location.
+      window.location = `${window.location}#${ref.key}`; // add it as a hash to the URL.
+    }
+    if (typeof console !== 'undefined') {
+      console.log('Firebase data: ', ref.toString());
+    }
+    return ref;
+  };
 
   handleTitleChange = ({ target: { value } }) => {
     const update = { title: value };
@@ -106,9 +95,9 @@ export default class EditorContainer extends Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return (<p>Loading...</p>);
-    }
+    // if (this.state.loading) {
+    //   return (<p>Loading...</p>);
+    // }
     return (
       <div>
         <Header headerTitle="Add New Post" />
@@ -119,11 +108,7 @@ export default class EditorContainer extends Component {
             placeholder="Add New Title Here"
             value={this.state.title}
           />
-          <Editor
-            onChangeSelection={this.onChangeSelection}
-            setRef={this.setRef}
-            value={this.state.value}
-          />
+          <div style={{ width: '100%', height: '100%' }} id="firepad-container" />
         </ContentBody>
       </div>
     );
