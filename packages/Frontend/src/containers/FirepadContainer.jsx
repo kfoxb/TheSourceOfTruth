@@ -8,7 +8,6 @@ import { getCollection, getDocumentId } from '../helpers/firestore';
 global.CodeMirror = CodeMirror;
 const { fromCodeMirror } = require('firepad/dist/firepad');
 
-
 export default class FirepadContainer extends Component {
   static propTypes = {
     history: PropTypes.shape({
