@@ -30,6 +30,7 @@ const database = {
     child: () => {},
     push: () => ({
       key: '',
+      on: () => {},
     }),
   }),
 };
