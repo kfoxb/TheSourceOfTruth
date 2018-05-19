@@ -1,8 +1,8 @@
 /* eslint-env jest */
 import { createAssertWithPropsToMatchSnapshot, makeShallowCreateWrapper } from '../../test-utils';
-import EditorContainer from './EditorContainer';
+import FirepadContainer from './FirepadContainer';
 
-describe('EditorContainer', () => {
+describe('FirepadContainer', () => {
   const defaultProps = {
     history: {
       replace: () => {},
@@ -17,11 +17,11 @@ describe('EditorContainer', () => {
 
 
   it('should render', () => {
-    createAssertWithPropsToMatchSnapshot(EditorContainer, defaultProps)();
+    createAssertWithPropsToMatchSnapshot(FirepadContainer, defaultProps)();
   });
 
   describe('journals', () => {
-    const createWrapper = makeShallowCreateWrapper(EditorContainer, defaultProps);
+    const createWrapper = makeShallowCreateWrapper(FirepadContainer, defaultProps);
 
     it('should set it\'s collection to journals when the url contains journals', () => {
       const extraProps = {

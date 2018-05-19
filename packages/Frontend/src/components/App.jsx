@@ -7,7 +7,7 @@ import Home from './Home';
 import JournalsContainer from '../containers/JournalsContainer';
 import Library from './Library';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
-import EditorContainer from '../containers/EditorContainer';
+import FirepadContainer from '../containers/FirepadContainer';
 import EditorViewContainer from '../containers/EditorViewContainer';
 
 function App({
@@ -25,7 +25,7 @@ function App({
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/journals" component={JournalsContainer} />
-        <Route path="/journals/edit/:id" component={EditorContainer} />
+        <Route path="/journals/edit/:id" component={FirepadContainer} />
         <Route path="/journals/view/:id" component={EditorViewContainer} />
         <Route path="/library" component={Library} />
         <Route path="/sign(up|in)" component={AuthenticateContainer} />

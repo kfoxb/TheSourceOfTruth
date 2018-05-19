@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EditorContainer should render 1`] = `
+exports[`FirepadContainer should render 1`] = `
 <div>
   <vc
     headerTitle="Add New Post"
