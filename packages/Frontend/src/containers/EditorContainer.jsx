@@ -50,13 +50,13 @@ export default class EditorContainer extends Component {
       title: '',
       value: '',
     };
+    this.ref = this.getExampleRef(this.state.collection, this.state.documentId);
   }
 
   componentDidMount() {
-    const firepadRef = this.getExampleRef();
     // // Create CodeMirror (with lineWrapping on).
     const firepad = Firepad.fromCodeMirror(
-      firepadRef, document.getElementById('firepad-container'),
+      this.ref, document.getElementById('firepad-container'),
       { richTextToolbar: true, richTextShortcuts: true },
     );
     firepad.on('ready', () => {});
@@ -64,17 +64,13 @@ export default class EditorContainer extends Component {
 
   setRef = (ref) => { this.quill = ref; };
 
-  getExampleRef = () => {
-    let ref = firebase.database().ref();
-    const hash = window.location.hash.replace(/#/g, '');
-    if (hash) {
-      ref = ref.child(hash);
+  getExampleRef = (collection, id) => {
+    let ref = firebase.database().ref(collection);
+    if (id) {
+      ref = ref.child(id);
     } else {
       ref = ref.push(); // generate unique location.
-      window.location = `${window.location}#${ref.key}`; // add it as a hash to the URL.
-    }
-    if (typeof console !== 'undefined') {
-      console.log('Firebase data: ', ref.toString());
+      this.props.history.replace(`/${this.state.collection}/edit/${ref.key}`);
     }
     return ref;
   };
