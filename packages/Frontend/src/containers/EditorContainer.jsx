@@ -32,6 +32,9 @@ const StyledFirepad = styled.div`
 
 export default class EditorContainer extends Component {
   static propTypes = {
+    history: PropTypes.shape({
+      replace: PropTypes.func.isRequired,
+    }).isRequired,
     match: PropTypes.shape({
       url: PropTypes.string.isRequired,
       params: PropTypes.shape({
@@ -46,9 +49,7 @@ export default class EditorContainer extends Component {
     this.state = {
       collection: getCollection(props.match.url),
       documentId: getDocumentId(props.match.params.id),
-      loading: true,
       title: '',
-      value: '',
     };
     this.ref = this.getExampleRef(this.state.collection, this.state.documentId);
   }
@@ -62,17 +63,14 @@ export default class EditorContainer extends Component {
     firepad.on('ready', () => {});
   }
 
-  setRef = (ref) => { this.quill = ref; };
-
   getExampleRef = (collection, id) => {
-    let ref = firebase.database().ref(collection);
+    const collectionRef = firebase.database().ref(collection);
     if (id) {
-      ref = ref.child(id);
-    } else {
-      ref = ref.push(); // generate unique location.
-      this.props.history.replace(`/${this.state.collection}/edit/${ref.key}`);
+      return collectionRef.child(id);
     }
-    return ref;
+    const docRef = collectionRef.push(); // generate unique location.
+    this.props.history.replace(`/${this.state.collection}/edit/${docRef.key}`);
+    return docRef;
   };
 
   handleTitleChange = ({ target: { value } }) => {
@@ -83,9 +81,6 @@ export default class EditorContainer extends Component {
   }
 
   render() {
-    // if (this.state.loading) {
-    //   return (<p>Loading...</p>);
-    // }
     return (
       <div>
         <Header headerTitle="Add New Post" />
