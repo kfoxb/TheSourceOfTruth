@@ -3,8 +3,12 @@ import firebase from 'firebase';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Header } from 'somnium';
+import CodeMirror from 'codemirror';
 import ContentBody from '../components/ContentBody';
 import { getCollection, getDocumentId } from '../helpers/firestore';
+
+global.CodeMirror = CodeMirror;
+const Firepad = require('firepad/dist/firepad');
 
 const StyledFirepad = styled.div`
   height: '100%';
@@ -49,10 +53,8 @@ export default class EditorContainer extends Component {
   componentDidMount() {
     const firepadRef = this.getExampleRef();
     // // Create CodeMirror (with lineWrapping on).
-    const codeMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true });
-    // // Create Firepad (with rich text toolbar and shortcuts enabled).
     const firepad = Firepad.fromCodeMirror(
-      firepadRef, codeMirror,
+      firepadRef, document.getElementById('firepad-container'),
       { richTextToolbar: true, richTextShortcuts: true },
     );
     firepad.on('ready', () => {});

@@ -17,11 +17,6 @@ module.exports = {
         'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css',
         'https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css',
       ],
-      scripts: [
-        'https://www.gstatic.com/firebasejs/3.3.0/firebase.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js',
-        'https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js',
-      ],
       mobile: true,
       template,
       title: 'Dashboard',
