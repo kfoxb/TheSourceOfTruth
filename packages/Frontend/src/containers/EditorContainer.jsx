@@ -51,6 +51,22 @@ export default class EditorContainer extends Component {
       documentId: getDocumentId(props.match.params.id),
       title: '',
     };
+    this.setRef();
+    this.ref.on('value', (snapshot) => {
+      this.setState({ title: snapshot.val().title });
+    });
+  }
+
+  componentDidMount() {
+    // Create CodeMirror (with lineWrapping on).
+    const firepad = Firepad.fromCodeMirror(
+      this.ref, document.getElementById('firepad-container'),
+      { richTextToolbar: true, richTextShortcuts: true },
+    );
+    firepad.on('ready', () => {});
+  }
+
+  setRef() {
     const collectionRef = firebase.database().ref(this.state.collection);
     if (this.state.documentId) {
       this.ref = collectionRef.child(this.state.documentId);
@@ -61,19 +77,10 @@ export default class EditorContainer extends Component {
     }
   }
 
-  componentDidMount() {
-    // // Create CodeMirror (with lineWrapping on).
-    const firepad = Firepad.fromCodeMirror(
-      this.ref, document.getElementById('firepad-container'),
-      { richTextToolbar: true, richTextShortcuts: true },
-    );
-    firepad.on('ready', () => {});
-  }
-
   handleTitleChange = ({ target: { value } }) => {
-    const update = { title: value };
-    this.setState(update, () => {
-      this.updateDb(update);
+    const newTitle = { title: value };
+    this.setState(newTitle, () => {
+      this.ref.update(newTitle);
     });
   }
 
