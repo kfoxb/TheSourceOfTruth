@@ -10,7 +10,7 @@ import ContentBody from '../components/ContentBody';
 import { getCollection, getDocumentId } from '../helpers/firestore';
 
 global.CodeMirror = CodeMirror;
-const Firepad = require('firepad/dist/firepad');
+const { fromCodeMirror } = require('firepad/dist/firepad');
 
 const StyledFirepad = styled.div`
   height: '100%';
@@ -61,7 +61,7 @@ export default class EditorContainer extends Component {
     const cm = CodeMirror(document.getElementById('firepad-container'), {
       lineWrapping: true,
     });
-    const firepad = Firepad.fromCodeMirror(
+    const firepad = fromCodeMirror(
       this.ref, cm,
       { richTextToolbar: true, richTextShortcuts: true },
     );
