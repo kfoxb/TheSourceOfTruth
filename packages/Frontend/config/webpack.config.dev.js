@@ -14,7 +14,6 @@ module.exports = {
       inject: false,
       links: [
         'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css',
-        'https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css',
       ],
       mobile: true,
       template,
@@ -62,6 +61,10 @@ module.exports = {
             cacheDirectory: true,
           },
         },
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000',
       },
       {
         test: /\.(png|jpg|gif)$/,

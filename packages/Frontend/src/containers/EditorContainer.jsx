@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Header } from 'somnium';
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
+import 'firepad/dist/firepad.css';
 import ContentBody from '../components/ContentBody';
 import { getCollection, getDocumentId } from '../helpers/firestore';
 
