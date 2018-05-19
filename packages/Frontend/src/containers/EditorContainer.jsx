@@ -51,7 +51,14 @@ export default class EditorContainer extends Component {
       documentId: getDocumentId(props.match.params.id),
       title: '',
     };
-    this.ref = this.getExampleRef(this.state.collection, this.state.documentId);
+    const collectionRef = firebase.database().ref(this.state.collection);
+    if (this.state.documentId) {
+      this.ref = collectionRef.child(this.state.documentId);
+    } else {
+      const docRef = collectionRef.push();
+      this.props.history.replace(`/${this.state.collection}/edit/${docRef.key}`);
+      this.ref = docRef;
+    }
   }
 
   componentDidMount() {
@@ -62,16 +69,6 @@ export default class EditorContainer extends Component {
     );
     firepad.on('ready', () => {});
   }
-
-  getExampleRef = (collection, id) => {
-    const collectionRef = firebase.database().ref(collection);
-    if (id) {
-      return collectionRef.child(id);
-    }
-    const docRef = collectionRef.push(); // generate unique location.
-    this.props.history.replace(`/${this.state.collection}/edit/${docRef.key}`);
-    return docRef;
-  };
 
   handleTitleChange = ({ target: { value } }) => {
     const update = { title: value };
