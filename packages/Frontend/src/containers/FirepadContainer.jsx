@@ -19,6 +19,11 @@ export default class FirepadContainer extends Component {
         id: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
+    readOnly: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    readOnly: true,
   }
 
   constructor(props) {
@@ -35,12 +40,14 @@ export default class FirepadContainer extends Component {
   }
 
   componentDidMount() {
+    const { readOnly } = this.props;
     const cm = CodeMirror(document.getElementById('firepad-container'), {
       lineWrapping: true,
+      readOnly: readOnly ? 'nocursor' : false,
     });
     fromCodeMirror(
       this.ref, cm,
-      { richTextToolbar: true, richTextShortcuts: true },
+      { richTextToolbar: !readOnly, richTextShortcuts: !readOnly },
     );
   }
 
@@ -67,6 +74,7 @@ export default class FirepadContainer extends Component {
       <Firepad
         title={this.state.title}
         handleTitleChange={this.handleTitleChange}
+        readOnly={this.props.readOnly}
       />
     );
   }

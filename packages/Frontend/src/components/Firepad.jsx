@@ -24,17 +24,20 @@ const StyledFirepad = styled.div`
   }
 `;
 
-export default function Firepad({ handleTitleChange, title }) {
+export default function Firepad({ handleTitleChange, readOnly, title }) {
   return (
     <div>
       <Header headerTitle="Add New Post" />
       <ContentBody>
-        <input
-          onChange={handleTitleChange}
-          style={{ width: '100%' }}
-          placeholder="Add New Title Here"
-          value={title}
-        />
+        { readOnly ?
+            (<p>{title}</p>) :
+            (<input
+              onChange={handleTitleChange}
+              style={{ width: '100%' }}
+              placeholder="Add New Title Here"
+              value={title}
+            />)
+        }
         <StyledFirepad id="firepad-container" />
       </ContentBody>
     </div>
@@ -44,4 +47,9 @@ export default function Firepad({ handleTitleChange, title }) {
 Firepad.propTypes = {
   handleTitleChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+};
+
+Firepad.defaultProps = {
+  readOnly: true,
 };

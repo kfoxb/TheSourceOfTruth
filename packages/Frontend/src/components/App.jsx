@@ -24,7 +24,10 @@ function App({
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/journals" component={JournalsContainer} />
-        <Route path="/journals/edit/:id" component={FirepadContainer} />
+        <Route
+          path="/journals/edit/:id"
+          render={props => <FirepadContainer readOnly={false} {...props} />}
+        />
         <Route path="/journals/view/:id" component={FirepadContainer} />
         <Route path="/library" component={Library} />
         <Route path="/sign(up|in)" component={AuthenticateContainer} />
