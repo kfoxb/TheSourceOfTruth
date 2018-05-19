@@ -28,8 +28,9 @@ const firestore = {
 const database = {
   ref: () => ({
     child: () => {},
-    push: () => this,
-    key: '',
+    push: () => ({
+      key: '',
+    }),
   }),
 };
 
