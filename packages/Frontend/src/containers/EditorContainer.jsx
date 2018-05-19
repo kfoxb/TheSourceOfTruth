@@ -55,37 +55,7 @@ export default class EditorContainer extends Component {
       firepadRef, codeMirror,
       { richTextToolbar: true, richTextShortcuts: true },
     );
-    firepad.on('ready', () => {
-      if (firepad.isHistoryEmpty()) {
-        firepad.setHtml('<span style="font-size: 24px;">Rich-text editing with <span style="color: red">Firepad!</span></span><br/>\n' +
-              '<br/>' +
-              '<div style="font-size: 18px">' +
-              'Supports:<br/>' +
-              '<ul>' +
-                '<li>Different ' +
-                  '<span style="font-family: impact">fonts,</span>' +
-                  '<span style="font-size: 24px;"> sizes, </span>' +
-                  '<span style="color: blue">and colors.</span>' +
-                '</li>' +
-                '<li>' +
-                  '<b>Bold, </b>' +
-                  '<i>italic, </i>' +
-                  '<u>and underline.</u>' +
-                '</li>' +
-                '<li>Lists' +
-                  '<ol>' +
-                    '<li>One</li>' +
-                    '<li>Two</li>' +
-                  '</ol>' +
-                '</li>' +
-                '<li>Undo / redo</li>' +
-                '<li>Cursor / selection synchronization.</li>' +
-                '<li><checkbox></checkbox> It supports customized entities.</li>' +
-                '<li>And it\'s all fully collaborative!</li>' +
-              '</ul>' +
-              '</div>');
-      }
-    });
+    firepad.on('ready', () => {});
   }
 
   setRef = (ref) => { this.quill = ref; };
