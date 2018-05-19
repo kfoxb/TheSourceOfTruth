@@ -58,9 +58,11 @@ export default class EditorContainer extends Component {
   }
 
   componentDidMount() {
-    // Create CodeMirror (with lineWrapping on).
+    const cm = CodeMirror(document.getElementById('firepad-container'), {
+      lineWrapping: true,
+    });
     const firepad = Firepad.fromCodeMirror(
-      this.ref, document.getElementById('firepad-container'),
+      this.ref, cm,
       { richTextToolbar: true, richTextShortcuts: true },
     );
     firepad.on('ready', () => {});
