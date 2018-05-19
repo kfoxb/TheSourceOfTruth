@@ -2,8 +2,6 @@
 import { createAssertWithPropsToMatchSnapshot, makeShallowCreateWrapper } from '../../test-utils';
 import EditorContainer from './EditorContainer';
 
-jest.mock('firebase');
-
 describe('EditorContainer', () => {
   const defaultProps = {
     history: {

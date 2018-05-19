@@ -1,7 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EditorContainer should render 1`] = `
-<p>
-  Loading...
-</p>
+<div>
+  <vc
+    headerTitle="Add New Post"
+  />
+  <ContentBody>
+    <input
+      onChange={[Function]}
+      placeholder="Add New Title Here"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+      value=""
+    />
+    <styled.div
+      id="firepad-container"
+    />
+  </ContentBody>
+</div>
 `;
