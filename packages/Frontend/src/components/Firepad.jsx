@@ -30,7 +30,7 @@ export default function Firepad({ handleTitleChange, readOnly, title }) {
       <Header headerTitle="Add New Post" />
       <ContentBody>
         { readOnly ?
-            (<p>{title}</p>) :
+            (<h1>{title}</h1>) :
             (<input
               onChange={handleTitleChange}
               style={{ width: '100%' }}
