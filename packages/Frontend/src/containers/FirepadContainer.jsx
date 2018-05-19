@@ -1,36 +1,15 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Header } from 'somnium';
 import CodeMirror from 'codemirror';
-import 'codemirror/lib/codemirror.css';
-import 'firepad/dist/firepad.css';
-import ContentBody from '../components/ContentBody';
+import Firepad from '../components/Firepad';
 import { getCollection, getDocumentId } from '../helpers/firestore';
 
 global.CodeMirror = CodeMirror;
 const { fromCodeMirror } = require('firepad/dist/firepad');
 
-const StyledFirepad = styled.div`
-  height: '100%';
-  width: '100%';
-  .firepad {
-    border: 1px solid #DCDCDC;
-  }
-  .firepad-btn {
-    border: 0;
-    color: #3d4347;
-    &:hover {
-    background-color: grey;
-    }
-  }
-  .powered-by-firepad {
-    display: none;
-  }
-`;
 
-export default class EditorContainer extends Component {
+export default class FirepadContainer extends Component {
   static propTypes = {
     history: PropTypes.shape({
       replace: PropTypes.func.isRequired,
@@ -88,18 +67,10 @@ export default class EditorContainer extends Component {
 
   render() {
     return (
-      <div>
-        <Header headerTitle="Add New Post" />
-        <ContentBody>
-          <input
-            onChange={this.handleTitleChange}
-            style={{ width: '100%' }}
-            placeholder="Add New Title Here"
-            value={this.state.title}
-          />
-          <StyledFirepad id="firepad-container" />
-        </ContentBody>
-      </div>
+      <Firepad
+        title={this.state.title}
+        handleTitleChange={this.handleTitleChange}
+      />
     );
   }
 }
