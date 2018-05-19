@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Header } from 'somnium';
 import ContentBody from '../components/ContentBody';
 import { getCollection, getDocumentId } from '../helpers/firestore';
 
+const StyledFirepad = styled.div`
+  height: '100%';
+  width: '100%';
+  .firepad {
+    border: 1px solid #DCDCDC;
+  }
+  .firepad-btn {
+    border: 0;
+    color: #3d4347;
+    &:hover {
+    background-color: grey;
+    }
+  }
+  .powered-by-firepad {
+    display: none;
+  }
+`;
 
 export default class EditorContainer extends Component {
   static propTypes = {
@@ -108,7 +126,7 @@ export default class EditorContainer extends Component {
             placeholder="Add New Title Here"
             value={this.state.title}
           />
-          <div style={{ width: '100%', height: '100%' }} id="firepad-container" />
+          <StyledFirepad id="firepad-container" />
         </ContentBody>
       </div>
     );
