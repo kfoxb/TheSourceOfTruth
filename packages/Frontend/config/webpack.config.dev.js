@@ -14,7 +14,6 @@ module.exports = {
       inject: false,
       links: [
         'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css',
-        'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css',
         'https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css',
       ],
       mobile: true,
