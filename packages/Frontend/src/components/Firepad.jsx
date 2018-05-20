@@ -46,10 +46,11 @@ export default function Firepad({ handleTitleChange, readOnly, title }) {
 
 Firepad.propTypes = {
   handleTitleChange: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   readOnly: PropTypes.bool,
 };
 
 Firepad.defaultProps = {
   readOnly: true,
+  title: '',
 };
