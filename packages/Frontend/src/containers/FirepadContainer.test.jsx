@@ -7,6 +7,7 @@ describe('FirepadContainer', () => {
     history: {
       replace: () => {},
     },
+    isAuthenticated: false,
     match: {
       url: '',
       params: {
@@ -15,13 +16,19 @@ describe('FirepadContainer', () => {
     },
   };
 
+  const assertWithPropsToMatchSnapshot =
+    createAssertWithPropsToMatchSnapshot(FirepadContainer.WrappedComponent, defaultProps);
 
-  it('should render', () => {
-    createAssertWithPropsToMatchSnapshot(FirepadContainer, defaultProps)();
+  it('should render loading when not authenticated', () => {
+    assertWithPropsToMatchSnapshot();
+  });
+
+  it('should render when authenticated', () => {
+    assertWithPropsToMatchSnapshot({ isAuthenticated: true });
   });
 
   describe('journals', () => {
-    const createWrapper = makeShallowCreateWrapper(FirepadContainer, defaultProps);
+    const createWrapper = makeShallowCreateWrapper(FirepadContainer.WrappedComponent, defaultProps);
 
     it('should set it\'s collection to journals when the url contains journals', () => {
       const extraProps = {
