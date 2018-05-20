@@ -1,24 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FirepadContainer should render 1`] = `
-<div>
-  <vc
-    headerTitle="Add New Post"
-  />
-  <ContentBody>
-    <input
-      onChange={[Function]}
-      placeholder="Add New Title Here"
-      style={
-        Object {
-          "width": "100%",
-        }
-      }
-      value=""
-    />
-    <styled.div
-      id="firepad-container"
-    />
-  </ContentBody>
-</div>
+<Firepad
+  handleTitleChange={[Function]}
+  readOnly={true}
+  title=""
+/>
 `;

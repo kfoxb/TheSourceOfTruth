@@ -31,6 +31,7 @@ const database = {
     push: () => ({
       key: '',
       on: () => {},
+      once: () => {},
     }),
   }),
 };
