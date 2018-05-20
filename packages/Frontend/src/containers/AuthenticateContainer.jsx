@@ -34,12 +34,9 @@ class AuthenticateContainer extends Component {
 
   componentDidMount = () => {
     this.setState({ loading: true }, () => {
-      console.log('getRedirectResult');
       auth().getRedirectResult().then(() => {
-        console.log('getRedirectResult running');
         this.setState({ loading: false });
       }, (error) => {
-        console.log('error', error);
         this.setState({ loading: false });
         if (error.code === 'auth/account-exists-with-different-credential') {
           // eslint-disable-next-line no-unused-vars
@@ -93,9 +90,7 @@ class AuthenticateContainer extends Component {
   };
 
   render() {
-    console.log('isAnonymous', this.props.isAnonymous);
     if (!this.props.isAnonymous) {
-      console.log('redirecting', this.props, this.state);
       return <Redirect to="/" />;
     }
 
