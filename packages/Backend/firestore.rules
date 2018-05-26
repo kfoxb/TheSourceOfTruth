@@ -6,5 +6,11 @@ service cloud.firestore {
     match /journals/{journal} {
       allow create, update: if request.auth.token.author == true;
     }
+    match /journals/{journal}/phases/create {
+      allow create, update: if request.auth.token.author == true;
+    }
+    match /journals/{journal}/phases/edit {
+      allow create, update: if request.auth.token.editor == true;
+    }
   }
 }
