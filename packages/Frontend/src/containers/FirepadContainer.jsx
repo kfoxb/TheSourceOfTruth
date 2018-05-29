@@ -82,6 +82,10 @@ class FirepadContainer extends Component {
     );
   }
 
+  handleSubmit = () => {
+    console.log('Submitted');
+  }
+
   handleTitleChange = ({ target: { value } }) => {
     const newTitle = { title: value };
     this.setState(newTitle, () => {
@@ -96,6 +100,7 @@ class FirepadContainer extends Component {
     return (
       <Firepad
         title={this.state.title}
+        handleSubmit={this.handleSubmit}
         handleTitleChange={this.handleTitleChange}
         readOnly={this.props.readOnly}
       />
