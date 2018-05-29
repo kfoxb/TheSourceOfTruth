@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
 import Button from '@material-ui/core/Button';
+import Dialog from './Dialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
 
@@ -26,24 +27,32 @@ const StyledFirepad = styled.div`
 `;
 
 export default function Firepad({
-  handleTitleChange,
+  dialogIsOpen,
+  handleClose,
   handleSubmit,
+  handleTitleChange,
+  openDialog,
   readOnly,
   title,
 }) {
   return (
     <div>
+      <Dialog
+        dialogIsOpen={dialogIsOpen}
+        handleClose={handleClose}
+        handleSubmit={handleSubmit}
+      />
       <TaskContentBody>
         <TaskHeader>
           <div>Add New Post</div>
-          <Button onClick={handleSubmit} className="buttons">Submit</Button>
+          <Button onClick={openDialog} className="buttons">Submit</Button>
         </TaskHeader>
         { readOnly ?
             (<h1>{title}</h1>) :
             <input
               onChange={handleTitleChange}
-              style={{ width: '100%' }}
               placeholder="Add New Title Here"
+              style={{ width: '100%' }}
               value={title}
             />
         }
@@ -54,13 +63,17 @@ export default function Firepad({
 }
 
 Firepad.propTypes = {
+  dialogIsOpen: PropTypes.bool,
+  handleClose: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
+  openDialog: PropTypes.func.isRequired,
   title: PropTypes.string,
   readOnly: PropTypes.bool,
 };
 
 Firepad.defaultProps = {
+  dialogIsOpen: false,
   readOnly: true,
   title: '',
 };

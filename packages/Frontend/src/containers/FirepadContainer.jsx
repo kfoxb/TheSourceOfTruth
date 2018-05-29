@@ -21,11 +21,13 @@ class FirepadContainer extends Component {
         id: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
+    dialogIsOpen: PropTypes.bool,
     readOnly: PropTypes.bool,
     uid: PropTypes.string,
   }
 
   static defaultProps = {
+    dialogIsOpen: false,
     readOnly: true,
     uid: '',
   }
@@ -82,8 +84,16 @@ class FirepadContainer extends Component {
     );
   }
 
+  handleClose = () => {
+    this.setState({ dialogIsOpen: false });
+  };
+
   handleSubmit = () => {
     console.log('Submitted');
+  }
+
+  openDialog = () => {
+    this.setState({ dialogIsOpen: true });
   }
 
   handleTitleChange = ({ target: { value } }) => {
@@ -100,8 +110,11 @@ class FirepadContainer extends Component {
     return (
       <Firepad
         title={this.state.title}
+        handleClose={this.handleClose}
         handleSubmit={this.handleSubmit}
         handleTitleChange={this.handleTitleChange}
+        dialogIsOpen={this.state.dialogIsOpen}
+        openDialog={this.openDialog}
         readOnly={this.props.readOnly}
       />
     );
