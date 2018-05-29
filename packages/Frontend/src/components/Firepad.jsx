@@ -45,7 +45,9 @@ export default function Firepad({
       <TaskContentBody>
         <TaskHeader>
           <div>Add New Post</div>
-          <Button onClick={openDialog} className="buttons">Submit</Button>
+          { !readOnly &&
+            <Button onClick={openDialog} className="buttons">Submit</Button>
+          }
         </TaskHeader>
         { readOnly ?
             (<h1>{title}</h1>) :
