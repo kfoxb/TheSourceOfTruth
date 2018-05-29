@@ -21,13 +21,11 @@ class FirepadContainer extends Component {
         id: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
-    dialogIsOpen: PropTypes.bool,
     readOnly: PropTypes.bool,
     uid: PropTypes.string,
   }
 
   static defaultProps = {
-    dialogIsOpen: false,
     readOnly: true,
     uid: '',
   }
@@ -36,6 +34,7 @@ class FirepadContainer extends Component {
     super(props);
     this.state = {
       collection: getCollection(props.match.url),
+      dialogIsOpen: false,
       documentId: getDocumentId(props.match.params.id),
       title: '',
     };
@@ -88,9 +87,7 @@ class FirepadContainer extends Component {
     this.setState({ dialogIsOpen: false });
   };
 
-  handleSubmit = () => {
-    console.log('Submitted');
-  }
+  handleSubmit = () => {}
 
   openDialog = () => {
     this.setState({ dialogIsOpen: true });
