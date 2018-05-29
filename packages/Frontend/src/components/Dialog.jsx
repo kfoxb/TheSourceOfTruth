@@ -22,11 +22,6 @@ export default function Dialog(props) {
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">Are you sure you want to submit?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-              You will not be able to continue creating this post.
-          </DialogContentText>
-        </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
               Cancel
