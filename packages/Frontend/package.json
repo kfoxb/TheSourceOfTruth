@@ -1,7 +1,7 @@
 {
-  "name": "Dashboard",
+  "name": "@TheSourceOfTruth/Frontend",
   "version": "0.0.1",
-  "description": "Dashboard for The Source of Truth",
+  "description": "Frontend for The Source of Truth",
   "main": "src/index.js",
   "repository": "https://github.com/TheSourceOfTruth/Dashboard",
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",

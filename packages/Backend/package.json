@@ -1,7 +1,7 @@
 {
-  "name": "sot-functions",
+  "name": "@TheSourceOfTruth/Backend",
   "version": "0.0.1",
-  "description": "Serverless functions for The Source of Truth",
+  "description": "Backend for The Source of Truth",
   "main": "index.js",
   "repository": "https://github.com/TheSourceOfTruth/TheSourceOfTruth",
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
