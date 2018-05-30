@@ -4,13 +4,8 @@ service cloud.firestore {
       allow read: if request.auth.token != null;
     }
     match /journals/{journal} {
-      allow create, update: if request.auth.token.author == true;
-    }
-    match /journals/{journal}/phases/create {
-      allow create, update: if request.auth.token.author == true;
-    }
-    match /journals/{journal}/phases/edit {
-      allow create, update: if request.auth.token.editor == true;
+      allow create: if request.auth.token.author == true;
+      allow update: if request.auth.token.author == true || request.auth.token.editor == true;
     }
   }
 }
