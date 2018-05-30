@@ -5,6 +5,8 @@ import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
 import Button from '@material-ui/core/Button';
 import Dialog from './Dialog';
+import View from './View';
+import colors from '../constants/colors';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
 import NotFound from '../components/NotFound';
@@ -12,14 +14,23 @@ import NotFound from '../components/NotFound';
 const StyledFirepad = styled.div`
   height: '100%';
   width: '100%';
-  .firepad {
-    border: 1px solid #DCDCDC;
+  .CodeMirror {
+    background-color: ${colors.white};
+  }
+  .CodeMirror .firepad-with-toolbar {
+    top: 50px;
+  }
+  .firepad-toolbar {
+    border-bottom: 1px solid ${colors.grey};
+    height: 46px;
+    line-height: 15px;
   }
   .firepad-btn {
     border: 0;
-    color: #3d4347;
+    color: ${colors.darkGrey};
+    background-color: ${colors.white};
     &:hover {
-    background-color: grey;
+    background-color: ${colors.darkGrey};
     }
   }
   .powered-by-firepad {
@@ -59,27 +70,34 @@ export default function Firepad({
           handleClose={handleClose}
           handleSubmit={handleSubmit}
         />
-        <TaskContentBody>
-          <TaskHeader>
-            <div>Add New Post</div>
-            { !readOnly &&
-            <Button onClick={openDialog} className="buttons">Submit</Button>
+        <View>
+          <div className="sides" />
+          <div className="content">
+            <TaskContentBody>
+              <TaskHeader>
+                <h2>Add New Post</h2>
+                { !readOnly &&
+                <Button onClick={openDialog} className="buttons">Submit</Button>
           }
-          </TaskHeader>
-          { readOnly ?
-            (<h1>{title}</h1>) :
+              </TaskHeader>
+              { readOnly ?
+            (<h4>{title}</h4>) :
             <input
               onChange={handleTitleChange}
               placeholder="Add New Title Here"
-              style={{ width: '100%' }}
+              style={{
+                width: '100%', backgroundColor: colors.white, border: 'none', borderBottom: `1px solid ${colors.grey}`, fontStyle: 'italic',
+              }}
               value={title}
             />
         }
-          <StyledFirepad id="firepad-container" />
-        </TaskContentBody>
+              <StyledFirepad id="firepad-container" />
+            </TaskContentBody>
+          </div>
+          <div className="sides" />
+        </View>
       </div>
-    </Fragment>
-  );
+    </Fragment>);
 }
 
 Firepad.propTypes = {

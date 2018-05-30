@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import colors from '../constants/colors';
 
 const StyledHeader = styled.div`
   display: grid;
@@ -11,8 +12,8 @@ const StyledHeader = styled.div`
   .buttons {
     width: 30px;
     justify-self: end;
-    background-color: #2196F3;
-    color: white;
+    background-color: ${colors.blue};
+    color: ${colors.white};
   }
 `;
 
