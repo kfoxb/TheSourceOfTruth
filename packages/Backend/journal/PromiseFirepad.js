@@ -33,26 +33,4 @@ export default class PromiseFirepad {
   getText() {
     return this.getPromise('getText');
   }
-
-  setHtml(html) {
-    return this.setPromise(html, 'setHtml');
-  }
-
-  setPromise(item, method) {
-    return new Promise((resolve, reject) => {
-      this.headless[method](item, (error, committed) => {
-        if (error) {
-          reject(error);
-        } else if (committed) {
-          resolve();
-        } else {
-          reject(new Error('Could not write to firepad, conflict in history'));
-        }
-      });
-    });
-  }
-
-  setText(text) {
-    this.setPromise(text, 'setText');
-  }
 }
