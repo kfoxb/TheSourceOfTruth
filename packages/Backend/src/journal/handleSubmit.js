@@ -1,6 +1,6 @@
 import { firestore as firestoreFunction } from 'firebase-functions';
 import { database, firestore as firestoreAdmin } from 'firebase-admin';
-import { BACKUP_REALTIME_DATABASE_ID, CHANGING_PHASE, CREATE, EDIT, JOURNAL_BACKUPS, JOURNALS, PHASES, PUBLISHED, REALTIME_DATABASE_ID } from '@TheSourceOfTruth/Common/constants';
+import { BACKUP_REALTIME_DATABASE_ID, CHANGING_PHASE, CREATE, EDIT, JOURNAL_BACKUPS, JOURNALS, PHASES, PUBLISHED, REALTIME_DATABASE_ID } from '../constants';
 import PromiseFirepad from './PromiseFirepad';
 
 const phaseOrder = [CREATE, EDIT, PUBLISHED];
