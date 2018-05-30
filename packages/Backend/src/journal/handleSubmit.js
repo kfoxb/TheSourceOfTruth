@@ -15,7 +15,7 @@ const createRealtimeDatabaseBackup = refToBackup => new Promise((resolve, reject
   });
 });
 
-const submit = firestoreFunction
+const handleSubmit = firestoreFunction
   .document(`${JOURNALS}/{journalId}`)
   .onUpdate((change, context) => {
     const beforeChangingPhase = change.before.data()[CHANGING_PHASE];
@@ -56,4 +56,4 @@ const submit = firestoreFunction
     return null;
   });
 
-export default submit;
+export default handleSubmit;
