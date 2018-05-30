@@ -10,6 +10,8 @@ import AuthenticateContainer from '../containers/AuthenticateContainer';
 import FirepadContainer from '../containers/FirepadContainer';
 import NotFound from '../components/NotFound';
 import Tasks from '../components/Tasks';
+// eslint-disable-next-line no-unused-vars
+import injectGlobal from '../constants/Font';
 
 function App({
   isAnonymous, toggleVisibility, visible,
