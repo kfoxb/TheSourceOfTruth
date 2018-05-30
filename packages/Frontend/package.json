@@ -7,6 +7,7 @@
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "@TheSourceOfTruth/Common": "^0.0.0",
     "@firebase/app-types": "0.1.2",
     "@material-ui/core": "1.1.0",
     "@material-ui/icons": "1.1.0",

@@ -1,24 +1,9 @@
 import { firestore as firestoreFunction } from 'firebase-functions';
 import { database, firestore as firestoreAdmin } from 'firebase-admin';
+import { BACKUP_REALTIME_DATABASE_ID, CHANGING_PHASE, CREATE, EDIT, JOURNAL_BACKUPS, JOURNALS, PHASES, PUBLISHED, REALTIME_DATABASE_ID } from '@TheSourceOfTruth/Common/constants';
 import PromiseFirepad from './PromiseFirepad';
 
-const JOURNALS = 'journals';
-const JOURNAL_BACKUPS = 'journalBackups';
-const REALTIME_DATABASE_ID = 'realtimeDatabaseId';
-const BACKUP_REALTIME_DATABASE_ID = 'backupRealtimeDatabaseId';
-const CHANGING_PHASE = 'changingPhase';
-const PHASES = 'phases';
-
-const phases = Object.freeze({
-  create: 'create',
-  edit: 'edit',
-  published: 'published',
-  view: 'view',
-});
-
-const { create, edit, published } = phases;
-const phaseOrder = [create, edit, published];
-
+const phaseOrder = [CREATE, EDIT, PUBLISHED];
 const getNextPhase = currentPhase => phaseOrder[phaseOrder.findIndex(p => p === currentPhase) + 1];
 
 const createRealtimeDatabaseBackup = refToBackup => new Promise((resolve, reject) => {

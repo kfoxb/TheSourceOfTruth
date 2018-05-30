@@ -3,8 +3,8 @@ import { database, firestore } from 'firebase';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
+import { CHANGING_PHASE, CREATE, JOURNALS, REALTIME_DATABASE_ID, VIEW } from '@TheSourceOfTruth/Common/constants';
 import Firepad from '../components/Firepad';
-import { JOURNALS, phases, REALTIMEDATABASEID, CHANGING_PHASE } from '../constants';
 
 global.CodeMirror = CodeMirror;
 const { fromCodeMirror } = require('firepad/dist/firepad');
@@ -65,7 +65,7 @@ class FirepadContainer extends Component {
 
   getOrCreatePrimaryDocument() {
     const { id, phase } = this.props.match.params;
-    if (phase === phases.create && !id) {
+    if (phase === CREATE && !id) {
       return firestore()
         .collection(JOURNALS)
         .add({
@@ -90,10 +90,10 @@ class FirepadContainer extends Component {
 
   getOrCreateFirepadDocument(primaryDoc) {
     const { phase, id } = this.props.match.params;
-    if (phase === phases.create && !id) {
+    if (phase === CREATE && !id) {
       this.createFirepadDocument(primaryDoc);
     } else {
-      const realTimeId = primaryDoc.data()[REALTIMEDATABASEID];
+      const realTimeId = primaryDoc.data()[REALTIME_DATABASE_ID];
       this.ref = database().ref(JOURNALS).child(realTimeId);
       this.ref.once('value', (snapshot) => {
         this.setState({ title: snapshot.val().title });
@@ -107,10 +107,10 @@ class FirepadContainer extends Component {
   createFirepadDocument(primaryDoc) {
     this.ref = database().ref(JOURNALS).push();
     this.primaryDocRef.update({
-      [REALTIMEDATABASEID]: this.ref.key,
+      [REALTIME_DATABASE_ID]: this.ref.key,
     })
       .then(() => {
-        this.props.history.replace(`/${JOURNALS}/${phases.create}/${primaryDoc.id}`);
+        this.props.history.replace(`/${JOURNALS}/${CREATE}/${primaryDoc.id}`);
         this.setState({
           realtimeDatabaseReady: true,
         });
@@ -144,7 +144,7 @@ class FirepadContainer extends Component {
   verifyPhases(primaryDoc) {
     const { phase } = this.props.match.params;
     const dbPhase = primaryDoc.data().phase;
-    if (phase === phases.view || phase === dbPhase) {
+    if (phase === VIEW || phase === dbPhase) {
       return primaryDoc;
     }
     this.setState({
@@ -194,7 +194,7 @@ class FirepadContainer extends Component {
     this.setState({ dialogIsOpen: true });
   }
 
-  isReadOnly = () => this.props.match.params.phase === phases.view
+  isReadOnly = () => this.props.match.params.phase === VIEW
 
   handleTitleChange = ({ target: { value } }) => {
     const newTitle = { title: value };

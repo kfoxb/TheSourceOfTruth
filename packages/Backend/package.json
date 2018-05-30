@@ -17,6 +17,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@TheSourceOfTruth/Common": "^0.0.0",
     "firebase-admin": "5.12.1",
     "firebase-functions": "1.0.2",
     "firebase-tools": "3.18.4",
