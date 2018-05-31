@@ -2,6 +2,12 @@
   "rules": {
     "journals": {
       "$journal": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        "phase": {
+          ".read": "auth != null",
+          ".write": "auth != null"
+        },
         "history": {
           ".read": "auth != null",
           "$revision": {
@@ -22,3 +28,4 @@
     }
   }
 }
+
