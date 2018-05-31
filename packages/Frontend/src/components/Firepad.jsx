@@ -110,7 +110,7 @@ export default function Firepad({
                 <h2>Add New Post</h2>
                 { !readOnly &&
                 <Button onClick={openDialog} className="buttons">Submit</Button>
-          }
+                }
               </TaskHeader>
               { readOnly ?
             (<h4>{title}</h4>) :
@@ -129,7 +129,8 @@ export default function Firepad({
           <div className="sides" />
         </View>
       </div>
-    </Fragment>);
+    </Fragment>
+  );
 }
 
 Firepad.propTypes = {
