@@ -8,7 +8,7 @@ service cloud.firestore {
       allow create: if request.auth.token.author == true;
       // allow authors to move the document to editing and editors to move
       // the document to published
-      allow update: if (request.auth.token.author == true && resource.data.phase == 'create') || (request.auth.token.editor == true && resource.data.phase == 'create');
+      allow update: if (request.auth.token.author == true && resource.data.phase == 'create') || (request.auth.token.editor == true && resource.data.phase == 'edit');
     }
   }
 }
