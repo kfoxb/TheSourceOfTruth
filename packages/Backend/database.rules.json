@@ -3,7 +3,7 @@
     "journals": {
       "$journal": {
         ".read": "auth != null",
-        ".write": "auth != null",
+        ".write": "!data.exists() && auth.token.author === true",
         "phase": {
           ".write": "auth != null"
         },
