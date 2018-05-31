@@ -1,0 +1,10 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    "journals": {
+      "$journal": {
+        ".write": "((!data.exists() || data.child('phase').val() === 'create') && auth.token.author === true) || (data.child('phase').val() === 'edit' && auth.token.editor === true)"
+      }
+    }
+  }
+}
