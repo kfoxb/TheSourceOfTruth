@@ -4,9 +4,6 @@
       "$journal": {
         ".read": "auth != null",
         ".write": "!data.exists() && auth.token.author === true",
-        "phase": {
-          ".write": "auth != null"
-        },
         "history": {
           "$revision": {
             ".write": "data.val() === null && newData.child('a').val() === auth.uid"
@@ -24,4 +21,3 @@
     }
   }
 }
-
