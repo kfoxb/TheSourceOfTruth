@@ -36,7 +36,7 @@ export default function View(props) {
       <div className="content">
         { props.children }
       </div>
-      <div className="sides" />
+      <div className="sides fullpage" />
     </StyledDiv>
   );
 }
