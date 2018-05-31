@@ -1,9 +1,23 @@
 {
   "rules": {
-    ".read": "auth != null",
     "journals": {
       "$journal": {
-        ".write": "((!data.exists() || data.child('phase').val() === 'create') && auth.token.author === true) || (data.child('phase').val() === 'edit' && auth.token.editor === true)"
+        "history": {
+          ".read": "auth != null",
+          "$revision": {
+            ".write": "data.val() === null && newData.child('a').val() === auth.uid"
+          }
+        },
+        "users": {
+          ".read": "auth != null",
+          "$userid": {
+            ".write": "$userid === auth.uid"
+          }
+        },
+        "checkpoint": {
+          ".read": "auth != null",
+          ".write": "newData.child('a').val() === auth.uid && root.child('history').child(newData.child('id').val()).child('a').val() === auth.uid"
+        }
       }
     }
   }
