@@ -105,7 +105,7 @@ class FirepadContainer extends Component {
   }
 
   createFirepadDocument(primaryDoc) {
-    this.ref = database().ref(JOURNALS).push();
+    this.ref = database().ref(JOURNALS).push({ phase: CREATE });
     this.primaryDocRef.update({
       [REALTIME_DATABASE_ID]: this.ref.key,
     })
