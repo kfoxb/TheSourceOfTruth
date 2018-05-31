@@ -17,13 +17,45 @@ const StyledFirepad = styled.div`
   .CodeMirror {
     background-color: ${colors.white};
   }
-  .CodeMirror .firepad-with-toolbar {
-    top: 50px;
+  .firepad-with-toolbar .CodeMirror {
+    bottom: 0px;
+    @media(max-width: 386px) {
+      top: 98px;
+    }
+    @media(min-width: 387px) and (max-width: 695px) {
+      top: 72px;
+    }
+    @media(min-width: 696px) and (max-width: 800px) {
+      top: 46px;
+    }
+    @media(min-width: 800px) and (max-width: 974px) {
+      top: 72px;
+    }
+    @media(min-width: 975px) {
+      top: 46px;
+    }
+  }
+  .CodeMirror-vscrollbar {
+    display: none !important;
   }
   .firepad-toolbar {
     border-bottom: 1px solid ${colors.grey};
-    height: 46px;
     line-height: 15px;
+    @media(max-width: 386px) {
+      height: 98px;
+    }
+    @media(min-width: 387px) and (max-width: 695px) {
+      height: 72px;
+    }
+    @media(min-width: 696px) and (max-width: 800px) {
+      height: 46px;
+    }
+    @media(min-width: 800px) and (max-width: 975px) {
+      height: 72px;
+    }
+    @media(min-width: 975px) {
+      height: 46px;
+    }
   }
   .firepad-btn {
     border: 0;

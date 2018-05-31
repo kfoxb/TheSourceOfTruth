@@ -23,4 +23,9 @@ injectGlobal`
   .MuiButton-label-11, h2, input {
     ${NotoSansFont}
   }
+
+  @viewport {
+  width: device-width ;
+  zoom: 1.0 ;
+}
 `;

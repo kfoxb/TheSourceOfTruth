@@ -5,7 +5,6 @@ import colors from '../constants/colors';
 
 const StyledHeader = styled.div`
   display: grid;
-  font-size: 24px;
   grid-template-columns: 4fr 1fr;
   align-content: center;
 

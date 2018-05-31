@@ -7,9 +7,12 @@ const StyledDiv = styled.div`
   background-color: ${colors.white};
   top: 0;
   bottom: 0;
-  height: 100vh;
+  height: 21.45fr;
   display: grid;
-  @media(min-width: 600px) {
+  @media(max-width: 800px) {
+    grid-template-columns: 0 5fr 0;
+  }
+  @media(min-width: 800px) {
     grid-template-columns: 1fr 5fr 1fr;
   }
   .sides {
@@ -18,6 +21,7 @@ const StyledDiv = styled.div`
   }
   .content {
     padding: 20px;
+    background-color: ${colors.white};
   }
 `;
 
