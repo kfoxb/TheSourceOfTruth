@@ -20,7 +20,7 @@
         },
         "phase": {
           ".read": "auth != null",
-          ".write": "auth != null"
+          ".write": "!data.exists() && auth.token.author === true && newData.val() === 'create'"
         }
       }
     }
