@@ -29,7 +29,7 @@
         },
         "changingPhase": {
           ".read": "auth != null",
-          ".write": "auth != null"
+          ".write": "auth.token.author === true && data.parent().child('phase').val() === 'create'"
         }
       }
     }
