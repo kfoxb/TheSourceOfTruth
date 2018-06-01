@@ -16,7 +16,7 @@
         },
         "checkpoint": {
           ".read": "auth != null",
-          ".write": "newData.child('a').val() === auth.uid && root.child('history').child(newData.child('id').val()).child('a').val() === auth.uid"
+          ".write": "newData.child('a').val() === auth.uid && data.parent().child('history').child(newData.child('id').val()).child('a').val() === auth.uid"
         },
         "phase": {
           ".read": "auth != null",
