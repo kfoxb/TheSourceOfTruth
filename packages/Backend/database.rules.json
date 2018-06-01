@@ -26,6 +26,10 @@
         "title": {
           ".read": "auth != null",
           ".write": "(data.parent().child('phase').val() === 'create' && auth.token.author === true) || (data.parent().child('phase').val() === 'edit' && auth.token.editor === true)"
+        },
+        "changingPhase": {
+          ".read": "auth != null",
+          ".write": "auth != null"
         }
       }
     }

@@ -68,6 +68,7 @@ class FirepadContainer extends Component {
     return Promise.all([
       this.ref.child(PHASE).set(CREATE),
       this.ref.child('title').set(''),
+      this.ref.child(CHANGING_PHASE).set(false),
     ])
       .then(() => {
         this.props.history.replace(`/${JOURNALS}/${CREATE}/${this.ref.key}`);
