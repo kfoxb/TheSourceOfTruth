@@ -22,9 +22,17 @@ const StyledDiv = styled.div`
     top: 100px;
   }
 
-  .ui.blue.button, .ui.blue.buttons .button {
+  .ui.blue.button, .ui.blue.buttons {
     margin-bottom: 10px;
     background-color: ${colors.blue};
+  }
+
+  .ui.violet.button, .ui.violet.buttons {
+    margin-bottom: 10px;
+  }
+
+  .button {
+    height: 45px;
   }
 `;
 
