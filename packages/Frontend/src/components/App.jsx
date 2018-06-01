@@ -30,10 +30,16 @@ function App({
         <Route exact path="/" component={Home} />
         <View>
           <Route exact path="/journals" component={JournalsContainer} />
-          <ConnectionError>
-            <Route exact path="/journals/:phase(edit|view)/:id" component={FirepadContainer} />
-            <Route exact path="/journals/:phase(create)/:id?" component={FirepadContainer} />
-          </ConnectionError>
+          <Route
+            exact
+            path="/journals/:phase(edit|view)/:id"
+            render={() => (<ConnectionError component={FirepadContainer} />)}
+          />
+          <Route
+            exact
+            path="/journals/:phase(create)/:id?"
+            render={() => (<ConnectionError component={FirepadContainer} />)}
+          />
           <Route exact path="/library" component={Library} />
           <Route exact path="/sign(up|in)" component={AuthenticateContainer} />
           <Route exact path="/tasks" component={Tasks} />

@@ -33,7 +33,7 @@ class SimpleSnackbar extends Component {
           this.setState({ open: true });
         }
       });
-    }, 10000);
+    }, 5000);
   }
 
   handleClick = () => {
