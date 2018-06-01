@@ -29,7 +29,8 @@
         },
         "changingPhase": {
           ".read": "auth != null",
-          ".write": "auth.token.author === true && data.parent().child('phase').val() === 'create' && newData.val() === false"
+          ".write": "auth.token.author === true && data.parent().child('phase').val() === 'create' ",
+          ".validate": "newData.val() === true || newData.val() === false"
         }
       }
     }
