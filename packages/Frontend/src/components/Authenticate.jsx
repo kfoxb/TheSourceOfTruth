@@ -121,7 +121,9 @@ export default function Authenticate({
                   backgroundPosition: '3px 3px',
                   height: '45px',
                 }}
-              >Login With Facebook</Button>
+              >
+                Login With Facebook
+              </Button>
             </Form>
             { loading && (
             <StyledLoader>
