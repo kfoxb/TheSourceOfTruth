@@ -2,6 +2,10 @@
   "rules": {
     "journals": {
       "$journal": {
+        "phase": {
+          ".read": "auth != null",
+          ".write": "auth != null"
+        },
         ".read": "auth != null",
         ".write": "!data.exists() && auth.token.author === true",
         "history": {
