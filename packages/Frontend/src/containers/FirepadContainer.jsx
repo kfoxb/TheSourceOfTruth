@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { database, firestore } from 'firebase';
+import { database } from 'firebase';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
-import { CHANGING_PHASE, CREATE, JOURNALS, PHASE, REALTIME_DATABASE_ID, VIEW } from '../constants';
+import { CHANGING_PHASE, CREATE, JOURNALS, PHASE, VIEW } from '../constants';
 import Firepad from '../components/Firepad';
 
 global.CodeMirror = CodeMirror;
@@ -36,7 +36,7 @@ class FirepadContainer extends Component {
       dialogIsOpen: false,
       loading: true,
       notFound: false,
-      phase: '',
+      [PHASE]: '',
       title: '',
     };
   }
@@ -66,23 +66,27 @@ class FirepadContainer extends Component {
   createFirepadDocument() {
     this.ref = database().ref(JOURNALS).push();
     return Promise.all([
-      this.ref.child('phase').set(CREATE),
+      this.ref.child(PHASE).set(CREATE),
       this.ref.child('title').set(''),
     ])
       .then(() => {
         this.props.history.replace(`/${JOURNALS}/${CREATE}/${this.ref.key}`);
         this.listenForDocChanges();
       })
-      .catch(error => this.setState({ error }));
+      .catch(this.handleError);
   }
 
   listenForDocChanges() {
-    console.log('listenForDocChanges');
-    this.ref.on('value', this.handleSnapshot, (error) => { this.setState({ error }); console.log('error', error); });
+    this.ref.on('value', this.handleSnapshot, this.handleError);
+  }
+
+  handleError = (error) => {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    this.setState({ error });
   }
 
   handleSnapshot = (snapshot) => {
-    console.log('snapshot');
     const data = snapshot.val();
     if (data !== null) {
       const { changingPhase, phase, title } = data;
@@ -171,9 +175,7 @@ class FirepadContainer extends Component {
       .update({
         [CHANGING_PHASE]: true,
       })
-      .catch((error) => {
-        this.setState({ error });
-      });
+      .catch(this.handleError);
   }
 
   render() {
