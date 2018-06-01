@@ -43,17 +43,17 @@ class FirepadContainer extends Component {
   }
 
   componentDidMount() {
-    this.getOrCreatePrimaryDocument()
-      .then((primaryDocRef) => {
-        if (primaryDocRef) {
-          this.primaryDocRef = primaryDocRef;
-          primaryDocRef
-            .onSnapshot(this.handleSnapshot);
-        }
-      });
+    if (this.props.isAuthenticated) {
+      console.log('in componentDidMount', this.props.isAuthenticated);
+      this.init();
+    }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (!prevProps.isAuthenticated && this.props.isAuthenticated) {
+      console.log('in componentDidUpdate');
+      this.init();
+    }
     if (
       this.props.isAuthenticated &&
       this.state.realtimeDatabaseReady &&
@@ -104,18 +104,27 @@ class FirepadContainer extends Component {
     }
   }
 
+  init() {
+    this.getOrCreatePrimaryDocument()
+      .then((primaryDocRef) => {
+        if (primaryDocRef) {
+          this.primaryDocRef = primaryDocRef;
+          primaryDocRef
+            .onSnapshot(this.handleSnapshot);
+        }
+      });
+  }
+
   createFirepadDocument(primaryDoc) {
-    this.mainDatabaseRef = database().ref(JOURNALS).push();
-    this.ref = this.mainDatabaseRef.child('firepad');
-    console.log('key', this.mainDatabaseRef.key);
-    const phaseRef = this.mainDatabaseRef.child('phase');
-    console.log('phaseRef', phaseRef);
-    Promise.all([
-      this.primaryDocRef.update({
-        [REALTIME_DATABASE_ID]: this.ref.key,
-      }),
-      phaseRef.set(CREATE).catch(err => console.log('couldnt set phase', err)),
-    ])
+    console.log('creating isAuthenticated', this.props.isAuthenticated);
+    this.ref = database().ref(JOURNALS).push();
+    this.ref.child('phase')
+      .set(CREATE)
+      .then(() => console.log('phase set'))
+      .catch(err => console.log('couldnt set phase', err));
+    this.primaryDocRef.update({
+      [REALTIME_DATABASE_ID]: this.ref.key,
+    })
       .then(() => {
         console.log('set stuff up');
         this.props.history.replace(`/${JOURNALS}/${CREATE}/${primaryDoc.id}`);
