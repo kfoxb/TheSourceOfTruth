@@ -5,7 +5,7 @@
         "history": {
           ".read": "auth != null",
           "$revision": {
-            ".write": "(data.parent().parent().child('phase').val() === 'create') && data.val() === null && newData.child('a').val() === auth.uid"
+            ".write": "(data.parent().parent().child('phase').val() === 'create' && auth.token.author === true) && data.val() === null && newData.child('a').val() === auth.uid"
           }
         },
         "users": {
