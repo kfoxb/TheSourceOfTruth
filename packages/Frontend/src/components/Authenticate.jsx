@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import { Button, Divider, Form, Header, Icon, Loader, Segment, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
 import colors from '../constants/colors';
-import View from './View';
 
 const StyledLoader = styled.div`
     padding: 10px;
 `;
 
 const StyledDiv = styled.div`
-  background-color: ${colors.white};
   margin: auto;
   position: relative;
   width: 350px;
@@ -66,38 +64,35 @@ export default function Authenticate({
   const SIGN_UP = 'Sign Up';
 
   return (
-    <View>
-      <div className="sides" />
-      <div className="content">
-        <StyledDiv>
-          <Segment style={{ border: 'none', boxShadow: 'none', backgroundColor: `${colors.white}` }}>
-            <Header as="h1" icon textAlign="center">
-              <Icon name="user" circular />
-              <Header.Content>
-                {signingin ? SIGN_IN : SIGN_UP}
-              </Header.Content>
-            </Header>
-            <Form>
-              <Form.Input placeholder="Email" onChange={updateFormByKey('email')} />
-              <Form.Input placeholder="Password" onChange={updateFormByKey('password')} type="password" />
-              {!signingin && (
-              <Form.Input placeholder="Confirm Password" onChange={updateFormByKey('confirmPassword')} type="password" />
+    <StyledDiv>
+      <Segment style={{ border: 'none', boxShadow: 'none', backgroundColor: `${colors.white}` }}>
+        <Header as="h1" icon textAlign="center">
+          <Icon name="user" circular />
+          <Header.Content>
+            {signingin ? SIGN_IN : SIGN_UP}
+          </Header.Content>
+        </Header>
+        <Form>
+          <Form.Input placeholder="Email" onChange={updateFormByKey('email')} />
+          <Form.Input placeholder="Password" onChange={updateFormByKey('password')} type="password" />
+          {!signingin && (
+          <Form.Input placeholder="Confirm Password" onChange={updateFormByKey('confirmPassword')} type="password" />
           )}
-              {signingin ? signInButton : signUpButton}
-              <Divider horizontal>Or</Divider>
-              {signingin ?
-                <Link href="/signup" to="/signup">
-                  <Button color="blue" fluid>{SIGN_UP}</Button>
-                </Link> :
-                <Link href="/signin" to="/signin">
-                  <Button color="violet" fluid>{SIGN_IN}</Button>
-                </Link>
+          {signingin ? signInButton : signUpButton}
+          <Divider horizontal>Or</Divider>
+          {signingin ?
+            <Link href="/signup" to="/signup">
+              <Button color="blue" fluid>{SIGN_UP}</Button>
+            </Link> :
+            <Link href="/signin" to="/signin">
+              <Button color="violet" fluid>{SIGN_IN}</Button>
+            </Link>
           }
-              <Button
-                color="blue"
-                onClick={() => authenticate('google')}
-                fluid
-                style={{
+          <Button
+            color="blue"
+            onClick={() => authenticate('google')}
+            fluid
+            style={{
                   backgroundColor: '#4285F4',
                   backgroundImage: 'url(\'https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/btn_google_light_normal_ios.svg?alt=media&token=d1349925-4489-44dc-9e47-8037a8a6d14f\')',
                   backgroundRepeat: 'no-repeat',
@@ -106,14 +101,14 @@ export default function Authenticate({
                   src: 'url(\'https://fonts.googleapis.com/css?family=Roboto\')',
                   height: '46px',
                 }}
-              >
+          >
                 Sign in with Google
-              </Button>
-              <Button
-                color="blue"
-                onClick={() => authenticate('facebook')}
-                fluid
-                style={{
+          </Button>
+          <Button
+            color="blue"
+            onClick={() => authenticate('facebook')}
+            fluid
+            style={{
                   backgroundColor: '#4267B2',
                   backgroundImage: 'url(\'https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/flogo-HexRBG-Wht-58.svg?alt=media&token=d0812834-f629-45cb-b74e-ef94db7a72cd\')',
                   backgroundRepeat: 'no-repeat',
@@ -121,25 +116,22 @@ export default function Authenticate({
                   backgroundPosition: '3px 3px',
                   height: '45px',
                 }}
-              >
+          >
                 Login With Facebook
-              </Button>
-            </Form>
-            { loading && (
-            <StyledLoader>
-              <Loader active inline="centered" />
-            </StyledLoader>
+          </Button>
+        </Form>
+        { loading && (
+        <StyledLoader>
+          <Loader active inline="centered" />
+        </StyledLoader>
         )}
-            { error && (
-            <Message negative>
-              <p>{handleErrorMessage(error)}</p>
-            </Message>
+        { error && (
+        <Message negative>
+          <p>{handleErrorMessage(error)}</p>
+        </Message>
         )}
-          </Segment>
-        </StyledDiv>
-      </div>
-      <div className="sides" />
-    </View>
+      </Segment>
+    </StyledDiv>
   );
 }
 
