@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { database } from 'firebase';
+import { database, firestore } from 'firebase';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
@@ -178,6 +178,19 @@ class FirepadContainer extends Component {
   }
 
   handleSubmit = () => {
+    firestore()
+      .collection('tasks').add({
+        type: 'submit',
+        payload: {
+          id: this.ref.key,
+        },
+      })
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch((error) => {
+        console.error('Error adding document: ', error);
+      });
     this.ref.update({
       [CHANGING_PHASE]: true,
     }, this.handleMaybeError);
