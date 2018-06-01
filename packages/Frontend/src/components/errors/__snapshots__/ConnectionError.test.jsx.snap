@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectionError should render 1`] = `
+<SimpleSnackbar
+  classes={
+    Object {
+      "close": "SimpleSnackbar-close-1",
+      "root": "SimpleSnackbar-root-2",
+    }
+  }
+>
+  <div />
+</SimpleSnackbar>
+`;
