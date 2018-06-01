@@ -5,7 +5,6 @@ import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
 import Button from '@material-ui/core/Button';
 import Dialog from './Dialog';
-import View from './View';
 import colors from '../constants/colors';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
@@ -102,17 +101,14 @@ export default function Firepad({
           handleClose={handleClose}
           handleSubmit={handleSubmit}
         />
-        <View>
-          <div className="sides" />
-          <div className="content">
-            <TaskContentBody>
-              <TaskHeader>
-                <h2>Add New Post</h2>
-                { !readOnly &&
-                <Button onClick={openDialog} className="buttons">Submit</Button>
+        <TaskContentBody>
+          <TaskHeader>
+            <h2>Add New Post</h2>
+            { !readOnly &&
+            <Button onClick={openDialog} className="buttons">Submit</Button>
                 }
-              </TaskHeader>
-              { readOnly ?
+          </TaskHeader>
+          { readOnly ?
             (<h4>{title}</h4>) :
             <input
               onChange={handleTitleChange}
@@ -123,11 +119,8 @@ export default function Firepad({
               value={title}
             />
         }
-              <StyledFirepad id="firepad-container" />
-            </TaskContentBody>
-          </div>
-          <div className="sides" />
-        </View>
+          <StyledFirepad id="firepad-container" />
+        </TaskContentBody>
       </div>
     </Fragment>
   );
