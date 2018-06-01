@@ -2,6 +2,7 @@
   "rules": {
     "journals": {
       "$journal": {
+        ".read": "auth != null",
         "history": {
           ".read": "auth != null",
           "$revision": {
