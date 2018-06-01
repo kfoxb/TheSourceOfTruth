@@ -44,14 +44,12 @@ class FirepadContainer extends Component {
 
   componentDidMount() {
     if (this.props.isAuthenticated) {
-      console.log('in componentDidMount', this.props.isAuthenticated);
       this.init();
     }
   }
 
   componentDidUpdate(prevProps) {
     if (!prevProps.isAuthenticated && this.props.isAuthenticated) {
-      console.log('in componentDidUpdate');
       this.init();
     }
     if (
@@ -95,9 +93,9 @@ class FirepadContainer extends Component {
     } else {
       const realTimeId = primaryDoc.data()[REALTIME_DATABASE_ID];
       this.ref = database().ref(JOURNALS).child(realTimeId);
-      this.ref.once('value', (snapshot) => {
-        this.setState({ title: snapshot.val().title });
-      });
+      this.ref.child('title').once('value', (snapshot) => {
+        this.setState({ title: snapshot.val() });
+      }, error => this.setState({ error }));
       this.setState({
         realtimeDatabaseReady: true,
       });
@@ -116,17 +114,14 @@ class FirepadContainer extends Component {
   }
 
   createFirepadDocument(primaryDoc) {
-    console.log('creating isAuthenticated', this.props.isAuthenticated);
     this.ref = database().ref(JOURNALS).push();
     this.ref.child('phase')
       .set(CREATE)
-      .then(() => console.log('phase set'))
-      .catch(err => console.log('couldnt set phase', err));
+      .catch(error => this.setState({ error }));
     this.primaryDocRef.update({
       [REALTIME_DATABASE_ID]: this.ref.key,
     })
       .then(() => {
-        console.log('set stuff up');
         this.props.history.replace(`/${JOURNALS}/${CREATE}/${primaryDoc.id}`);
         this.setState({
           realtimeDatabaseReady: true,
@@ -181,7 +176,6 @@ class FirepadContainer extends Component {
       lineWrapping: true,
       readOnly: readOnly ? 'nocursor' : false,
     });
-    console.log('init ref', this.ref);
     this.firepadInst = fromCodeMirror(
       this.ref, cm,
       {

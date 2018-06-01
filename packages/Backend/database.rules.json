@@ -21,6 +21,10 @@
         "phase": {
           ".read": "auth != null",
           ".write": "!data.exists() && auth.token.author === true && newData.val() === 'create'"
+        },
+        "title": {
+          ".read": "auth != null",
+          ".write": "auth != null"
         }
       }
     }
