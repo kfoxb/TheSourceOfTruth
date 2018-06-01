@@ -16,7 +16,7 @@
         },
         "checkpoint": {
           ".read": "auth != null",
-          ".write": "(data.parent().child('phase').val() === 'create' && auth.token.author === true) && newData.child('a').val() === auth.uid && data.parent().child('history').child(newData.child('id').val()).child('a').val() === auth.uid"
+          ".write": "((data.parent().child('phase').val() === 'create' && auth.token.author === true) || (data.parent().child('phase').val() === 'edit')) && newData.child('a').val() === auth.uid && data.parent().child('history').child(newData.child('id').val()).child('a').val() === auth.uid"
         },
         "phase": {
           ".read": "auth != null",
