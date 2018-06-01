@@ -2,25 +2,27 @@
   "rules": {
     "journals": {
       "$journal": {
+        "firepad": {
+          "history": {
+            "$revision": {
+              ".write": "data.val() === null && newData.child('a').val() === auth.uid"
+            }
+          },
+          "users": {
+            "$userid": {
+              ".write": "$userid === auth.uid"
+            }
+          },
+          "checkpoint": {
+            ".write": "newData.child('a').val() === auth.uid && root.child('history').child(newData.child('id').val()).child('a').val() === auth.uid"
+          }
+        },
         "phase": {
           ".read": "auth != null",
           ".write": "auth != null"
         },
         ".read": "auth != null",
-        ".write": "!data.exists() && auth.token.author === true",
-        "history": {
-          "$revision": {
-            ".write": "data.val() === null && newData.child('a').val() === auth.uid"
-          }
-        },
-        "users": {
-          "$userid": {
-            ".write": "$userid === auth.uid"
-          }
-        },
-        "checkpoint": {
-          ".write": "newData.child('a').val() === auth.uid && root.child('history').child(newData.child('id').val()).child('a').val() === auth.uid"
-        }
+        ".write": "!data.exists() && auth.token.author === true"
       }
     }
   }

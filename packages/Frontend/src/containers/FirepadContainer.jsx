@@ -105,13 +105,19 @@ class FirepadContainer extends Component {
   }
 
   createFirepadDocument(primaryDoc) {
-    this.ref = database().ref(JOURNALS).push();
-    const phaseRef = this.ref.child('phase').set(CREATE).catch(err => console.log('couldnt set phase', err));
+    this.mainDatabaseRef = database().ref(JOURNALS).push();
+    this.ref = this.mainDatabaseRef.child('firepad');
+    console.log('key', this.mainDatabaseRef.key);
+    const phaseRef = this.mainDatabaseRef.child('phase');
     console.log('phaseRef', phaseRef);
-    this.primaryDocRef.update({
-      [REALTIME_DATABASE_ID]: this.ref.key,
-    })
+    Promise.all([
+      this.primaryDocRef.update({
+        [REALTIME_DATABASE_ID]: this.ref.key,
+      }),
+      phaseRef.set(CREATE).catch(err => console.log('couldnt set phase', err)),
+    ])
       .then(() => {
+        console.log('set stuff up');
         this.props.history.replace(`/${JOURNALS}/${CREATE}/${primaryDoc.id}`);
         this.setState({
           realtimeDatabaseReady: true,
@@ -166,6 +172,7 @@ class FirepadContainer extends Component {
       lineWrapping: true,
       readOnly: readOnly ? 'nocursor' : false,
     });
+    console.log('init ref', this.ref);
     this.firepadInst = fromCodeMirror(
       this.ref, cm,
       {
