@@ -24,7 +24,7 @@
         },
         "title": {
           ".read": "auth != null",
-          ".write": "auth != null"
+          ".write": "data.parent().child('phase').val() === 'create'"
         }
       }
     }
