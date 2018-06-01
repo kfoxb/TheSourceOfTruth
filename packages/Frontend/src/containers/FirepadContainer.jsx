@@ -86,6 +86,12 @@ class FirepadContainer extends Component {
     this.setState({ error });
   }
 
+  handleMaybeError = (maybeError) => {
+    if (maybeError) {
+      this.handleError(maybeError);
+    }
+  }
+
   handleSnapshot = (snapshot) => {
     const data = snapshot.val();
     if (data !== null) {
@@ -166,20 +172,14 @@ class FirepadContainer extends Component {
   handleTitleChange = ({ target: { value } }) => {
     const newTitle = { title: value };
     this.setState(newTitle, () => {
-      this.ref.update(newTitle, (maybeError) => {
-        if (maybeError) {
-          this.handleError(maybeError);
-        }
-      });
+      this.ref.update(newTitle, this.handleMaybeError);
     });
   }
 
   handleSubmit = () => {
-    this.primaryDocRef
-      .update({
-        [CHANGING_PHASE]: true,
-      })
-      .catch(this.handleError);
+    this.ref.update({
+      [CHANGING_PHASE]: true,
+    }, this.handleMaybeError);
   }
 
   render() {
