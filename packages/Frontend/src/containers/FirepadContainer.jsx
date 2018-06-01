@@ -166,7 +166,11 @@ class FirepadContainer extends Component {
   handleTitleChange = ({ target: { value } }) => {
     const newTitle = { title: value };
     this.setState(newTitle, () => {
-      this.ref.update(newTitle);
+      this.ref.update(newTitle, (maybeError) => {
+        if (maybeError) {
+          this.handleError(maybeError);
+        }
+      });
     });
   }
 
