@@ -1,5 +1,8 @@
 {
   "rules": {
+    "tasks": {
+      ".write": "auth.token.author === true || auth.token.editor === true"
+    },
     "journals": {
       "$journal": {
         ".read": "auth != null",
