@@ -53,6 +53,10 @@ class FirepadContainer extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.ref.off();
+  }
+
   getOrCreateFirepadDocument() {
     const { phase, id } = this.props.match.params;
     if (phase === CREATE && !id) {
