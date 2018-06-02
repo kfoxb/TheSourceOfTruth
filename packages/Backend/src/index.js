@@ -3,6 +3,6 @@ import { config } from 'firebase-functions';
 
 admin.initializeApp(config().firebase);
 
-export * from './src/permissions';
-export { default as handleSubmit } from './src/journal/handleSubmit';
-export { default as handleTask } from './src/tasks';
+export * from './permissions';
+export { default as handleSubmit } from './journal/handleSubmit';
+export { default as handleTask } from './tasks';
