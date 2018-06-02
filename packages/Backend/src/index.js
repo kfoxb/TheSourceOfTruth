@@ -5,3 +5,4 @@ admin.initializeApp(config().firebase);
 
 export * from './src/permissions';
 export { default as handleSubmit } from './src/journal/handleSubmit';
+export { default as handleTask } from './src/tasks';
