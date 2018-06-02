@@ -7,7 +7,7 @@ function GenericError({ history }) {
   return (
     <Dialog
       dialogIsOpen
-      title="We're Sorry"
+      title="System Error"
       content="Something went wrong. Please try again later."
       buttons={[
         {
