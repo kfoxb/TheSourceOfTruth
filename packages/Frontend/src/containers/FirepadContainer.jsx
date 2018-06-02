@@ -84,6 +84,7 @@ class FirepadContainer extends Component {
   handleError = (error) => {
     // eslint-disable-next-line no-console
     console.error(error);
+    console.trace();
     this.setState({ error });
   }
 
@@ -178,15 +179,15 @@ class FirepadContainer extends Component {
   }
 
   handleSubmit = () => {
-    firestore()
-      .collection('tasks').add({
+    database()
+      .ref('tasks').push({
         type: 'submit',
         payload: {
           id: this.ref.key,
         },
       })
       .then((docRef) => {
-        console.log('Document written with ID: ', docRef.id);
+        console.log('Document written with ID: ', docRef.key);
       })
       .catch((error) => {
         console.error('Error adding document: ', error);

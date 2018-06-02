@@ -19,7 +19,9 @@ const createBackup = refToBackup =>
       console.error(error);
     });
 
-const handleSubmit = (payload) => {
+const checkPermissions = (claims, phase) => (claims.author && phase === 'create') || (claims.editor && phase === 'edit');
+
+const handleSubmit = (payload, context) => {
   console.log('in handleSubmit');
   const ref = database().ref(JOURNALS).child(payload.id);
   return ref.once('value')
@@ -27,27 +29,31 @@ const handleSubmit = (payload) => {
       console.log('received snapshot');
       const data = snapshot.val();
       const prevPhase = data.phase;
-      const nextPhase = getNextPhase(prevPhase);
-      const pageRefFirepad = new PromiseFirepad(ref);
-      console.log('waiting for html, text, and backup');
-      return Promise.all([
-        pageRefFirepad.getHtml(),
-        pageRefFirepad.getText(),
-        createBackup(ref),
-      ]).then(([html, text, backupRef]) => {
-        console.log('got html, text, and backup, updating doc');
-        console.log('backupRef', backupRef);
-        console.log('backupRef.key', backupRef.key);
-        return ref.update({
-          phase: nextPhase,
-          [CHANGING_PHASE]: false,
-          [`${prevPhase}PhaseBackup`]: {
-            id: backupRef.key,
-            html,
-            text,
-          },
+      const isAllowed = checkPermissions(context.auth.token, prevPhase);
+      if (isAllowed) {
+        const nextPhase = getNextPhase(prevPhase);
+        const pageRefFirepad = new PromiseFirepad(ref);
+        console.log('waiting for html, text, and backup');
+        return Promise.all([
+          pageRefFirepad.getHtml(),
+          pageRefFirepad.getText(),
+          createBackup(ref),
+        ]).then(([html, text, backupRef]) => {
+          console.log('got html, text, and backup, updating doc');
+          console.log('backupRef', backupRef);
+          console.log('backupRef.key', backupRef.key);
+          return ref.update({
+            phase: nextPhase,
+            [CHANGING_PHASE]: false,
+            [`${prevPhase}PhaseBackup`]: {
+              id: backupRef.key,
+              html,
+              text,
+            },
+          });
         });
-      });
+      }
+      throw new Error('Insufficient permissions for this task');
     });
 };
 

@@ -1,5 +1,5 @@
-import { firestore as firestoreFunction } from 'firebase-functions';
-import { firestore as firestoreAdmin } from 'firebase-admin';
+import { database as databaseFunction } from 'firebase-functions';
+import { database as databaseAdmin } from 'firebase-admin';
 import handleSubmit from '../journal/handleSubmit';
 
 const handleFailure = (error, docRef) => {
@@ -20,22 +20,20 @@ const finish = (docRef, context) => {
   console.log('in finish');
   return docRef
     .update({
-      completedTime: firestoreAdmin.FieldValue.serverTimestamp(),
+      completedTime: new Date(databaseAdmin.ServerValue.TIMESTAMP),
       startTime: new Date(Date.parse(context.timestamp)),
     });
 };
 
-const handleTask = firestoreFunction
-  .document('tasks/{task}')
+const handleTask = databaseFunction
+  .ref('/tasks/{task}')
   .onCreate((snapshot, context) => {
     console.log('in handleTask');
     console.log('context.timestamp', context.timestamp);
     console.log('new date', new Date(context.timestamp));
     const taskId = context.params.task;
-    const { payload, type } = snapshot.data();
-    const docRef = firestoreAdmin()
-      .collection('tasks')
-      .doc(taskId);
+    const { payload, type } = snapshot.val();
+    const docRef = databaseAdmin().ref(`/tasks/${taskId}`);
     console.log('checking type');
     if (type === 'submit') {
       console.log('type is submit');
