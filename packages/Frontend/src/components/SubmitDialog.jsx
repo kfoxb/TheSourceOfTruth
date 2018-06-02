@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import Dialog from './Dialog';
 import colors from '../constants/colors';
 
-const styles = theme => ({
+const styles = () => ({
   buttonProgress: {
     color: `${colors.grey}`,
     position: 'absolute',
