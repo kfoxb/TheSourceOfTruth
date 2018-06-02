@@ -29,18 +29,16 @@ exports[`App should render correctly 1`] = `
         exact={true}
         path="/journals"
       />
-      <WithStyles(SimpleSnackbar)>
-        <Route
-          component={[Function]}
-          exact={true}
-          path="/journals/:phase(edit|view)/:id"
-        />
-        <Route
-          component={[Function]}
-          exact={true}
-          path="/journals/:phase(create)/:id?"
-        />
-      </WithStyles(SimpleSnackbar)>
+      <Route
+        exact={true}
+        path="/journals/:phase(edit|view)/:id"
+        render={[Function]}
+      />
+      <Route
+        exact={true}
+        path="/journals/:phase(create)/:id?"
+        render={[Function]}
+      />
       <Route
         component={[Function]}
         exact={true}
