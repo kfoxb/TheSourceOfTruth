@@ -20,7 +20,9 @@ function GenericError({ history }) {
 }
 
 GenericError.propTypes = {
-  history: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default withRouter(GenericError);

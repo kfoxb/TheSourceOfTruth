@@ -35,7 +35,7 @@ export default function Dialog({
         }
         <DialogActions>
           {buttons.map(button => (
-            <Button onClick={button.action} style={{ color: `${colors.blue}` }}>
+            <Button key={button.label} onClick={button.action} style={{ color: `${colors.blue}` }}>
               {button.label}
             </Button>))}
         </DialogActions>
@@ -45,10 +45,10 @@ export default function Dialog({
 }
 
 Dialog.propTypes = {
-  buttons: PropTypes.arrayOf([PropTypes.shape({
+  buttons: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     action: PropTypes.func.isRequired,
-  })]).isRequired,
+  })).isRequired,
   content: PropTypes.string,
   dialogIsOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func,
