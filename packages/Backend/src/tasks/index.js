@@ -21,7 +21,7 @@ const finish = (docRef, context) => {
   return docRef
     .update({
       completedTime: firestoreAdmin.FieldValue.serverTimestamp(),
-      startTime: context.timestamp,
+      startTime: new Date(Date.parse(context.timestamp)),
     });
 };
 
@@ -29,6 +29,8 @@ const handleTask = firestoreFunction
   .document('tasks/{task}')
   .onCreate((snapshot, context) => {
     console.log('in handleTask');
+    console.log('context.timestamp', context.timestamp);
+    console.log('new date', new Date(context.timestamp));
     const taskId = context.params.task;
     const { payload, type } = snapshot.data();
     const docRef = firestoreAdmin()
