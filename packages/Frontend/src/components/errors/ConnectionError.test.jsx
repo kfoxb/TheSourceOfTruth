@@ -5,7 +5,7 @@ import ConnectionError from './ConnectionError';
 
 describe('ConnectionError', () => {
   const defaultProps = {
-    children: (<div />),
+    component: () => (<div />),
     classes: {
       root: '',
       close: '',

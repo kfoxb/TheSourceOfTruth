@@ -33,12 +33,12 @@ function App({
           <Route
             exact
             path="/journals/:phase(edit|view)/:id"
-            render={() => (<ConnectionError component={FirepadContainer} />)}
+            render={props => (<ConnectionError {...props} component={FirepadContainer} />)}
           />
           <Route
             exact
             path="/journals/:phase(create)/:id?"
-            render={() => (<ConnectionError component={FirepadContainer} />)}
+            render={props => (<ConnectionError {...props} component={FirepadContainer} />)}
           />
           <Route exact path="/library" component={Library} />
           <Route exact path="/sign(up|in)" component={AuthenticateContainer} />

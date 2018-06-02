@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { database } from 'firebase';
 import { withStyles } from '@material-ui/core/styles';
@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-class SimpleSnackbar extends Component {
+class SimpleSnackbar extends React.Component {
   state = {
     open: false,
   };
@@ -53,7 +53,7 @@ class SimpleSnackbar extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { component: Component, classes, ...rest } = this.props;
 
     return (
       <Fragment>
@@ -86,14 +86,14 @@ class SimpleSnackbar extends Component {
           ]}
           style={{ top: '40px' }}
         />
-        { this.props.children }
+        <Component {...rest} />
       </Fragment>
     );
   }
 }
 
 SimpleSnackbar.propTypes = {
-  children: PropTypes.element.isRequired,
+  component: PropTypes.func.isRequired,
   classes: PropTypes.shape({
     root: PropTypes.string.isRequired,
     close: PropTypes.string.isRequired,
