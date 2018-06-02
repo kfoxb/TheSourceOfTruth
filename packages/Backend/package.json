@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "webpack",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "firebase deploy",
     "firebase-login": "firebase login",
     "lint": "eslint .",
     "logs": "firebase functions:log",
