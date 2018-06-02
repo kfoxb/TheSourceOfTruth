@@ -9,10 +9,13 @@ const createBackup = refToBackup =>
   refToBackup.once('value')
     .then((snapshot) => {
       const newRef = database().ref(JOURNAL_BACKUPS).push();
-      return newRef
-        .set(snapshot.val())
-        .then(() => newRef);
+      return Promise.all([
+        newRef,
+        newRef
+          .set(snapshot.val()),
+      ]);
     })
+    .then(([newRef]) => newRef)
     .catch((error) => {
       // eslint-disable-next-line no-console
       console.error(error);
@@ -28,23 +31,27 @@ const handleSubmit = (payload, context) => {
       const prevPhase = data.phase;
       const isAllowed = checkPermissions(context.auth.token, prevPhase);
       if (isAllowed) {
-        const nextPhase = getNextPhase(prevPhase);
         const pageRefFirepad = new PromiseFirepad(ref);
         return Promise.all([
           pageRefFirepad.getHtml(),
           pageRefFirepad.getText(),
           createBackup(ref),
-        ]).then(([html, text, backupRef]) => ref.update({
-          phase: nextPhase,
-          [CHANGING_PHASE]: false,
-          [`${prevPhase}PhaseBackup`]: {
-            id: backupRef.key,
-            html,
-            text,
-          },
-        }));
+          prevPhase,
+        ]);
       }
       throw new Error('Insufficient permissions for this task');
+    })
+    .then(([html, text, backupRef, prevPhase]) => {
+      const nextPhase = getNextPhase(prevPhase);
+      return ref.update({
+        phase: nextPhase,
+        [CHANGING_PHASE]: false,
+        [`${prevPhase}PhaseBackup`]: {
+          id: backupRef.key,
+          html,
+          text,
+        },
+      });
     });
 };
 
