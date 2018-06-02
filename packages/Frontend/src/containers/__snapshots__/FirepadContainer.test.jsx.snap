@@ -28,6 +28,7 @@ exports[`FirepadContainer should render when authenticated 1`] = `
   loading={true}
   notFound={false}
   openDialog={[Function]}
+  phase=""
   readOnly={false}
   title=""
 />
