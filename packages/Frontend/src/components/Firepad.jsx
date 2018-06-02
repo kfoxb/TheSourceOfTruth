@@ -6,6 +6,7 @@ import 'firepad/dist/firepad.css';
 import Button from '@material-ui/core/Button';
 import Dialog from './Dialog';
 import colors from '../constants/colors';
+import GenericError from './errors/GenericError';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
 import NotFound from '../components/NotFound';
@@ -83,7 +84,7 @@ export default function Firepad({
   title,
 }) {
   if (error) {
-    return (<p>{error.message}</p>);
+    return (<GenericError />);
   }
   if (changingPhase && !readOnly) {
     return (<p>Currently moving this document to the next phase</p>);
@@ -98,8 +99,17 @@ export default function Firepad({
       <div style={displayStyle}>
         <Dialog
           dialogIsOpen={dialogIsOpen}
-          handleClose={handleClose}
-          handleSubmit={handleSubmit}
+          onClose={handleClose}
+          title="Are you sure you want to submit?"
+          buttons={[
+            {
+              label: 'Cancel',
+              action: handleClose,
+            }, {
+              label: 'Submit',
+              action: handleSubmit,
+            },
+          ]}
         />
         <TaskContentBody>
           <TaskHeader>
