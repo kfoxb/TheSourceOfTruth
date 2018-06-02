@@ -1,60 +1,54 @@
-import { firestore as firestoreFunction } from 'firebase-functions';
-import { database, firestore as firestoreAdmin } from 'firebase-admin';
-import { BACKUP_REALTIME_DATABASE_ID, CHANGING_PHASE, CREATE, EDIT, JOURNAL_BACKUPS, JOURNALS, PHASES, PUBLISHED, REALTIME_DATABASE_ID } from '../constants';
+import { database } from 'firebase-admin';
+import { CHANGING_PHASE, CREATE, EDIT, JOURNAL_BACKUPS, JOURNALS, PUBLISHED } from '../constants';
 import PromiseFirepad from './PromiseFirepad';
 
 const phaseOrder = [CREATE, EDIT, PUBLISHED];
 const getNextPhase = currentPhase => phaseOrder[phaseOrder.findIndex(p => p === currentPhase) + 1];
 
-const createRealtimeDatabaseBackup = refToBackup => new Promise((resolve, reject) => {
-  refToBackup.once('value', (snapshot) => {
-    const newRef = database().ref(JOURNAL_BACKUPS).push();
-    return newRef.set(snapshot.val()).then(() => resolve(newRef));
-  }, (error) => {
-    reject(error);
-  });
-});
+const createBackup = refToBackup =>
+  refToBackup.once('value')
+    .then((snapshot) => {
+      console.log('creating backup');
+      const newRef = database().ref(JOURNAL_BACKUPS).push();
+      return newRef
+        .set(snapshot.val())
+        .then(() => newRef);
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    });
 
-const handleSubmit = firestoreFunction
-  .document(`${JOURNALS}/{journalId}`)
-  .onUpdate((change, context) => {
-    const beforeChangingPhase = change.before.data()[CHANGING_PHASE];
-    const afterChangingPhase = change.after.data()[CHANGING_PHASE];
-    const isChangingPhase = !beforeChangingPhase && afterChangingPhase;
-    if (isChangingPhase) {
-      const prevPhase = change.before.data().phase;
+const handleSubmit = (payload) => {
+  console.log('in handleSubmit');
+  const ref = database().ref(JOURNALS).child(payload.id);
+  return ref.once('value')
+    .then((snapshot) => {
+      console.log('received snapshot');
+      const data = snapshot.val();
+      const prevPhase = data.phase;
       const nextPhase = getNextPhase(prevPhase);
-      const realTimeId = change.after.data()[REALTIME_DATABASE_ID];
-      const currentRef = database().ref(JOURNALS).child(realTimeId);
-      const pageRefFirepad = new PromiseFirepad(currentRef);
-
+      const pageRefFirepad = new PromiseFirepad(ref);
+      console.log('waiting for html, text, and backup');
       return Promise.all([
         pageRefFirepad.getHtml(),
         pageRefFirepad.getText(),
-        createRealtimeDatabaseBackup(currentRef),
+        createBackup(ref),
       ]).then(([html, text, backupRef]) => {
-        const primaryDoc = firestoreAdmin()
-          .collection(JOURNALS)
-          .doc(context.params.journalId);
-        return Promise.all([
-          currentRef.update({ phase: nextPhase }),
-          primaryDoc
-            .update({
-              phase: nextPhase,
-              changingPhase: false,
-            }),
-          primaryDoc
-            .collection(PHASES)
-            .doc(prevPhase)
-            .set({
-              html,
-              text,
-              [BACKUP_REALTIME_DATABASE_ID]: backupRef.key,
-            }, { merge: true }),
-        ]);
+        console.log('got html, text, and backup, updating doc');
+        console.log('backupRef', backupRef);
+        console.log('backupRef.key', backupRef.key);
+        return ref.update({
+          phase: nextPhase,
+          [CHANGING_PHASE]: false,
+          [`${prevPhase}PhaseBackup`]: {
+            id: backupRef.key,
+            html,
+            text,
+          },
+        });
       });
-    }
-    return null;
-  });
+    });
+};
 
 export default handleSubmit;
