@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { database, firestore } from 'firebase';
+import { database } from 'firebase';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
@@ -88,7 +88,6 @@ class FirepadContainer extends Component {
   handleError = (error) => {
     // eslint-disable-next-line no-console
     console.error(error);
-    console.trace();
     this.setState({ error });
   }
 
@@ -185,12 +184,7 @@ class FirepadContainer extends Component {
           id: this.ref.key,
         },
       })
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef.key);
-      })
-      .catch((error) => {
-        console.error('Error adding document: ', error);
-      });
+      .catch(this.handleError);
     this.ref.update({
       [CHANGING_PHASE]: true,
     }).catch(this.handleError);
