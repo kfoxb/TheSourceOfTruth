@@ -10,9 +10,5 @@ service cloud.firestore {
       // the document to published
       allow update: if (request.auth.token.author == true && resource.data.phase == 'create') || (request.auth.token.editor == true && resource.data.phase == 'edit');
     }
-    match /tasks/{task} {
-      allow create: if (request.auth.token.author == true && request.resource.data.type == 'submit')
-    }
   }
 }
-
