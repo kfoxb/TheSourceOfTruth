@@ -66,18 +66,5 @@
     "lint": "eslint --ext .js --ext .jsx .",
     "start": "webpack-dev-server --progress --config ./config/webpack.config.dev.js",
     "test": "node --harmony-promise-finally ./node_modules/.bin/jest"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
-    },
-    "setupTestFrameworkScriptFile": "./config/setup.test.js",
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules",
-      "./config/setup.test.js"
-    ]
   }
 }
