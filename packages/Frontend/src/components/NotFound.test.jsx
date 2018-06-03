@@ -8,6 +8,6 @@ describe('NotFound', () => {
       history: {
         push: () => {},
       },
-    });
+    })();
   });
 });
