@@ -3,7 +3,7 @@ import { Sidebar, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { auth } from 'firebase';
-import { DOCUMENTS, TASKS } from '../../../../Constants';
+import { TASKS } from '@the-source-of-truth/shared/constants';
 
 export default class SidebarLeftOverlay extends Component {
   static propTypes = {

@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import firebase from 'firebase';
 import { List, Map } from 'immutable';
 import { Link } from 'react-router-dom';
+import { DOCUMENTS } from '@the-source-of-truth/shared/constants';
 import Loading from '../components/Loading';
-import { DOCUMENTS } from '../../../Constants';
 
 export default class TasksContainer extends Component {
   constructor(props) {
