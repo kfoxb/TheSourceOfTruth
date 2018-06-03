@@ -30,7 +30,6 @@ class FirepadContainer extends Component {
   }
 
   constructor(props) {
-    console.log('in FirepadContainer');
     super(props);
     this.state = {
       [CHANGING_PHASE]: false,
