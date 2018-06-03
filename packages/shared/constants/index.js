@@ -1,7 +1,7 @@
 export const CHANGING_PHASE = 'changingPhase';
 export const CREATE = 'create';
 export const DOCUMENTS = 'documents';
-export const DOCUMENT_BACKUPS = 'documentBackups'
+export const DOCUMENT_BACKUPS = 'documentBackups';
 export const EDIT = 'edit';
 export const PHASE = 'phase';
 export const PHASES = 'phases';
