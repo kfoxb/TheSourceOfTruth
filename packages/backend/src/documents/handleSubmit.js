@@ -1,5 +1,5 @@
 import { database } from 'firebase-admin';
-import { CHANGING_PHASE, CREATE, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '../../../Constants';
+import { CHANGING_PHASE, CREATE, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '@the-source-of-truth/shared/constants';
 import PromiseFirepad from './PromiseFirepad';
 
 const phaseOrder = [CREATE, EDIT, PUBLISHED];
