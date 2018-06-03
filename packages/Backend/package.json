@@ -1,5 +1,5 @@
 {
-  "name": "@TheSourceOfTruth/Backend",
+  "name": "@the-source-of-truth/backend",
   "version": "0.0.1",
   "description": "Backend for The Source of Truth",
   "main": "index.js",
@@ -17,6 +17,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@the-source-of-truth/shared": "^0.0.1",
     "babel-polyfill": "6.26.0",
     "firebase-admin": "5.12.1",
     "firebase-functions": "1.0.2",

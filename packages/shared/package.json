@@ -1,0 +1,9 @@
+{
+  "name": "@the-source-of-truth/shared",
+  "version": "0.0.1",
+  "description": "Shared code for The Source of Truth",
+  "main": "src/index.js",
+  "repository": "https://github.com/TheSourceOfTruth/TheSourceOfTruth.git",
+  "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
+  "license": "Apache-2.0"
+}

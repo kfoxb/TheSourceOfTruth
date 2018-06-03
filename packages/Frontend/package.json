@@ -1,5 +1,5 @@
 {
-  "name": "@TheSourceOfTruth/Frontend",
+  "name": "@the-source-of-truth/frontend",
   "version": "0.0.1",
   "description": "Frontend for The Source of Truth",
   "main": "src/index.js",
@@ -10,6 +10,7 @@
     "@firebase/app-types": "0.1.2",
     "@material-ui/core": "1.1.0",
     "@material-ui/icons": "1.1.0",
+    "@the-source-of-truth/shared": "^0.0.1",
     "classnames": "2.2.5",
     "codemirror": "5.37.0",
     "firebase": "5.0.4",
