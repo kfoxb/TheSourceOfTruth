@@ -17,6 +17,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@firebase/app-types": "0.x",
     "@the-source-of-truth/shared": "^0.0.1",
     "babel-polyfill": "6.26.0",
     "firebase-admin": "5.12.1",
