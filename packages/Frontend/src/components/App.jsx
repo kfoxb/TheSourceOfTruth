@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import { CREATE, DOCUMENTS, EDIT, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
 import { SidebarLeftOverlay, SidebarTopOverlay } from './Navigation';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
 import ConnectionError from './errors/ConnectionError';
@@ -11,7 +12,6 @@ import TasksContainer from '../containers/TasksContainer';
 import Library from './Library';
 import NotFound from '../components/NotFound';
 import View from './View';
-import { CREATE, DOCUMENTS, EDIT, PHASE, VIEW } from '../../../Constants';
 import '../constants/Font';
 
 function App({

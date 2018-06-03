@@ -3,7 +3,7 @@ import { database } from 'firebase';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
-import { CHANGING_PHASE, CREATE, DOCUMENTS, PHASE, VIEW } from '../../../Constants';
+import { CHANGING_PHASE, CREATE, DOCUMENTS, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
 import Firepad from '../components/Firepad';
 
 global.CodeMirror = CodeMirror;

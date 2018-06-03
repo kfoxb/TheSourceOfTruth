@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import { DOCUMENTS, TASKS, VIEW } from '@the-source-of-truth/shared/constants';
 import Dialog from '../Dialog';
-import { DOCUMENTS, TASKS, VIEW } from '../../../../Constants';
 
 const getPhaseString = (phase) => {
   if (phase === 'create') {

@@ -39,16 +39,16 @@ exports[`SidebarLeftOverlay rendering should not render a sidebar when sideBarVi
       </MenuItem>
     </Link>
     <Link
-      href="/journals"
+      href="/tasks"
       replace={false}
-      to="/journals"
+      to="/tasks"
     >
       <MenuItem
         as="div"
-        name="journals"
+        name="tasks"
         onClick={[Function]}
       >
-        Journals
+        Tasks
       </MenuItem>
     </Link>
     <Link
@@ -107,16 +107,16 @@ exports[`SidebarLeftOverlay rendering should render a sidebar when sideBarVisibi
       </MenuItem>
     </Link>
     <Link
-      href="/journals"
+      href="/tasks"
       replace={false}
-      to="/journals"
+      to="/tasks"
     >
       <MenuItem
         as="div"
-        name="journals"
+        name="tasks"
         onClick={[Function]}
       >
-        Journals
+        Tasks
       </MenuItem>
     </Link>
     <Link
@@ -175,16 +175,16 @@ exports[`SidebarLeftOverlay rendering should render a sign in menu item when not
       </MenuItem>
     </Link>
     <Link
-      href="/journals"
+      href="/tasks"
       replace={false}
-      to="/journals"
+      to="/tasks"
     >
       <MenuItem
         as="div"
-        name="journals"
+        name="tasks"
         onClick={[Function]}
       >
-        Journals
+        Tasks
       </MenuItem>
     </Link>
     <Link
@@ -243,16 +243,16 @@ exports[`SidebarLeftOverlay rendering should render a sign out menu item when au
       </MenuItem>
     </Link>
     <Link
-      href="/journals"
+      href="/tasks"
       replace={false}
-      to="/journals"
+      to="/tasks"
     >
       <MenuItem
         as="div"
-        name="journals"
+        name="tasks"
         onClick={[Function]}
       >
-        Journals
+        Tasks
       </MenuItem>
     </Link>
     <MenuItem
