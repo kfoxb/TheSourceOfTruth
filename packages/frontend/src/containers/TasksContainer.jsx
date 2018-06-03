@@ -1,27 +1,78 @@
 import React, { Component, Fragment } from 'react';
-import firebase from 'firebase';
-import { List, Map } from 'immutable';
+import { database } from 'firebase';
+import { fromJS, List, Map } from 'immutable';
 import { Link } from 'react-router-dom';
-import { DOCUMENTS } from '@the-source-of-truth/shared/constants';
+import { CREATE, DOCUMENTS, EDIT, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
 import Loading from '../components/Loading';
 
 export default class TasksContainer extends Component {
+  static createDocumentLinks(doc) {
+    const title = doc.get('title');
+    const phase = doc.get(PHASE);
+    const viewHref = `/${DOCUMENTS}/${VIEW}/${doc.get('id')}`;
+    const editHref = `/${DOCUMENTS}/${phase}/${doc.get('id')}`;
+    return (
+      <div key={doc.get('id')} >
+        <Link
+          to={viewHref}
+          href={viewHref}
+        >
+          {title || 'Untitled'}
+        </Link>
+        <Link
+          to={editHref}
+          href={editHref}
+        >
+          {'    (continue)'}
+        </Link>
+      </div>
+    );
+  }
+
   constructor(props) {
     super(props);
-    this.db = firebase.firestore();
     this.state = {
       loading: true,
-      journals: new List([]),
+      documents: fromJS({
+        [CREATE]: [],
+        [EDIT]: [],
+      }),
     };
   }
 
   componentDidMount() {
-    this.db.collection('journals')
-      .get()
-      .then(querySnapshot =>
-        querySnapshot.docs.reduce((journals, journal) =>
-          journals.push(new Map({ id: journal.id, ...journal.data() })), new List([])))
-      .then(journals => this.setState({ journals, loading: false }));
+    this.ref = database()
+      .ref(DOCUMENTS);
+    this.setListenerByPhase(CREATE);
+    this.setListenerByPhase(EDIT);
+  }
+
+  componentWillUnmount() {
+    this.ref.off();
+  }
+
+  setListenerByPhase(phase) {
+    this.ref
+      .orderByChild(PHASE)
+      .equalTo(phase)
+      .on('value', this.handleSnapshot(phase), this.handleError);
+  }
+
+  handleError = (error) => {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
+
+  handleSnapshot = phase => (snapshot) => {
+    if (this.state.loading) {
+      this.setState({ loading: false });
+    }
+    const data = snapshot.val();
+
+    const documents = Object.keys(data)
+      .reduce((cur, acc) => cur.push(new Map({ id: acc, ...data[acc] })), new List([]));
+
+    this.setState({ documents: this.state.documents.set(phase, documents) });
   }
 
   render() {
@@ -30,27 +81,9 @@ export default class TasksContainer extends Component {
     }
     return (
       <Fragment>
-        <button><a href={`/${DOCUMENTS}/create`}>Create Journal</a></button>
-        { this.state.journals.map((journal) => {
-          const viewHref = `/journals/view/${journal.get('id')}`;
-          const editHref = `/journals/edit/${journal.get('id')}`;
-          return (
-            <div key={journal.get('id')} >
-              <Link
-                to={viewHref}
-                href={viewHref}
-              >
-                {journal.get('title')}
-              </Link>
-              <Link
-                to={editHref}
-                href={editHref}
-              >
-                (edit)
-              </Link>
-            </div>
-          );
-        })}
+        <button><a href={`/${DOCUMENTS}/create`}>Create Document</a></button>
+        { this.state.documents.get(CREATE).map(TasksContainer.createDocumentLinks) }
+        { this.state.documents.get(EDIT).map(TasksContainer.createDocumentLinks) }
       </Fragment>
     );
   }
