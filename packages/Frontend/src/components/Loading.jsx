@@ -32,7 +32,10 @@ function LinearIndeterminate(props) {
 }
 
 LinearIndeterminate.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape({
+    root: PropTypes.string.isRequired,
+    barColorPrimary: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default withStyles(styles)(LinearIndeterminate);
