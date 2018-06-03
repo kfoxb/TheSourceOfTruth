@@ -3,6 +3,7 @@ import { Sidebar, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { auth } from 'firebase';
+import { DOCUMENTS, TASKS } from '../../../../Constants';
 
 export default class SidebarLeftOverlay extends Component {
   static propTypes = {
@@ -58,7 +59,7 @@ export default class SidebarLeftOverlay extends Component {
         <Sidebar as={Menu} animation="overlay" width="thin" visible={this.props.sideBarVisibility} icon="labeled" vertical inverted>
           {renderMenuItem('home', 'Home', '/')}
           {renderMenuItem('library', 'Library', '/library')}
-          {renderMenuItem('journals', 'Journals', '/journals')}
+          {renderMenuItem(TASKS, 'Tasks', `/${TASKS}`)}
           { !this.props.isAnonymous
               ? this.renderLogout()
               : renderMenuItem('signin', 'Sign In', '/signin')

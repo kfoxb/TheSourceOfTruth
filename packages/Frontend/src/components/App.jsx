@@ -7,11 +7,11 @@ import AuthenticateContainer from '../containers/AuthenticateContainer';
 import ConnectionError from './errors/ConnectionError';
 import Home from './Home';
 import FirepadContainer from '../containers/FirepadContainer';
-import JournalsContainer from '../containers/JournalsContainer';
+import TasksContainer from '../containers/TasksContainer';
 import Library from './Library';
 import NotFound from '../components/NotFound';
-import Tasks from '../components/Tasks';
 import View from './View';
+import { CREATE, DOCUMENTS, EDIT, PHASE, VIEW } from '../../../Constants';
 import '../constants/Font';
 
 function App({
@@ -29,20 +29,19 @@ function App({
       <Switch>
         <Route exact path="/" component={Home} />
         <View>
-          <Route exact path="/journals" component={JournalsContainer} />
           <Route
             exact
-            path="/journals/:phase(edit|view)/:id"
+            path={`/${DOCUMENTS}/:${PHASE}(${EDIT}|${VIEW})/:id`}
             render={props => (<ConnectionError {...props} component={FirepadContainer} />)}
           />
           <Route
             exact
-            path="/journals/:phase(create)/:id?"
+            path={`/${DOCUMENTS}/:${PHASE}(${CREATE})/:id?`}
             render={props => (<ConnectionError {...props} component={FirepadContainer} />)}
           />
           <Route exact path="/library" component={Library} />
           <Route exact path="/sign(up|in)" component={AuthenticateContainer} />
-          <Route exact path="/tasks" component={Tasks} />
+          <Route exact path="/tasks" component={TasksContainer} />
         </View>
         <Route component={NotFound} />
       </Switch>

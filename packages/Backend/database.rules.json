@@ -9,8 +9,8 @@
         ".write": false
       }
     },
-    "journals": {
-      "$journal": {
+    "documents": {
+      "$document": {
         ".read": "auth != null",
         "history": {
           ".read": "auth != null",

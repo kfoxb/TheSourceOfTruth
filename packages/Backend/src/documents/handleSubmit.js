@@ -1,5 +1,5 @@
 import { database } from 'firebase-admin';
-import { CHANGING_PHASE, CREATE, EDIT, JOURNAL_BACKUPS, JOURNALS, PUBLISHED } from '../constants';
+import { CHANGING_PHASE, CREATE, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '../../../Constants';
 import PromiseFirepad from './PromiseFirepad';
 
 const phaseOrder = [CREATE, EDIT, PUBLISHED];
@@ -8,7 +8,7 @@ const getNextPhase = currentPhase => phaseOrder[phaseOrder.findIndex(p => p === 
 const createBackup = refToBackup =>
   refToBackup.once('value')
     .then((snapshot) => {
-      const newRef = database().ref(JOURNAL_BACKUPS).push();
+      const newRef = database().ref(DOCUMENT_BACKUPS).push();
       return Promise.all([
         newRef,
         newRef
@@ -24,7 +24,7 @@ const createBackup = refToBackup =>
 const checkPermissions = (claims, phase) => (claims.author && phase === 'create') || (claims.editor && phase === 'edit');
 
 const handleSubmit = (payload, context) => {
-  const ref = database().ref(JOURNALS).child(payload.id);
+  const ref = database().ref(DOCUMENTS).child(payload.id);
   return ref.once('value')
     .then((snapshot) => {
       const data = snapshot.val();

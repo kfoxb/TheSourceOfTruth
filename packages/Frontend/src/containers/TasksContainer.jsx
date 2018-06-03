@@ -3,8 +3,9 @@ import firebase from 'firebase';
 import { List, Map } from 'immutable';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
+import { DOCUMENTS } from '../../../Constants';
 
-export default class JournalsContainer extends Component {
+export default class TasksContainer extends Component {
   constructor(props) {
     super(props);
     this.db = firebase.firestore();
@@ -29,7 +30,7 @@ export default class JournalsContainer extends Component {
     }
     return (
       <Fragment>
-        <button><a href="/journals/edit/create">Create Journal</a></button>
+        <button><a href={`/${DOCUMENTS}/create`}>Create Journal</a></button>
         { this.state.journals.map((journal) => {
           const viewHref = `/journals/view/${journal.get('id')}`;
           const editHref = `/journals/edit/${journal.get('id')}`;

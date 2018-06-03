@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import Dialog from '../Dialog';
+import { DOCUMENTS, TASKS, VIEW } from '../../../../Constants';
 
 const getPhaseString = (phase) => {
   if (phase === 'create') {
@@ -21,11 +22,11 @@ function PhaseError({ history, match, phase }) {
       buttons={[
         {
           label: 'View',
-          action: () => { history.push(`/journals/view/${match.params.id}`); },
+          action: () => { history.push(`/${DOCUMENTS}/${VIEW}/${match.params.id}`); },
         },
         {
           label: 'Back to Tasks',
-          action: () => { history.push('/tasks'); },
+          action: () => { history.push(`/${TASKS}`); },
         },
       ]}
     />

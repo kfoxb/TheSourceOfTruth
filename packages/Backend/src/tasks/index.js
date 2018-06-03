@@ -1,6 +1,6 @@
 import { database as databaseFunction } from 'firebase-functions';
 import { database as databaseAdmin } from 'firebase-admin';
-import handleSubmit from '../journal/handleSubmit';
+import handleSubmit from '../documents/handleSubmit';
 
 const handleFailure = (error, docRef) => {
   const errorObj = {};
