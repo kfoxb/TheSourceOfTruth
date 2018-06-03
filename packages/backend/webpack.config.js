@@ -2,7 +2,6 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const whitelist = [/@the-source-of-truth/];
 const DEVELOPMENT = 'development';
@@ -42,13 +41,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: 'package.json',
-        to: '',
-        toType: 'file',
-      },
-    ]),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(DEVELOPMENT),
       'process.env.FB_DATABASE_URL': JSON.stringify(process.env.FB_DATABASE_URL),

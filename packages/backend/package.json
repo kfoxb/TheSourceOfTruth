@@ -7,7 +7,7 @@
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "webpack",
+    "build": "node ./scripts/copyPackageJson.js && webpack",
     "deploy": "firebase deploy",
     "firebase-login": "firebase login",
     "lint": "eslint .",
@@ -17,6 +17,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@the-source-of-truth/shared": "^0.0.1",
     "babel-polyfill": "6.26.0",
     "firebase-admin": "5.12.1",
     "firebase-functions": "1.0.2",
@@ -29,7 +30,6 @@
     "babel-jest": "22.4.3",
     "babel-loader": "7.1.4",
     "babel-preset-env": "1.6.1",
-    "copy-webpack-plugin": "4.5.1",
     "dotenv": "5.0.1",
     "eslint": "4.19.1",
     "eslint-config-airbnb-base": "12.1.0",
