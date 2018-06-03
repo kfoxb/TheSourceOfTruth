@@ -43,13 +43,16 @@ class Firestore {
   }
 }
 
-
 class DatabaseReference {
   constructor() {
     this.key = '';
+    this.query = {
+      equalTo: () => this,
+    };
   }
   ref = () => ({
     child: () => new DatabaseReference(),
+    orderByChild: () => this.query,
     push: () => new DatabaseReference(),
   })
   on = () => {}
