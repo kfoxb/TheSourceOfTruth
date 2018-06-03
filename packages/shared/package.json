@@ -7,7 +7,8 @@
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "echo 'no tests for shared'"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "6.24.1",
