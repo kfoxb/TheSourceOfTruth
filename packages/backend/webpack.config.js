@@ -53,13 +53,6 @@ module.exports = {
         toType: 'file',
       },
     ]),
-    new CopyWebpackPlugin([
-      {
-        from: '../shared',
-        to: 'shared',
-        toType: 'dir',
-      },
-    ]),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(PRODUCTION),
       'process.env.FB_DATABASE_URL': JSON.stringify(process.env.FB_DATABASE_URL),
