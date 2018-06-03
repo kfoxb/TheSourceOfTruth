@@ -1,14 +1,14 @@
 /* eslint-env jest */
 import { createAssertWithPropsToMatchSnapshot } from '../../test-utils';
-import JournalsContainer from './JournalsContainer';
+import TasksContainer from './TasksContainer';
 
 jest.mock('firebase');
 
-describe('JournalsContainer', () => {
+describe('TasksContainer', () => {
   const defaultProps = {};
 
   const assertWithPropsToMatchSnapshot =
-    createAssertWithPropsToMatchSnapshot(JournalsContainer, defaultProps);
+    createAssertWithPropsToMatchSnapshot(TasksContainer, defaultProps);
   it('should render', () => {
     assertWithPropsToMatchSnapshot();
   });
