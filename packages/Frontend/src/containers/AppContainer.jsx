@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
-import { auth } from 'firebase';
+import { auth, database } from 'firebase';
 import App from '../components/App';
-import logout from '../actions/logout';
-import login from '../actions/login';
+import removeUser from '../actions/removeUser';
+import setUser from '../actions/setUser';
 
 class AppContainer extends Component {
   static propTypes = {
     isAnonymous: PropTypes.bool,
-    logout: PropTypes.func.isRequired,
-    login: PropTypes.func.isRequired,
+    removeUser: PropTypes.func.isRequired,
+    setUser: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -27,24 +27,28 @@ class AppContainer extends Component {
 
   componentDidMount() {
     auth().onAuthStateChanged((user) => {
+      if (this.forceTokenRefresh && this.permissionsTimestampRef) {
+        console.log('removing listener');
+        this.permissionsTimestampRef.off('value', this.forceTokenRefresh);
+      }
       if (user) {
-        auth().currentUser.getIdTokenResult()
-          .then((idTokenResult) => {
-            const {
-              displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
-            } = user;
-            const { author, editor } = idTokenResult.claims;
-            const claims = { author, editor };
-            this.props.login({
-              claims, displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
-            });
-          })
-          .catch((error) => {
-            // eslint-disable-next-line
-            console.error(error);
+        this.forceTokenRefresh = () => {
+          console.log('forcing token refresh');
+          return user.getIdToken(true).then((res) => {
+            console.log('getIdToken res', res);
           });
+        };
+        const {
+          displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
+        } = user;
+        this.props.setUser({
+          displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
+        });
+        this.setPermissionTimestampListener(user.uid);
+        this.getClaimsAndTokenIssuedTime();
       } else {
-        this.props.logout();
+        this.user = null;
+        this.props.removeUser();
         auth().signInAnonymously().catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
@@ -53,6 +57,40 @@ class AppContainer extends Component {
         });
       }
     });
+  }
+
+  setPermissionTimestampListener(uid) {
+    this.permissionsTimestampRef = database().ref(`users/${uid}/permissionsTimestamp`);
+    this.permissionsTimestampRef
+      .on(
+        'value',
+        (snapshot) => {
+          const permissionsTimestamp = snapshot.val();
+          console.log('running forceTokenRefresh');
+          console.log('permissionsTimestamp', permissionsTimestamp);
+          console.log('issuedAtTime', Date.parse(this.state.issuedAtTime));
+          if (permissionsTimestamp > Date.parse(this.state.issuedAtTime)) {
+            this.forceTokenRefresh().then(this.getClaimsAndTokenIssuedTime);
+          } else {
+            console.log('token is good, not refreshing');
+          }
+        },
+        error => console.error('err', error),
+      );
+  }
+
+  getClaimsAndTokenIssuedTime = () => {
+    auth().currentUser.getIdTokenResult()
+      .then(({ issuedAtTime, claims }) => {
+        console.log('got issuedAtTime', Date.parse(issuedAtTime));
+        const { author, editor } = claims;
+        this.props.setUser({ claims: { author, editor } });
+        this.setState({ issuedAtTime });
+      })
+      .catch((error) => {
+        // eslint-disable-next-line
+        console.error(error);
+      });
   }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
@@ -75,8 +113,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
-  login: user => dispatch(login(user)),
+  removeUser: () => dispatch(removeUser()),
+  setUser: user => dispatch(setUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
