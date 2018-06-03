@@ -97,16 +97,17 @@ class FirepadContainer extends Component {
     const data = snapshot.val();
     if (data !== null) {
       const { changingPhase, phase, title } = data;
+      console.log('handlesnapshot', phase);
       if (this.verifyPhase(phase)) {
         if (!this.state.firepadInitialized) {
           this.setState({ firepadInitialized: true }, this.initFirepad);
         }
-        this.setState({
-          changingPhase,
-          phase,
-          title,
-        });
       }
+      this.setState({
+        changingPhase,
+        phase,
+        title,
+      });
     } else {
       this.setState({ notFound: true });
     }
