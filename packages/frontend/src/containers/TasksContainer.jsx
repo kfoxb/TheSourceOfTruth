@@ -82,7 +82,9 @@ export default class TasksContainer extends Component {
     return (
       <Fragment>
         <button><a href={`/${DOCUMENTS}/create`}>Create Document</a></button>
+        <h3>Create Tasks</h3>
         { this.state.documents.get(CREATE).map(TasksContainer.createDocumentLinks) }
+        <h3>Edit Tasks</h3>
         { this.state.documents.get(EDIT).map(TasksContainer.createDocumentLinks) }
       </Fragment>
     );
