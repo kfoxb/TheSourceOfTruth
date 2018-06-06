@@ -27,19 +27,6 @@ export default class ImageUploader extends Component {
   }
 
   render() {
-    // if (!this.state.replaced) {
-    // const imgToolbar = document.querySelector('span.firepad-tb-insert-image');
-    // const imgToolbar = document.querySelector('.firepad-toolbar-wrapper');
-    // const imgToolbarParent = imgToolbar && imgToolbar.parentNode;
-    // if (imgToolbarParent) {
-    // imgToolbarParent.removeChild(imgToolbar);
-    // window.parent = imgToolbarParent;
-    // if (imgToolbar) {
-    //    ReactDom.createPortal(<div className="firepad-tb-insert-image">hi</div>, imgToolbar);
-    // }
-    // this.setState({ replaced: true });
-    // }
-    // }
     if (this.el) {
       return ReactDom.createPortal(
         (
