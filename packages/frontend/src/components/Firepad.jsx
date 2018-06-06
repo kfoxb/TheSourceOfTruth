@@ -12,6 +12,7 @@ import PhaseError from './errors/PhaseError';
 import SubmitDialog from './SubmitDialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
+import ImageUploader from './ImageUploader';
 
 const StyledFirepad = styled.div`
   height: '100%';
@@ -108,6 +109,7 @@ export default function Firepad({
     <Fragment>
       { error && <PhaseError phase={phase} />}
       { loading && (<Loading />) }
+      <ImageUploader />
       <div style={displayStyle}>
         <SubmitDialog
           dialogIsOpen={dialogIsOpen}
