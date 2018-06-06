@@ -18,8 +18,9 @@ export default class ImageUploader extends Component {
     if (!this.state.replaced) {
       const child = document.querySelector('span.firepad-tb-insert-image');
       if (child) {
-        this.parent = child.parentNode;
-        this.parent.removeChild(child);
+        const parent = child.parentNode;
+        this.el = parent.parentNode;
+        this.el.removeChild(parent);
         this.setState({ replaced: true });
       }
     }
@@ -39,10 +40,14 @@ export default class ImageUploader extends Component {
     // this.setState({ replaced: true });
     // }
     // }
-    if (this.parent) {
+    if (this.el) {
       return ReactDom.createPortal(
-        <span className="firepad-tb-insert-image" />,
-        this.parent,
+        (
+          <a className="firepad-btn">
+            <span className="firepad-tb-insert-image" />
+          </a>
+        ),
+        this.el,
       );
     }
     return null;
