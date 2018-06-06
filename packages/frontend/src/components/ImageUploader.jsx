@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
+import React, { Component, Fragment } from 'react';
+import ImageUploaderButton from './ImageUploaderButton';
+import ImageUploaderModal from './ImageUploaderModal';
 
 export default class ImageUploader extends Component {
   state = {
@@ -7,36 +8,49 @@ export default class ImageUploader extends Component {
   }
 
   componentDidMount() {
-    this.replaceWithPortal();
+    this.replaceToolbarWithPortal();
   }
 
   componentDidUpdate() {
-    this.replaceWithPortal();
+    this.replaceToolbarWithPortal();
   }
 
-  replaceWithPortal() {
+  replaceToolbarWithPortal() {
     if (!this.state.replaced) {
       const child = document.querySelector('span.firepad-tb-insert-image');
       if (child) {
         const parent = child.parentNode;
-        this.el = parent.parentNode;
-        this.el.removeChild(parent);
+        this.uploadButtonElement = parent.parentNode;
+        this.uploadButtonElement.removeChild(parent);
         this.setState({ replaced: true });
       }
     }
   }
 
+  closeModal = () => {
+    this.setState({ modalOpen: false });
+    const dialog = document.getElementById('overlay');
+    dialog.style.visibility = 'hidden';
+    this.props.firepadInst.firepadWrapper_.removeChild(dialog);
+  }
+
+  launchImageUploadModal = () => {
+    this.props.firepadInst.makeImageDialog_();
+    this.setState({ modalOpen: true });
+  }
+
   render() {
-    if (this.el) {
-      return ReactDom.createPortal(
-        (
-          <a className="firepad-btn">
-            <span className="firepad-tb-insert-image" />
-          </a>
-        ),
-        this.el,
-      );
-    }
-    return null;
+    return (
+      <Fragment>
+        <ImageUploaderButton
+          uploadButtonElement={this.uploadButtonElement}
+          launchImageUploadModal={this.launchImageUploadModal}
+        />
+        <ImageUploaderModal
+          closeModal={this.closeModal}
+          modalOpen={this.state.modalOpen}
+        />
+      </Fragment>
+    );
   }
 }

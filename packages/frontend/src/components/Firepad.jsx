@@ -77,6 +77,7 @@ export default function Firepad({
   changingPhase,
   dialogIsOpen,
   error,
+  firepadInst,
   handleClose,
   handleSubmit,
   handleTitleChange,
@@ -109,7 +110,7 @@ export default function Firepad({
     <Fragment>
       { error && <PhaseError phase={phase} />}
       { loading && (<Loading />) }
-      <ImageUploader />
+      <ImageUploader firepadInst={firepadInst} />
       <div style={displayStyle}>
         <SubmitDialog
           dialogIsOpen={dialogIsOpen}
