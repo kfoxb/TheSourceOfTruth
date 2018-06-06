@@ -6,8 +6,26 @@ export default class ImageUploader extends Component {
     replaced: false,
   }
 
+  componentDidMount() {
+    this.replaceWithPortal();
+  }
+
+  componentDidUpdate() {
+    this.replaceWithPortal();
+  }
+
+  replaceWithPortal() {
+    if (!this.state.replaced) {
+      const child = document.querySelector('span.firepad-tb-insert-image');
+      if (child) {
+        this.parent = child.parentNode;
+        this.parent.removeChild(child);
+        this.setState({ replaced: true });
+      }
+    }
+  }
+
   render() {
-    console.log('in ImageUploader', this.state.replaced);
     // if (!this.state.replaced) {
     // const imgToolbar = document.querySelector('span.firepad-tb-insert-image');
     // const imgToolbar = document.querySelector('.firepad-toolbar-wrapper');
@@ -21,18 +39,12 @@ export default class ImageUploader extends Component {
     // this.setState({ replaced: true });
     // }
     // }
-    const child = document.querySelector('span.firepad-tb-insert-image');
-    const parent = child && child.parentNode;
-    return (
-      <div>
-        {
-        parent &&
-          ReactDom.createPortal(
-            <div className="firepad-tb-insert-image">hi</div>,
-            child.parentNode,
-          )
-      }
-      </div>
-    );
+    if (this.parent) {
+      return ReactDom.createPortal(
+        <span className="firepad-tb-insert-image" />,
+        this.parent,
+      );
+    }
+    return null;
   }
 }
