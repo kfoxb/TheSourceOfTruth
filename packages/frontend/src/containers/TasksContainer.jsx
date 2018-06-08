@@ -2,6 +2,13 @@ import React, { Component, Fragment } from 'react';
 import { database } from 'firebase';
 import { fromJS, List, Map } from 'immutable';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Add from '@material-ui/icons/Add';
+import { CardOutline } from 'somnium';
 import { CREATE, DOCUMENTS, EDIT, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
 import Loading from '../components/Loading';
 
@@ -81,11 +88,26 @@ export default class TasksContainer extends Component {
     }
     return (
       <Fragment>
-        <button><a href={`/${DOCUMENTS}/create`}>Create Document</a></button>
-        <h3>Create Tasks</h3>
-        { this.state.documents.get(CREATE).map(TasksContainer.createDocumentLinks) }
-        <h3>Edit Tasks</h3>
-        { this.state.documents.get(EDIT).map(TasksContainer.createDocumentLinks) }
+        <h2>Tasks</h2>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <h3>Create</h3>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <CardOutline>
+              <Button><a href={`/${DOCUMENTS}/create`}><Add style={{ margin: 'auto' }} />Create</a></Button>
+            </CardOutline>
+            { this.state.documents.get(CREATE).map(TasksContainer.createDocumentLinks) }
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <h3>Edit</h3>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            { this.state.documents.get(EDIT).map(TasksContainer.createDocumentLinks) }
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       </Fragment>
     );
   }
