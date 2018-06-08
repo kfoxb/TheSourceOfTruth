@@ -8,7 +8,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Add from '@material-ui/icons/Add';
-import { CardOutline } from 'somnium';
+import { Card, CardOutline } from 'somnium';
 import { CREATE, DOCUMENTS, EDIT, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
 import Loading from '../components/Loading';
 
@@ -16,20 +16,15 @@ export default class TasksContainer extends Component {
   static createDocumentLinks(doc) {
     const title = doc.get('title');
     const phase = doc.get(PHASE);
-    const viewHref = `/${DOCUMENTS}/${VIEW}/${doc.get('id')}`;
-    const editHref = `/${DOCUMENTS}/${phase}/${doc.get('id')}`;
+    const id = doc.get('id');
+    const viewHref = `/${DOCUMENTS}/${VIEW}/${id}`;
+    const editHref = `/${DOCUMENTS}/${phase}/${id}`;
     return (
-      <div key={doc.get('id')} >
-        <Link
-          to={viewHref}
-          href={viewHref}
-        >
-          {title || 'Untitled'}
+      <div key={id} >
+        <Link to={viewHref} href={viewHref} >
+          <Card title={title || 'Untitled'} />
         </Link>
-        <Link
-          to={editHref}
-          href={editHref}
-        >
+        <Link to={editHref} href={editHref}>
           {'    (continue)'}
         </Link>
       </div>
