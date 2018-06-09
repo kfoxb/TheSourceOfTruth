@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import firebase from 'firebase';
 import 'firebase/firestore';
-import ComingSoon from './components/ComingSoon';
+import ComingSoonContainer from './containers/ComingSoonContainer';
 import app from './reducers';
 
 firebase.initializeApp({
@@ -38,7 +38,7 @@ const render = (Component) => {
   );
 };
 
-render(ComingSoon);
+render(ComingSoonContainer);
 if (module.hot) {
-  module.hot.accept('./containers/AppContainer', () => { render(ComingSoon); });
+  module.hot.accept('./containers/AppContainer', () => { render(ComingSoonContainer); });
 }
