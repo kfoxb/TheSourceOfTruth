@@ -17,7 +17,7 @@ const styles = theme => ({
 });
 
 const StyledDiv = styled.div`
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/IMG_29989.jpg?alt=media&token=03dd552b-7e62-453b-b367-88a5da4ef113");
+  background-image: url(${process.env.HERO_IMAGE_URL});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
