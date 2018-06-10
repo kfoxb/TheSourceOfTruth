@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "source": "packages/backend/dist",
+    "predeploy": "yarn build"
+  },
+  "firestore": {
+    "rules": "packages/backend/firestore.rules",
+    "indexes": "packages/backend/firestore.indexes.json"
+  },
+  "database": {
+    "rules": "packages/backend/database.rules.json"
+  }
+}
