@@ -1,5 +1,65 @@
 import React from 'react';
+import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import colors from '../constants/colors';
 
-export default function Home() {
-  return (<h3>Home</h3>);
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    color: `${colors.white}`,
+    backgroundColor: `${colors.blue}`,
+  },
+  input: {
+    display: 'none',
+  },
+  secondary: {
+    backgroundColor: `${colors.purple}`,
+  },
+});
+
+const StyledDiv = styled.div`
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/IMG_2998.JPG?alt=media&token=8118b5cf-a693-41a5-9a3f-a77057953a98");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  min-height: 100vh;
+`;
+
+const StyledHeader = styled.div`
+  font-size: 40px;
+  line-height: 48px;
+  padding: 5px;
+`;
+
+const CenteredDiv = styled.div`
+  color: ${colors.white};
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 170px;
+`;
+
+function Home({ classes }) {
+  return (
+    <StyledDiv>
+      <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', height: '100vh', width: '100%' }} >
+        <CenteredDiv>
+          <StyledHeader className="StyledHome">
+          MARVELOUS WORK AND A WONDER®
+          </StyledHeader>
+          <div style={{ fontStyle: 'italic', padding: '25px' }}>insert short desc, scripture, or quote of MWAW here</div>
+          <div>
+            <Button variant="contained" className={classes.button} color="secondary">Introduction</Button>
+            <Button variant="contained" color="default" className={classes.button}>Journal</Button>
+          </div>
+        </CenteredDiv>
+      </div>
+    </StyledDiv>
+  );
 }
+
+export default withStyles(styles)(Home);
