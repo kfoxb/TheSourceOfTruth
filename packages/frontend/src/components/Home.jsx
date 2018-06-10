@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -13,13 +14,10 @@ const styles = theme => ({
   input: {
     display: 'none',
   },
-  secondary: {
-    backgroundColor: `${colors.purple}`,
-  },
 });
 
 const StyledDiv = styled.div`
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/IMG_2998.JPG?alt=media&token=8118b5cf-a693-41a5-9a3f-a77057953a98");
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/IMG_29989.jpg?alt=media&token=03dd552b-7e62-453b-b367-88a5da4ef113");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -53,13 +51,20 @@ function Home({ classes }) {
           </StyledHeader>
           <div style={{ fontStyle: 'italic', padding: '25px' }}>insert short desc, scripture, or quote of MWAW here</div>
           <div>
-            <Button variant="contained" className={classes.button} color="secondary">Introduction</Button>
-            <Button variant="contained" color="default" className={classes.button}>Journal</Button>
+            <Button className={classes.button} >Introduction</Button>
+            <Button color="default" className={classes.button}>Journal</Button>
           </div>
         </CenteredDiv>
       </div>
     </StyledDiv>
   );
 }
+
+Home.propTypes = {
+  classes: PropTypes.shape({
+    button: PropTypes.string.isRequired,
+    input: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default withStyles(styles)(Home);
