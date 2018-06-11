@@ -24,7 +24,7 @@ const StyledDiv = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 95vh;
+  min-height: 95.5vh;
 `;
 
 const StyledHeader = styled.div`
@@ -56,7 +56,7 @@ class Home extends Component {
     return (
       <Fragment>
         <StyledDiv>
-          <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', height: '95vh', width: '100%' }} >
+          <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', height: '95.5vh', width: '100%' }} >
             <CenteredDiv>
               <StyledHeader className="StyledHome">
                 MARVELOUS WORK AND A WONDER
