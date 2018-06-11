@@ -35,7 +35,15 @@ function TasksCard({
   return (
     <div key={id} >
       <Card className={classes.card}>
-        <Button onClick={() => { history.push(viewHref); }} style={{ padding: '0', textAlign: 'left' }}>
+        <Button
+          onClick={() => { history.push(viewHref); }}
+          style={{
+            height: '100%',
+            padding: '0',
+            textAlign: 'left',
+            width: '100%',
+        }}
+        >
           <CardContent style={{ color: `${colors.darkGrey}` }}>
             <h4 style={{ fontSize: '16px' }}>{ truncate(title, { length: 90 }) || 'Untitled'}</h4>
             <p>{truncate(desc, { length: 170 })}</p>
