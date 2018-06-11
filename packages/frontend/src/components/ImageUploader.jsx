@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { storage } from 'firebase';
 import ImageUploaderButton from './ImageUploaderButton';
 import ImageUploaderModal from './ImageUploaderModal';
 
@@ -30,7 +31,28 @@ export default class ImageUploader extends Component {
   }
 
   handleImage = (files) => {
-    console.log('files', files);
+    if (files.length) {
+      const file = files[0];
+      console.log('file', file);
+      const imagesRef = storage().ref().child(`images/${file.name}`);
+      imagesRef
+        .put(file)
+        .then((snapshot) => {
+          console.log('snapshot', snapshot);
+          return snapshot.ref.getDownloadURL();
+        })
+        .then((downloadURL) => {
+          console.log('downloadURL', downloadURL);
+          // embed download url at current cursor position in firepad
+          this.props.firepadInst.insertEntity('img', { src: downloadURL });
+          this.closeModal();
+          const { codeMirror_ } = this.props.firepadInst;
+          const c = codeMirror_.getCursor();
+          codeMirror_.setCursor(c);
+          console.log('c', c);
+        // this.props.firepadInst.codeMirror_.refresh();
+        });
+    }
   }
 
   replaceToolbarWithPortal() {
