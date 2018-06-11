@@ -24,12 +24,14 @@ function TasksCard({ doc, classes, id }) {
   const phase = doc.get(PHASE);
   const viewHref = `/${DOCUMENTS}/${VIEW}/${id}`;
   const editHref = `/${DOCUMENTS}/${phase}/${id}`;
+  const desc = '';
   return (
     <div key={id} >
       <Link to={viewHref} href={viewHref}>
         <Card className={classes.card}>
-          <CardContent style={{ color: `${colors.darkGrey}`, fontWeight: 'bold' }}>
-            {truncate(title, { length: 70 }) || 'Untitled'}
+          <CardContent style={{ color: `${colors.darkGrey}` }}>
+            <h4 style={{ fontSize: '18px' }}>{ truncate(title, { length: 80 }) || 'Untitled'}</h4>
+            <p>{truncate(desc, { length: 170 })}</p>
           </CardContent>
           <Divider />
           <CardActions style={{ justifyContent: 'flex-end' }}>
