@@ -63,9 +63,9 @@ class Home extends Component {
           <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', height: '95vh', width: '100%' }} >
             <CenteredDiv>
               <StyledHeader className="StyledHome">
-          MARVELOUS WORK AND A WONDER®
+                MARVELOUS WORK AND A WONDER
+                <div className="StyledHome" style={{ display: 'inline-block', fontSize: '22px', verticalAlign: 'super' }}>®</div>
               </StyledHeader>
-              <div style={{ fontStyle: 'italic', padding: '25px' }}>insert short desc, scripture, or quote of MWAW here</div>
               <div>
                 <Button className={classes.button} onClick={this.scrollToIntro}>
                   Introduction
