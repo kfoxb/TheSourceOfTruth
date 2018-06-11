@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { database } from 'firebase';
 import { fromJS, List, Map } from 'immutable';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,6 +13,7 @@ import Add from '@material-ui/icons/Add';
 import { CREATE, DOCUMENTS, EDIT, PHASE } from '@the-source-of-truth/shared/constants';
 import Loading from '../components/Loading';
 import TasksCard from '../components/TasksCard';
+import colors from '../constants/colors';
 
 const styles = {
   root: {
@@ -20,9 +22,20 @@ const styles = {
     gridGap: '20px',
     gridTemplateColumns: 'repeat(auto-fit, 250px)',
   },
+  card: {
+    maxheight: 265,
+    maxwidth: 240,
+  },
 };
 
 class TasksContainer extends Component {
+  static propTypes = {
+    classes: PropTypes.shape({
+      root: PropTypes.string.isRequired,
+      card: PropTypes.string.isRequired,
+    }).isRequired,
+  }
+
   static createDocumentLinks(doc) {
     const id = doc.get('id');
     return (
@@ -88,19 +101,14 @@ class TasksContainer extends Component {
             <h3>New Publications (Creations)</h3>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={this.props.classes.root}>
-            <Card
-              style={{
-                height: '265px',
-                width: '240px',
-              }}
-            >
+            <Card className={this.props.classes.card}>
               <Button
                 style={{
-                  height: '265px',
-                  width: '240px',
+                  height: '100%',
+                  width: '100%',
                 }}
               >
-                <a href={`/${DOCUMENTS}/create`}>
+                <a href={`/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}` }}>
                   <Add style={{ height: '100px', width: '100px' }} />
                 </a>
               </Button>
@@ -112,7 +120,7 @@ class TasksContainer extends Component {
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <h3>Publications in Progress (Editing)</h3>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          <ExpansionPanelDetails className={this.props.classes.root}>
             {this.state.documents.get(EDIT).map(TasksContainer.createDocumentLinks)}
           </ExpansionPanelDetails>
         </ExpansionPanel>
