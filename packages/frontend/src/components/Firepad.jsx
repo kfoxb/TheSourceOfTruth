@@ -160,6 +160,12 @@ Firepad.propTypes = {
       code: PropTypes.string.isRequired,
     }),
   ]),
+  firepadInst: PropTypes.shape({
+    firepadWrapper_: PropTypes.shape({
+      removeChild: PropTypes.func.isRequired,
+    }),
+    makeImageDialog_: PropTypes.func.isRequired,
+  }),
   handleClose: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
@@ -176,6 +182,7 @@ Firepad.propTypes = {
 Firepad.defaultProps = {
   dialogIsOpen: false,
   error: false,
+  firepadInst: null,
   readOnly: true,
   title: '',
 };
