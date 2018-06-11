@@ -49,10 +49,6 @@ class Home extends Component {
     this.ref = React.createRef();
   }
 
-  componentDidMount() {
-    console.log('ref', this.ref);
-  }
-
   scrollToIntro = () => { this.ref.current.scrollIntoView(); }
 
   render() {
@@ -85,6 +81,9 @@ Home.propTypes = {
   classes: PropTypes.shape({
     button: PropTypes.string.isRequired,
     input: PropTypes.string.isRequired,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
