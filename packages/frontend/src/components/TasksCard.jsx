@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import { truncate } from 'lodash';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import Edit from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 import { DOCUMENTS, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
 import colors from '../constants/colors';
 
@@ -19,7 +21,7 @@ const styles = {
   },
 };
 
-function TasksCard({ doc, classes, id }) {
+function TasksCard({ doc, classes, history, id }) {
   const title = doc.get('title');
   const phase = doc.get(PHASE);
   const viewHref = `/${DOCUMENTS}/${VIEW}/${id}`;
@@ -27,20 +29,20 @@ function TasksCard({ doc, classes, id }) {
   const desc = '';
   return (
     <div key={id} >
-      <Link to={viewHref} href={viewHref}>
-        <Card className={classes.card}>
+      <Card className={classes.card}>
+        <Button onClick={() => { history.push(viewHref); }} style={{ padding: '0', textAlign: 'left' }}>
           <CardContent style={{ color: `${colors.darkGrey}` }}>
-            <h4 style={{ fontSize: '18px' }}>{ truncate(title, { length: 80 }) || 'Untitled'}</h4>
+            <h4 style={{ fontSize: '16px' }}>{ truncate(title, { length: 90 }) || 'Untitled'}</h4>
             <p>{truncate(desc, { length: 170 })}</p>
           </CardContent>
-          <Divider />
-          <CardActions style={{ justifyContent: 'flex-end' }}>
-            <Link to={editHref} href={editHref} style={{ color: `${colors.darkGrey}` }}>
-              <Edit />
-            </Link>
-          </CardActions>
-        </Card>
-      </Link>
+        </Button>
+        <Divider />
+        <CardActions style={{ justifyContent: 'flex-end' }}>
+          <IconButton onClick={() => { history.push(editHref); }} style={{ color: `${colors.darkGrey}`, height: '35px', width: '35px' }} >
+            <Edit />
+          </IconButton>
+        </CardActions>
+      </Card>
     </div>
   );
 }
@@ -57,4 +59,4 @@ TasksCard.propTypes = {
   }).isRequired,
 };
 
-export default withStyles(styles)(TasksCard);
+export default withStyles(styles)(withRouter(TasksCard));
