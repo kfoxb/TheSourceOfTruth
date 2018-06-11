@@ -11,6 +11,7 @@ export default class ImageUploader extends Component {
         removeChild: PropTypes.func.isRequired,
       }),
       makeImageDialog_: PropTypes.func.isRequired,
+      insertEntity: PropTypes.func.isRequired,
     }),
   }
 
@@ -33,24 +34,18 @@ export default class ImageUploader extends Component {
   handleImage = (files) => {
     if (files.length) {
       const file = files[0];
-      console.log('file', file);
-      const imagesRef = storage().ref().child(`images/${file.name}`);
+      const name = file.name
+        // remove [, ], *, ?, per Google's object name guidelines
+        .replace(/#|\[|\]|\*|\?/g, '')
+        // replace any groups of whitespace with _
+        .replace(/\s+/g, '_');
+      const imagesRef = storage().ref().child(`images/${Date.now()}_${name}`);
       imagesRef
         .put(file)
-        .then((snapshot) => {
-          console.log('snapshot', snapshot);
-          return snapshot.ref.getDownloadURL();
-        })
+        .then(snapshot => snapshot.ref.getDownloadURL())
         .then((downloadURL) => {
-          console.log('downloadURL', downloadURL);
-          // embed download url at current cursor position in firepad
           this.props.firepadInst.insertEntity('img', { src: downloadURL });
           this.closeModal();
-          const { codeMirror_ } = this.props.firepadInst;
-          const c = codeMirror_.getCursor();
-          codeMirror_.setCursor(c);
-          console.log('c', c);
-        // this.props.firepadInst.codeMirror_.refresh();
         });
     }
   }
