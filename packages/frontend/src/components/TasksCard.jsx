@@ -8,46 +8,27 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import { DOCUMENTS, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
 
-const styles = theme => ({
+const styles = {
   card: {
-    display: 'flex',
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  content: {
-    flex: '1 0 auto',
-  },
-  cover: {
-    width: 151,
-    height: 151,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    width: 240,
+    height: 265,
+    margin: 10,
   },
   media: {
-    backgroundColor: 'grey',
+    height: 0,
+    paddingTop: '56.25%',
   },
-  playIcon: {
-    height: 38,
-    width: 38,
-  },
-});
+};
 
-function TasksCard({ doc, classes }) {
+function TasksCard({ doc, classes, id }) {
   const title = doc.get('title');
   const phase = doc.get(PHASE);
-  const id = doc.get('id');
   const viewHref = `/${DOCUMENTS}/${VIEW}/${id}`;
   const editHref = `/${DOCUMENTS}/${phase}/${id}`;
   return (
     <div key={id} >
       <Card className={classes.card}>
-        <CardMedia className={classes.media} />
+        <CardMedia className={classes.media} image="https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/placeholder.png?alt=media&token=1c1086cd-757f-4b09-b439-772eeed00f68" />
         <Link to={viewHref} href={viewHref} >
           {title || 'Untitled'}
         </Link>
@@ -64,10 +45,6 @@ TasksCard.propTypes = {
     card: PropTypes.string.isRequired,
     media: PropTypes.string,
   }).isRequired,
-};
-
-TasksCard.defaultProps = {
-  media: undefined,
 };
 
 export default withStyles(styles)(TasksCard);

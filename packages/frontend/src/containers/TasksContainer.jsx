@@ -1,33 +1,29 @@
 import React, { Component, Fragment } from 'react';
 import { database } from 'firebase';
 import { fromJS, List, Map } from 'immutable';
-import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Add from '@material-ui/icons/Add';
-import { Card, CardOutline } from 'somnium';
-import { CREATE, DOCUMENTS, EDIT, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
+import { CREATE, DOCUMENTS, EDIT, PHASE } from '@the-source-of-truth/shared/constants';
 import Loading from '../components/Loading';
+import TasksCard from '../components/TasksCard';
 
-export default class TasksContainer extends Component {
+const styles = {
+  root: {
+    flexWrap: 'wrap',
+  },
+};
+
+class TasksContainer extends Component {
   static createDocumentLinks(doc) {
-    const title = doc.get('title');
-    const phase = doc.get(PHASE);
     const id = doc.get('id');
-    const viewHref = `/${DOCUMENTS}/${VIEW}/${id}`;
-    const editHref = `/${DOCUMENTS}/${phase}/${id}`;
     return (
-      <div key={id} >
-        <Link to={viewHref} href={viewHref} >
-          <Card title={title || 'Untitled'} />
-        </Link>
-        <Link to={editHref} href={editHref}>
-          {'    (continue)'}
-        </Link>
-      </div>
+      <TasksCard doc={doc} id={id} key={id} />
     );
   }
 
@@ -84,26 +80,28 @@ export default class TasksContainer extends Component {
     return (
       <Fragment>
         <h2>Tasks</h2>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <h3>Create</h3>
+        <ExpansionPanel className={this.props.classes.root}>
+          <ExpansionPanelSummary className={this.props.classes.root} expandIcon={<ExpandMoreIcon />}>
+            <h3>New Publications (Creations)</h3>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <CardOutline>
+          <ExpansionPanelDetails className={this.props.classes.root}>
+            <Card>
               <Button><a href={`/${DOCUMENTS}/create`}><Add style={{ margin: 'auto' }} />Create</a></Button>
-            </CardOutline>
-            { this.state.documents.get(CREATE).map(TasksContainer.createDocumentLinks) }
+            </Card>
+            {this.state.documents.get(CREATE).map(TasksContainer.createDocumentLinks)}
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <h3>Edit</h3>
+            <h3>Publications in Progress (Editing)</h3>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            { this.state.documents.get(EDIT).map(TasksContainer.createDocumentLinks) }
+            {this.state.documents.get(EDIT).map(TasksContainer.createDocumentLinks)}
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Fragment>
     );
   }
 }
+
+export default withStyles(styles)(TasksContainer);
