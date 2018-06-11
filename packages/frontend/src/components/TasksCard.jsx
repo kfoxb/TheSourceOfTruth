@@ -25,7 +25,7 @@ function TasksCard({
   doc,
   classes,
   history,
-  id
+  id,
 }) {
   const title = doc.get('title');
   const phase = doc.get(PHASE);
@@ -56,6 +56,9 @@ TasksCard.propTypes = {
   classes: PropTypes.shape({
     card: PropTypes.string.isRequired,
     media: PropTypes.string,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
   id: PropTypes.string.isRequired,
   doc: ImmutablePropTypes.mapContains({
