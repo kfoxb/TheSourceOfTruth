@@ -21,7 +21,12 @@ const styles = {
   },
 };
 
-function TasksCard({ doc, classes, history, id }) {
+function TasksCard({
+  doc,
+  classes,
+  history,
+  id
+}) {
   const title = doc.get('title');
   const phase = doc.get(PHASE);
   const viewHref = `/${DOCUMENTS}/${VIEW}/${id}`;
