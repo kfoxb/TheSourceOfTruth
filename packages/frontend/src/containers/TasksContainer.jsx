@@ -15,7 +15,10 @@ import TasksCard from '../components/TasksCard';
 
 const styles = {
   root: {
-    flexWrap: 'wrap',
+    display: 'grid',
+    justifyContent: 'center',
+    gridGap: '20px',
+    gridTemplateColumns: 'repeat(auto-fit, 250px)',
   },
 };
 
@@ -80,13 +83,27 @@ class TasksContainer extends Component {
     return (
       <Fragment>
         <h2>Tasks</h2>
-        <ExpansionPanel className={this.props.classes.root}>
-          <ExpansionPanelSummary className={this.props.classes.root} expandIcon={<ExpandMoreIcon />}>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <h3>New Publications (Creations)</h3>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={this.props.classes.root}>
-            <Card>
-              <Button><a href={`/${DOCUMENTS}/create`}><Add style={{ margin: 'auto' }} />Create</a></Button>
+            <Card
+              style={{
+                height: '265px',
+                width: '240px',
+              }}
+            >
+              <Button
+                style={{
+                  height: '265px',
+                  width: '240px',
+                }}
+              >
+                <a href={`/${DOCUMENTS}/create`}>
+                  <Add style={{ height: '100px', width: '100px' }} />
+                </a>
+              </Button>
             </Card>
             {this.state.documents.get(CREATE).map(TasksContainer.createDocumentLinks)}
           </ExpansionPanelDetails>
