@@ -1,8 +1,22 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import ImageUploaderButton from './ImageUploaderButton';
 import ImageUploaderModal from './ImageUploaderModal';
 
 export default class ImageUploader extends Component {
+  static propTypes = {
+    firepadInst: PropTypes.shape({
+      firepadWrapper_: PropTypes.shape({
+        removeChild: PropTypes.func.isRequired,
+      }),
+      makeImageDialog_: PropTypes.func.isRequired,
+    }),
+  }
+
+  static defaultProps = {
+    firepadInst: null,
+  }
+
   state = {
     replaced: false,
   }
@@ -13,6 +27,10 @@ export default class ImageUploader extends Component {
 
   componentDidUpdate() {
     this.replaceToolbarWithPortal();
+  }
+
+  handleImage = (files) => {
+    console.log('files', files);
   }
 
   replaceToolbarWithPortal() {
@@ -31,12 +49,20 @@ export default class ImageUploader extends Component {
     this.setState({ modalOpen: false });
     const dialog = document.getElementById('overlay');
     dialog.style.visibility = 'hidden';
-    this.props.firepadInst.firepadWrapper_.removeChild(dialog);
+    const { firepadInst } = this.props;
+    if (firepadInst) {
+      // eslint-disable-next-line no-underscore-dangle
+      this.props.firepadInst.firepadWrapper_.removeChild(dialog);
+    }
   }
 
   launchImageUploadModal = () => {
-    this.props.firepadInst.makeImageDialog_();
-    this.setState({ modalOpen: true });
+    const { firepadInst } = this.props;
+    if (firepadInst) {
+      // eslint-disable-next-line no-underscore-dangle
+      this.props.firepadInst.makeImageDialog_();
+      this.setState({ modalOpen: true });
+    }
   }
 
   render() {
@@ -48,6 +74,7 @@ export default class ImageUploader extends Component {
         />
         <ImageUploaderModal
           closeModal={this.closeModal}
+          handleImage={this.handleImage}
           modalOpen={this.state.modalOpen}
         />
       </Fragment>
