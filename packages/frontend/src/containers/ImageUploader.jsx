@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { storage } from 'firebase';
-import ImageUploaderButton from './ImageUploaderButton';
-import ImageUploaderModal from './ImageUploaderModal';
+import ImageUploaderButton from '../components/ImageUploaderButton';
+import ImageUploaderModal from '../components/ImageUploaderModal';
 
 export default class ImageUploader extends Component {
   static propTypes = {

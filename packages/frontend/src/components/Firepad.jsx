@@ -12,7 +12,7 @@ import PhaseError from './errors/PhaseError';
 import SubmitDialog from './SubmitDialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
-import ImageUploader from './ImageUploader';
+import ImageUploader from '../containers/ImageUploader';
 
 const StyledFirepad = styled.div`
   height: '100%';
