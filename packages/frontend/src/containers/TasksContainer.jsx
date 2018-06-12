@@ -42,13 +42,6 @@ class TasksContainer extends Component {
     }).isRequired,
   }
 
-  static createDocumentLinks(doc, claims) {
-    const id = doc.get('id');
-    return (
-      <TasksCard claims={claims} doc={doc} id={id} key={id} />
-    );
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -77,6 +70,16 @@ class TasksContainer extends Component {
       .equalTo(phase)
       .on('value', this.handleSnapshot(phase), this.handleError);
   }
+
+  createDocumentLinks(phase) {
+    return this.state.documents.get(phase).map((doc) => {
+      const id = doc.get('id');
+      return (
+        <TasksCard claims={this.props.claims} doc={doc} id={id} key={id} />
+      );
+    });
+  }
+
 
   handleError = (error) => {
     // eslint-disable-next-line no-console
@@ -124,8 +127,7 @@ class TasksContainer extends Component {
                 </Button>
               </Card>
             }
-            {this.state.documents.get(CREATE).map(doc =>
-              TasksContainer.createDocumentLinks(doc, this.props.claims))}
+            {this.createDocumentLinks(CREATE)}
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel>
@@ -133,8 +135,7 @@ class TasksContainer extends Component {
             <h3>Publications in Progress (Editing)</h3>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={this.props.classes.root}>
-            {this.state.documents.get(EDIT).map(doc =>
-              TasksContainer.createDocumentLinks(doc, this.props.claims))}
+            {this.createDocumentLinks(EDIT)}
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Fragment>
