@@ -14,6 +14,14 @@ import NotFound from '../components/NotFound';
 import View from './View';
 import '../constants/Font';
 
+const generatePhaseRoutes = phase => (
+  <Route
+    exact
+    key={`phase_route_${phase}`}
+    path={`/${DOCUMENTS}/:${PHASE}(${phase})/:${phase === CREATE ? 'id?' : 'id'}`}
+    render={props => (<ConnectionError {...props} component={FirepadContainer} />)}
+  />);
+
 function App({
   isAnonymous, toggleVisibility, visible,
 }) {
@@ -29,16 +37,7 @@ function App({
       <Switch>
         <Route exact path="/" component={Home} />
         <View>
-          <Route
-            exact
-            path={`/${DOCUMENTS}/:${PHASE}(${EDIT}|${VIEW}|${APPROVE})/:id`}
-            render={props => (<ConnectionError {...props} component={FirepadContainer} />)}
-          />
-          <Route
-            exact
-            path={`/${DOCUMENTS}/:${PHASE}(${CREATE})/:id?`}
-            render={props => (<ConnectionError {...props} component={FirepadContainer} />)}
-          />
+          { [EDIT, VIEW, APPROVE, CREATE].map(generatePhaseRoutes) }
           <Route exact path={`/${LIBRARY}`} component={Library} />
           <Route exact path="/sign(up|in)" component={AuthenticateContainer} />
           <Route exact path="/tasks" component={TasksContainer} />
