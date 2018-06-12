@@ -67,6 +67,10 @@ function TasksCard({
 }
 
 TasksCard.propTypes = {
+  claims: PropTypes.shape({
+    editor: PropTypes.bool,
+    author: PropTypes.bool,
+  }).isRequired,
   classes: PropTypes.shape({
     card: PropTypes.string.isRequired,
     media: PropTypes.string,
