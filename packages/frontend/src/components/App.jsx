@@ -8,7 +8,7 @@ import AuthenticateContainer from '../containers/AuthenticateContainer';
 import ConnectionError from './errors/ConnectionError';
 import Home from './Home';
 import FirepadContainer from '../containers/FirepadContainer';
-import TasksContainer from '../containers/TasksContainer';
+import Tasks from './Tasks';
 import Library from './Library';
 import NotFound from '../components/NotFound';
 import View from './View';
@@ -40,7 +40,7 @@ function App({
           { [EDIT, VIEW, APPROVE, CREATE].map(generatePhaseRoutes) }
           <Route exact path={`/${LIBRARY}`} component={Library} />
           <Route exact path="/sign(up|in)" component={AuthenticateContainer} />
-          <Route exact path="/tasks" component={TasksContainer} />
+          <Route exact path="/tasks" component={Tasks} />
         </View>
         <Route component={NotFound} />
       </Switch>
