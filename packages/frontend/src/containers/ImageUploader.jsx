@@ -33,20 +33,32 @@ export default class ImageUploader extends Component {
 
   handleImage = (files) => {
     if (files.length) {
-      const file = files[0];
-      const name = file.name
-        // remove [, ], *, ?, per Google's object name guidelines
-        .replace(/#|\[|\]|\*|\?/g, '')
-        // replace any groups of whitespace with _
-        .replace(/\s+/g, '_');
-      const imagesRef = storage().ref().child(`images/${Date.now()}_${name}`);
-      imagesRef
-        .put(file)
-        .then(snapshot => snapshot.ref.getDownloadURL())
-        .then((downloadURL) => {
-          this.props.firepadInst.insertEntity('img', { src: downloadURL });
-          this.closeModal();
-        });
+      this.setState({ uploading: true }, () => {
+        console.log('1');
+        const file = files[0];
+        console.log('1.5');
+        const name = file.name
+          // remove [, ], *, ?, per Google's object name guidelines
+          .replace(/#|\[|\]|\*|\?/g, '')
+          // replace any groups of whitespace with _
+          .replace(/\s+/g, '_');
+        console.log('1.76');
+        const imagesRef = storage().ref().child(`images/${Date.now()}_${name}`);
+        console.log('1.9');
+        imagesRef
+          .put(file)
+          .then((snapshot) => {
+            console.log('2');
+            return snapshot.ref.getDownloadURL()
+          })
+          .then((downloadURL) => {
+            console.log('3');
+            this.props.firepadInst.insertEntity('img', { src: downloadURL });
+            // this.setState({ uploading: false }, this.closeModal);
+            this.closeModal();
+          });
+      });
+
     }
   }
 
@@ -64,20 +76,13 @@ export default class ImageUploader extends Component {
 
   closeModal = () => {
     this.setState({ modalOpen: false });
-    const dialog = document.getElementById('overlay');
-    dialog.style.visibility = 'hidden';
-    const { firepadInst } = this.props;
-    if (firepadInst) {
-      // eslint-disable-next-line no-underscore-dangle
-      this.props.firepadInst.firepadWrapper_.removeChild(dialog);
-    }
   }
 
   launchImageUploadModal = () => {
     const { firepadInst } = this.props;
     if (firepadInst) {
       // eslint-disable-next-line no-underscore-dangle
-      this.props.firepadInst.makeImageDialog_();
+      // this.props.firepadInst.makeImageDialog_();
       this.setState({ modalOpen: true });
     }
   }
@@ -93,6 +98,7 @@ export default class ImageUploader extends Component {
           closeModal={this.closeModal}
           handleImage={this.handleImage}
           modalOpen={this.state.modalOpen}
+          uploading={this.state.uploading}
         />
       </Fragment>
     );
