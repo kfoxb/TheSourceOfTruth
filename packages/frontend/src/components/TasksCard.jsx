@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import Edit from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import { DOCUMENTS, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
+import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import colors from '../constants/colors';
 
 const styles = {
@@ -26,12 +27,15 @@ function TasksCard({
   classes,
   history,
   id,
+  claims,
 }) {
   const title = doc.get('title');
   const phase = doc.get(PHASE);
   const viewHref = `/${DOCUMENTS}/${VIEW}/${id}`;
   const editHref = `/${DOCUMENTS}/${phase}/${id}`;
   const desc = '';
+  const hasPermissions = checkPermissions(claims, phase);
+
   return (
     <div key={id} >
       <Card className={classes.card}>
@@ -51,9 +55,11 @@ function TasksCard({
         </Button>
         <Divider />
         <CardActions style={{ justifyContent: 'flex-end' }}>
-          <IconButton onClick={() => { history.push(editHref); }} style={{ color: `${colors.darkGrey}`, height: '35px', width: '35px' }} >
-            <Edit />
-          </IconButton>
+          { hasPermissions &&
+            <IconButton onClick={() => { history.push(editHref); }} style={{ color: `${colors.darkGrey}`, height: '35px', width: '35px' }} >
+              <Edit />
+            </IconButton>
+          }
         </CardActions>
       </Card>
     </div>

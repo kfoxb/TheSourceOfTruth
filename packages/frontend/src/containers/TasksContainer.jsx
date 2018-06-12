@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { database } from 'firebase';
 import { fromJS, List, Map } from 'immutable';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -36,10 +37,10 @@ class TasksContainer extends Component {
     }).isRequired,
   }
 
-  static createDocumentLinks(doc) {
+  static createDocumentLinks(doc, claims) {
     const id = doc.get('id');
     return (
-      <TasksCard doc={doc} id={id} key={id} />
+      <TasksCard claims={claims} doc={doc} id={id} key={id} />
     );
   }
 
@@ -113,7 +114,8 @@ class TasksContainer extends Component {
                 </a>
               </Button>
             </Card>
-            {this.state.documents.get(CREATE).map(TasksContainer.createDocumentLinks)}
+            {this.state.documents.get(CREATE).map(doc =>
+              TasksContainer.createDocumentLinks(doc, this.props.claims))}
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel>
@@ -121,7 +123,8 @@ class TasksContainer extends Component {
             <h3>Publications in Progress (Editing)</h3>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={this.props.classes.root}>
-            {this.state.documents.get(EDIT).map(TasksContainer.createDocumentLinks)}
+            {this.state.documents.get(EDIT).map(doc =>
+              TasksContainer.createDocumentLinks(doc, this.props.claims))}
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Fragment>
@@ -129,4 +132,8 @@ class TasksContainer extends Component {
   }
 }
 
-export default withStyles(styles)(TasksContainer);
+const mapStateToProps = state => ({
+  claims: state.user.claims,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(TasksContainer));
