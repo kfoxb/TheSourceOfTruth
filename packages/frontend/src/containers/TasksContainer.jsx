@@ -11,7 +11,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Add from '@material-ui/icons/Add';
-import { CREATE, DOCUMENTS, EDIT, PHASE } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CREATE, DOCUMENTS, EDIT, PHASE } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import Loading from '../components/Loading';
 import TasksCard from '../components/TasksCard';
@@ -49,6 +49,7 @@ class TasksContainer extends Component {
       documents: fromJS({
         [CREATE]: [],
         [EDIT]: [],
+        [APPROVE]: [],
       }),
     };
   }
@@ -58,6 +59,7 @@ class TasksContainer extends Component {
       .ref(DOCUMENTS);
     this.setListenerByPhase(CREATE);
     this.setListenerByPhase(EDIT);
+    this.setListenerByPhase(APPROVE);
   }
 
   componentWillUnmount() {
@@ -91,11 +93,12 @@ class TasksContainer extends Component {
       this.setState({ loading: false });
     }
     const data = snapshot.val();
+    if (data) {
+      const documents = Object.keys(data)
+        .reduce((cur, acc) => cur.push(new Map({ id: acc, ...data[acc] })), new List([]));
 
-    const documents = Object.keys(data)
-      .reduce((cur, acc) => cur.push(new Map({ id: acc, ...data[acc] })), new List([]));
-
-    this.setState({ documents: this.state.documents.set(phase, documents) });
+      this.setState({ documents: this.state.documents.set(phase, documents) });
+    }
   }
 
   render() {
@@ -136,6 +139,14 @@ class TasksContainer extends Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={this.props.classes.root}>
             {this.createDocumentLinks(EDIT)}
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <h3>Publications Awaiting Approval</h3>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={this.props.classes.root}>
+            {this.createDocumentLinks(APPROVE)}
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Fragment>
