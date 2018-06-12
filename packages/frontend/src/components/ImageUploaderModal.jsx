@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Backup from '@material-ui/icons/Backup';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import colors from '../constants/colors';
-import './ImageUploaderModal.css';
 
 const styles = {
   barColorPrimary: {
@@ -16,6 +17,22 @@ const styles = {
   },
 };
 
+const StyledDiv = styled.div`
+  background-color: #FAFAFA;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 0 0 0.75pt #d1d1d1, 0 0 12pt 0.75pt #ccc;
+  height: 286px;
+  left: 0;
+  margin: auto;
+  max-width: 500px;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 178px;
+  width: 100%;
+  z-index: 10;
+`;
+
 function ImageUploaderModal({
   classes,
   closeModal,
@@ -25,7 +42,7 @@ function ImageUploaderModal({
 }) {
   if (modalOpen) {
     return (
-      <div className="firepad-dialog-div">
+      <StyledDiv>
         {
           uploading && <LinearProgress
             classes={{
@@ -67,10 +84,21 @@ function ImageUploaderModal({
         >
             Cancel
         </Button>
-      </div>
+      </StyledDiv>
     );
   }
   return null;
 }
+
+ImageUploaderModal.propTypes = {
+  classes: PropTypes.shape({
+    barColorPrimary: PropTypes.string.isRequired,
+    root: PropTypes.string.isRequired,
+  }).isRequired,
+  closeModal: PropTypes.func.isRequired,
+  handleImage: PropTypes.func.isRequired,
+  modalOpen: PropTypes.bool.isRequired,
+  uploading: PropTypes.bool.isRequired,
+};
 
 export default withStyles(styles)(ImageUploaderModal);
