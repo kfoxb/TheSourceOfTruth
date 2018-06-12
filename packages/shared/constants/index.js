@@ -1,3 +1,4 @@
+export const APPROVE = 'approve';
 export const CHANGING_PHASE = 'changingPhase';
 export const CREATE = 'create';
 export const DOCUMENTS = 'documents';

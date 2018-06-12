@@ -1,9 +1,9 @@
 import { database } from 'firebase-admin';
-import { CHANGING_PHASE, CREATE, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CHANGING_PHASE, CREATE, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import PromiseFirepad from './PromiseFirepad';
 
-const phaseOrder = [CREATE, EDIT, PUBLISHED];
+const phaseOrder = [CREATE, EDIT, APPROVE, PUBLISHED];
 const getNextPhase = currentPhase => phaseOrder[phaseOrder.findIndex(p => p === currentPhase) + 1];
 
 const createBackup = refToBackup =>
