@@ -99,8 +99,11 @@ export default function Firepad({
     return (<NotFound />);
   }
   if (!loading && !fontDisplayNone) {
-    fontDisplayNone = true;
-    document.querySelector('.firepad-btn.firepad-dropdown').parentNode.style.display = 'none';
+    const child = document.querySelector('.firepad-btn.firepad-dropdown');
+    if (child) {
+      child.parentNode.style.display = 'none';
+      fontDisplayNone = true;
+    }
   }
   const displayStyle = loading ? { display: 'none' } : {};
   return (
