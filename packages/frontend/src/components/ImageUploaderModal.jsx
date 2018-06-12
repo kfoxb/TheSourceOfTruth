@@ -55,7 +55,16 @@ function ImageUploaderModal({
           </div>
           <Button style={{ backgroundColor: `${colors.blue}`, color: `${colors.white}`, marginBottom: '14px' }}>Browse Files</Button>
         </Dropzone>
-        <Button onClick={closeModal} className="firepad-btn" style={{ backgroundColor: `${colors.purple}`, color: `${colors.white}` }}>
+        <Button
+          onClick={closeModal}
+          className="firepad-btn"
+          style={{
+            backgroundColor: `${colors.purple}`,
+            color: `${colors.white}`,
+            float: 'right',
+            marginTop: '5px',
+          }}
+        >
             Cancel
         </Button>
       </div>
