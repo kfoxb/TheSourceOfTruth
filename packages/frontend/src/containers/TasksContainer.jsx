@@ -35,11 +35,15 @@ class TasksContainer extends Component {
     claims: PropTypes.shape({
       editor: PropTypes.bool,
       author: PropTypes.bool,
-    }).isRequired,
+    }),
     classes: PropTypes.shape({
       root: PropTypes.string.isRequired,
       card: PropTypes.string.isRequired,
     }).isRequired,
+  }
+
+  static defaultProps = {
+    claims: {},
   }
 
   constructor(props) {
