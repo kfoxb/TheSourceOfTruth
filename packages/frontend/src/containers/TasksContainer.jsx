@@ -12,6 +12,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Add from '@material-ui/icons/Add';
 import { CREATE, DOCUMENTS, EDIT, PHASE } from '@the-source-of-truth/shared/constants';
+import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import Loading from '../components/Loading';
 import TasksCard from '../components/TasksCard';
 import colors from '../constants/colors';
@@ -94,6 +95,9 @@ class TasksContainer extends Component {
     if (this.state.loading) {
       return (<Loading />);
     }
+
+    const isAuthor = checkPermissions(this.props.claims, CREATE);
+
     return (
       <Fragment>
         <h2>Tasks</h2>
@@ -102,18 +106,20 @@ class TasksContainer extends Component {
             <h3>New Publications (Creations)</h3>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={this.props.classes.root}>
-            <Card className={this.props.classes.card}>
-              <Button
-                style={{
-                  height: '100%',
-                  width: '100%',
-                }}
-              >
-                <a href={`/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}` }}>
-                  <Add style={{ height: '100px', width: '100px' }} />
-                </a>
-              </Button>
-            </Card>
+            { isAuthor &&
+              <Card className={this.props.classes.card}>
+                <Button
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                  }}
+                >
+                  <a href={`/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}` }}>
+                    <Add style={{ height: '100px', width: '100px' }} />
+                  </a>
+                </Button>
+              </Card>
+            }
             {this.state.documents.get(CREATE).map(doc =>
               TasksContainer.createDocumentLinks(doc, this.props.claims))}
           </ExpansionPanelDetails>
