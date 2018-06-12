@@ -72,7 +72,6 @@ const StyledFirepad = styled.div`
   }
 `;
 
-let fontDisplayNone = false;
 export default function Firepad({
   changingPhase,
   dialogIsOpen,
@@ -98,11 +97,10 @@ export default function Firepad({
   if (notFound) {
     return (<NotFound />);
   }
-  if (!loading && !fontDisplayNone) {
+  if (!loading) {
     const child = document.querySelector('.firepad-btn.firepad-dropdown');
     if (child) {
       child.parentNode.style.display = 'none';
-      fontDisplayNone = true;
     }
   }
   const displayStyle = loading ? { display: 'none' } : {};
