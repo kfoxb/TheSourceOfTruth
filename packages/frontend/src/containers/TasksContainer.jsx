@@ -32,6 +32,10 @@ const styles = {
 
 class TasksContainer extends Component {
   static propTypes = {
+    claims: PropTypes.shape({
+      editor: PropTypes.bool,
+      author: PropTypes.bool,
+    }).isRequired,
     classes: PropTypes.shape({
       root: PropTypes.string.isRequired,
       card: PropTypes.string.isRequired,
