@@ -2,6 +2,7 @@
 
 exports[`TasksContainer should render 1`] = `
 <TasksContainer
+  claims={Object {}}
   classes={
     Object {
       "card": "TasksContainer-card-2",
