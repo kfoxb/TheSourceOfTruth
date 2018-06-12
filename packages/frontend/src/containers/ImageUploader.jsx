@@ -43,15 +43,12 @@ export default class ImageUploader extends Component {
         const imagesRef = storage().ref().child(`images/${Date.now()}_${name}`);
         imagesRef
           .put(file)
-          .then((snapshot) => {
-            return snapshot.ref.getDownloadURL()
-          })
+          .then(snapshot => snapshot.ref.getDownloadURL())
           .then((downloadURL) => {
             this.props.firepadInst.insertEntity('img', { src: downloadURL });
             this.setState({ uploading: false }, this.closeModal);
           });
       });
-
     }
   }
 
