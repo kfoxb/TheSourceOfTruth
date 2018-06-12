@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { database } from 'firebase';
 import { List, Map } from 'immutable';
 import { connect } from 'react-redux';
-import { CREATE, DOCUMENTS, EDIT, PHASE, PUBLISHED } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CREATE, DOCUMENTS, EDIT, PHASE, PUBLISHED } from '@the-source-of-truth/shared/constants';
 import Loading from '../components/Loading';
 import TasksCard from '../components/TasksCard';
 
@@ -13,7 +13,7 @@ class DocumentsContainer extends Component {
       editor: PropTypes.bool,
       author: PropTypes.bool,
     }),
-    phase: PropTypes.oneOf([CREATE, EDIT, PUBLISHED]).isRequired,
+    phase: PropTypes.oneOf([APPROVE, CREATE, EDIT, PUBLISHED]).isRequired,
   }
 
   static defaultProps = {
