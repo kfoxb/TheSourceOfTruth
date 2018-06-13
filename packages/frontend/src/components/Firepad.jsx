@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
 import Button from '@material-ui/core/Button';
+import Delete from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import colors from '../constants/colors';
 import GenericError from './errors/GenericError';
 import Loading from './Loading';
@@ -123,8 +126,15 @@ export default function Firepad({
           <TaskHeader>
             <h2>Add New Post</h2>
             { !readOnly &&
-            <Button onClick={openDialog} className="buttons">Submit</Button>
-                }
+            <div>
+              <Tooltip id="tooltip-icon" title="Delete">
+                <IconButton>
+                  <Delete />
+                </IconButton>
+              </Tooltip>
+              <Button onClick={openDialog} className="buttons">Submit</Button>
+            </div>
+            }
           </TaskHeader>
           { readOnly ?
             (<h4>{title}</h4>) :
