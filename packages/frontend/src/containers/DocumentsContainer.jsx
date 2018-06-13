@@ -57,7 +57,8 @@ class DocumentsContainer extends Component {
     const data = snapshot.val();
     if (data) {
       const documents = Object.keys(data)
-        .reduce((cur, acc) => cur.push(new Map({ id: acc, ...data[acc] })), new List([]));
+        .reduce((cur, acc) => cur.push(new Map({ id: acc, ...data[acc] })), new List([]))
+        .sort((a, b) => a > b);
 
       this.setState({ documents });
     }

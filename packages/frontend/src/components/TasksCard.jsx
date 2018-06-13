@@ -12,9 +12,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import Edit from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import { DOCUMENTS, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
+import { DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import CodeMirror from 'codemirror';
+import format from 'date-fns/format';
 import colors from '../constants/colors';
 
 global.CodeMirror = CodeMirror;
@@ -59,6 +60,7 @@ class TasksCard extends Component {
     const viewHref = `/${DOCUMENTS}/${VIEW}/${id}`;
     const editHref = `/${DOCUMENTS}/${phase}/${id}`;
     const hasPermissions = checkPermissions(claims, phase);
+    const time = doc.get(TIME)[phase];
     return (
       <div key={id} >
         <Card className={classes.card}>
@@ -78,6 +80,7 @@ class TasksCard extends Component {
           </Button>
           <Divider />
           <CardActions style={{ justifyContent: 'flex-end' }}>
+            <p>{format(time, 'MMMM Do, YYYY')}</p>
             { hasPermissions &&
             <IconButton onClick={() => { history.push(editHref); }} style={{ color: `${colors.darkGrey}`, height: '35px', width: '35px' }} >
               <Edit />
