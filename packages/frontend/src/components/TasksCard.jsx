@@ -31,9 +31,9 @@ const styles = {
 };
 
 const StyledP = styled.p`
-  text-align: left;
-  color: ${colors.grey};
+  color: ${colors.darkGrey};
   display: inline-block;
+  opacity: 0.5;
 `;
 
 class TasksCard extends Component {
@@ -87,27 +87,42 @@ class TasksCard extends Component {
     return (
       <div key={id} >
         <Card className={classes.card}>
-          <Button
-            onClick={() => { history.push(viewHref); }}
-            style={{
-            height: '100%',
-            padding: '0',
-            textAlign: 'left',
-            width: '100%',
-        }}
-          >
-            <CardContent style={{ color: `${colors.darkGrey}` }}>
-              <h4 style={{ fontSize: '16px' }}>{ truncate(title, { length: 90 }) || 'Untitled'}</h4>
-              <p>{truncate(this.state.documentBody, { length: 170 })}</p>
-            </CardContent>
-          </Button>
+          <Tooltip id="tooltip-icon" title="View Document">
+            <Button
+              onClick={() => { history.push(viewHref); }}
+              style={{
+                height: '100%',
+                padding: '0',
+                textAlign: 'left',
+                width: '100%',
+              }}
+            >
+              <CardContent style={{ color: `${colors.darkGrey}` }}>
+                <h4 style={{ fontSize: '16px' }}>{ truncate(title, { length: 90 }) || 'Untitled'}</h4>
+                <p>{truncate(this.state.documentBody, { length: 170 })}</p>
+              </CardContent>
+            </Button>
+          </Tooltip>
           <Divider />
-          <CardActions style={{ justifyContent: 'flex-end' }}>
+          <CardActions
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '0.75fr 1fr 0.5fr',
+            }}
+          >
             <StyledP>{format(time, 'M/D/YY')}</StyledP>
             <StyledP>{this.getReadTime()} min read</StyledP>
             { hasPermissions &&
               <Tooltip id="tooltip-icon" title={TooltipPhase()}>
-                <IconButton onClick={() => { history.push(editHref); }} style={{ color: `${colors.darkGrey}`, height: '35px', width: '35px' }} >
+                <IconButton
+                  onClick={() => { history.push(editHref); }}
+                  style={{
+                    color: `${colors.darkGrey}`,
+                    height: '35px',
+                    width: '35px',
+                    justifySelf: 'end',
+                  }}
+                >
                   <Edit />
                 </IconButton>
               </Tooltip>
