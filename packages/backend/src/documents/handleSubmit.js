@@ -28,6 +28,7 @@ const handleSubmit = (payload, context) => {
     .then((snapshot) => {
       const data = snapshot.val();
       const prevPhase = data.phase;
+      const { time } = data;
       const isAllowed = checkPermissions(context.auth.token, prevPhase);
       if (isAllowed) {
         const pageRefFirepad = new PromiseFirepad(ref);
@@ -36,14 +37,16 @@ const handleSubmit = (payload, context) => {
           pageRefFirepad.getText(),
           createBackup(ref),
           prevPhase,
+          time,
         ]);
       }
       throw new Error('Insufficient permissions for this task');
     })
-    .then(([html, text, backupRef, prevPhase]) => {
+    .then(([html, text, backupRef, prevPhase, time]) => {
       const nextPhase = getNextPhase(prevPhase);
       return ref.update({
         phase: nextPhase,
+        time: { ...time, [nextPhase]: database.ServerValue.TIMESTAMP },
         [CHANGING_PHASE]: false,
         [`${prevPhase}PhaseBackup`]: {
           id: backupRef.key,
