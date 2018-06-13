@@ -16,8 +16,6 @@ import { DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/consta
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import CodeMirror from 'codemirror';
 import format from 'date-fns/format';
-import addMinutes from 'date-fns/add_minutes';
-import distanceInWords from 'date-fns/distance_in_words';
 import colors from '../constants/colors';
 
 global.CodeMirror = CodeMirror;
