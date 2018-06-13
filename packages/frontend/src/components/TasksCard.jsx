@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { database } from 'firebase';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { withRouter } from 'react-router';
+import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import { truncate, words } from 'lodash';
 import Button from '@material-ui/core/Button';
@@ -12,7 +13,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import Edit from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import { DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
+import Tooltip from '@material-ui/core/Tooltip';
+import { CREATE, DOCUMENTS, EDIT, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import CodeMirror from 'codemirror';
 import format from 'date-fns/format';
@@ -27,6 +29,12 @@ const styles = {
     maxwidth: 240,
   },
 };
+
+const StyledP = styled.p`
+  text-align: left;
+  color: ${colors.grey};
+  display: inline-block;
+`;
 
 class TasksCard extends Component {
   constructor(props) {
@@ -67,6 +75,14 @@ class TasksCard extends Component {
     const hasPermissions = checkPermissions(claims, phase);
     const timeObj = doc.get(TIME);
     const time = timeObj ? timeObj[phase] : '';
+    const TooltipPhase = () => {
+      if (phase === CREATE) {
+        return 'Continue creating';
+      } else if (phase === EDIT) {
+        return 'Continue editing';
+      }
+      return 'Approve';
+    };
 
     return (
       <div key={id} >
@@ -87,13 +103,15 @@ class TasksCard extends Component {
           </Button>
           <Divider />
           <CardActions style={{ justifyContent: 'flex-end' }}>
-            <p>{format(time, 'M/D/YY')}</p>
-            <p>{this.getReadTime()} min read</p>
+            <StyledP>{format(time, 'M/D/YY')}</StyledP>
+            <StyledP>{this.getReadTime()} min read</StyledP>
             { hasPermissions &&
-            <IconButton onClick={() => { history.push(editHref); }} style={{ color: `${colors.darkGrey}`, height: '35px', width: '35px' }} >
-              <Edit />
-            </IconButton>
-          }
+              <Tooltip id="tooltip-icon" title={TooltipPhase()}>
+                <IconButton onClick={() => { history.push(editHref); }} style={{ color: `${colors.darkGrey}`, height: '35px', width: '35px' }} >
+                  <Edit />
+                </IconButton>
+              </Tooltip>
+            }
           </CardActions>
         </Card>
       </div>
