@@ -54,9 +54,8 @@ class TasksCard extends Component {
   }
 
   getReadTime() {
-    const minutesOfReading = words(this.state.documentBody).length / 250;
-    const now = Date.now();
-    return distanceInWords(now, addMinutes(now, minutesOfReading));
+    const minutesOfReading = Math.floor(words(this.state.documentBody).length / 250);
+    return minutesOfReading > 0 ? minutesOfReading : '< 1';
   }
 
   render() {
@@ -89,8 +88,8 @@ class TasksCard extends Component {
           </Button>
           <Divider />
           <CardActions style={{ justifyContent: 'flex-end' }}>
-            <p>Time: {format(time, 'MMMM Do, YYYY')}</p>
-            <p>Read Time: {this.getReadTime()}</p>
+            <p>{format(time, 'M/D/YY')}</p>
+            <p>{this.getReadTime()} min read</p>
             { hasPermissions &&
             <IconButton onClick={() => { history.push(editHref); }} style={{ color: `${colors.darkGrey}`, height: '35px', width: '35px' }} >
               <Edit />
