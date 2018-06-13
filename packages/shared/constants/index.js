@@ -9,4 +9,5 @@ export const PHASE = 'phase';
 export const PHASES = 'phases';
 export const PUBLISHED = 'published';
 export const TASKS = 'tasks';
+export const TIME = 'time';
 export const VIEW = 'view';

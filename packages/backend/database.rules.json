@@ -33,6 +33,22 @@
           ".read": "auth != null",
           ".write": "!data.exists() && auth.token.author === true && newData.val() === 'create'"
         },
+        "time": {
+          ".read": "auth != null",
+          ".write": "auth.token.author === true",
+          "create": {
+            ".write": "auth.token.author === true"
+          },
+          "edit": {
+            ".write": false
+          },
+          "approve": {
+            ".write": false
+          },
+          "published": {
+            ".write": false
+          }
+        },
         "title": {
           ".read": "auth != null",
           ".write": "(data.parent().child('phase').val() === 'create' && auth.token.author === true) || (data.parent().child('phase').val() === 'edit' && auth.token.editor === true) || (data.parent().child('phase').val() === 'approve' && auth.token.approver === true)"
