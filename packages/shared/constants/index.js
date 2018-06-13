@@ -1,6 +1,7 @@
 export const APPROVE = 'approve';
 export const CHANGING_PHASE = 'changingPhase';
 export const CREATE = 'create';
+export const DELETED = 'deleted';
 export const DOCUMENTS = 'documents';
 export const DOCUMENT_BACKUPS = 'documentBackups';
 export const EDIT = 'edit';
