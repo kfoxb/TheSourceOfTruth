@@ -11,6 +11,7 @@
     },
     "documents": {
       ".read": "auth != null",
+      ".indexOn": ["phase"],
       "$document": {
         ".read": "auth != null",
         "history": {
