@@ -4,7 +4,7 @@ import { database } from 'firebase';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
-import { truncate } from 'lodash';
+import { truncate, words } from 'lodash';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -16,6 +16,8 @@ import { DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/consta
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import CodeMirror from 'codemirror';
 import format from 'date-fns/format';
+import addMinutes from 'date-fns/add_minutes';
+import distanceInWords from 'date-fns/distance_in_words';
 import colors from '../constants/colors';
 
 global.CodeMirror = CodeMirror;
@@ -33,7 +35,7 @@ class TasksCard extends Component {
     super(props);
     this.ref = database().ref(DOCUMENTS).child(props.id);
     this.state = {
-      summary: '',
+      documentBody: '',
     };
   }
 
@@ -41,7 +43,7 @@ class TasksCard extends Component {
     this.headless = new Headless(this.ref);
     this.ref.on('value', () => {
       this.headless.getText((text) => {
-        this.setState({ summary: text });
+        this.setState({ documentBody: text });
       });
     });
   }
@@ -49,6 +51,12 @@ class TasksCard extends Component {
   componentWillUnmount() {
     this.ref.off();
     this.headless.dispose();
+  }
+
+  getReadTime() {
+    const minutesOfReading = words(this.state.documentBody).length / 250;
+    const now = Date.now();
+    return distanceInWords(now, addMinutes(now, minutesOfReading));
   }
 
   render() {
@@ -61,6 +69,7 @@ class TasksCard extends Component {
     const editHref = `/${DOCUMENTS}/${phase}/${id}`;
     const hasPermissions = checkPermissions(claims, phase);
     const time = doc.get(TIME)[phase];
+
     return (
       <div key={id} >
         <Card className={classes.card}>
@@ -75,12 +84,13 @@ class TasksCard extends Component {
           >
             <CardContent style={{ color: `${colors.darkGrey}` }}>
               <h4 style={{ fontSize: '16px' }}>{ truncate(title, { length: 90 }) || 'Untitled'}</h4>
-              <p>{truncate(this.state.summary, { length: 170 })}</p>
+              <p>{truncate(this.state.documentBody, { length: 170 })}</p>
             </CardContent>
           </Button>
           <Divider />
           <CardActions style={{ justifyContent: 'flex-end' }}>
-            <p>{format(time, 'MMMM Do, YYYY')}</p>
+            <p>Time: {format(time, 'MMMM Do, YYYY')}</p>
+            <p>Read Time: {this.getReadTime()}</p>
             { hasPermissions &&
             <IconButton onClick={() => { history.push(editHref); }} style={{ color: `${colors.darkGrey}`, height: '35px', width: '35px' }} >
               <Edit />
