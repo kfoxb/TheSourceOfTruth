@@ -23,7 +23,7 @@ module.exports = {
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.FB_API_KEY': JSON.stringify(process.env.FB_API_KEY),
       'process.env.FB_AUTH_DOMAIN': JSON.stringify(process.env.FB_AUTH_DOMAIN),
       'process.env.FB_DATABASE_URL': JSON.stringify(process.env.FB_DATABASE_URL),
