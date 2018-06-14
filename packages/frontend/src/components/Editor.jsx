@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Delete from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { SUBMIT, DELETE } from '@the-source-of-truth/shared/constants';
+import { APPROVE, DELETE, REJECT, SUBMIT } from '@the-source-of-truth/shared/constants';
 import { checkDeletePermissions } from '@the-source-of-truth/shared/helpers';
 import 'quill/dist/quill.snow.css';
 import './Editor.css';
@@ -22,7 +22,6 @@ import PhaseBar from './PhaseBar';
 import SubmitDialog from './SubmitDialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
-import { APPROVE } from '../../../shared/constants/index';
 
 const styles = {
   button: {
@@ -44,6 +43,8 @@ class Firepad extends Component {
     this.state = {
       submitDialogIsOpen: false,
       deleteDialogIsOpen: false,
+      approveDialogIsOpen: false,
+      rejectDialogIsOpen: false,
     };
   }
 
@@ -107,6 +108,22 @@ class Firepad extends Component {
             taskInProgress={taskInProgress}
             type={DELETE}
           />
+          <SubmitDialog
+            dialogIsOpen={this.state.approveDialogIsOpen}
+            handleClose={this.handleDialog(APPROVE, false)}
+            handleAccept={handleTask(APPROVE)}
+            taskComplete={taskComplete}
+            taskInProgress={taskInProgress}
+            type={APPROVE}
+          />
+          <SubmitDialog
+            dialogIsOpen={this.state.rejectDialogIsOpen}
+            handleClose={this.handleDialog(REJECT, false)}
+            handleAccept={handleTask(REJECT)}
+            taskComplete={taskComplete}
+            taskInProgress={taskInProgress}
+            type={REJECT}
+          />
           <TaskContentBody>
             <TaskHeader>
               {(!readOnly && checkDeletePermissions(claims, phase)) ?
@@ -123,7 +140,7 @@ class Firepad extends Component {
               { (!readOnly && phase === APPROVE) &&
                 <div>
                   <Button onClick={this.handleDialog(APPROVE, true)} className="buttons" style={{ marginBottom: '4px' }}>Approve</Button>
-                  <Button className={classes.button}>Send Back</Button>
+                  <Button onClick={this.handleDialog(REJECT, true)} className={classes.button}>Send Back</Button>
                 </div>
               }
             </TaskHeader>
