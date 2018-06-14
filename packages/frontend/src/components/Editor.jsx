@@ -122,7 +122,7 @@ class Firepad extends Component {
               }
               { (!readOnly && phase === APPROVE) &&
                 <div>
-                  <Button onClick={this.handleDialog(APPROVE, true)} className="buttons">Approve</Button>
+                  <Button onClick={this.handleDialog(APPROVE, true)} className="buttons" style={{ marginBottom: '4px' }}>Approve</Button>
                   <Button className={classes.button}>Send Back</Button>
                 </div>
               }

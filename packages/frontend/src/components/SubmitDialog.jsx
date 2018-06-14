@@ -9,6 +9,7 @@ import { ENG, SUBMIT, DELETE } from '@the-source-of-truth/shared/constants';
 import upperFirst from 'lodash/upperFirst';
 import Dialog from './Dialog';
 import colors from '../constants/colors';
+import { APPROVE } from '../../../shared/constants/index';
 
 const styles = () => ({
   buttonProgress: {
@@ -21,9 +22,36 @@ const styles = () => ({
   },
 });
 
-const getTitle = (type, taskComplete) => (taskComplete ?
-  `Content ${type === SUBMIT ? 'Submitted' : 'Deleted'}`
-  : `Are you sure you want to ${type}?`);
+const areYouSure = action => `Are you sure you want to ${action}?`;
+
+const getTitle = (type, taskComplete) => {
+  const isSubmit = type === SUBMIT;
+  const isDelete = type === DELETE;
+  const isApprove = type === APPROVE;
+  const isReject = type === REJECT;
+
+  if (taskComplete) {
+    if (isSubmit) {
+      return 'Content Submitted';
+    }
+    if (isDelete) {
+      return 'Content Deleted';
+    }
+    if (isApprove) {
+      return 'Content Approved';
+    }
+    if (isReject) {
+      return 'Content Sent Back to Editing';
+    }
+  }
+  if (isSubmit || isDelete || isApprove) {
+    return areYouSure(type);
+  }
+  if (isReject) {
+    return areYouSure('send to editing');
+  }
+  return 'Are you sure?';
+};
 
 const SubmitDialog = ({
   classes,
