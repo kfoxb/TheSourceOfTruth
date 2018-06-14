@@ -157,8 +157,8 @@ export default class Firepad extends Component {
             <TaskHeader>
               {(!readOnly && checkDeletePermissions(claims, phase)) ?
                 <Tooltip id="tooltip-icon" style={{ justifySelf: 'center' }} title="Delete">
-                  <IconButton onClick={this.handleDialog(DELETE, true)}>
-                    <Delete />
+                  <IconButton onClick={this.handleDialog(DELETE, true)} style={{ justifySelf: 'center' }}>
+                    <Delete style={{ height: '2em', width: '3em' }} />
                   </IconButton>
                 </Tooltip>
                   : <div />}
