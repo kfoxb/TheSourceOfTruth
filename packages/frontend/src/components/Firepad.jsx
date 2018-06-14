@@ -122,7 +122,7 @@ export default function Firepad({
         />
         <TaskContentBody>
           <TaskHeader>
-            <Button>Delete Placeholder</Button>
+            {!readOnly ? <div>{/* Delete Placeholder */}</div> : <div />}
             <PhaseBar phase={phase} />
             { !readOnly &&
             <Button onClick={openDialog} className="buttons">Submit</Button>
