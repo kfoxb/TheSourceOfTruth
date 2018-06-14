@@ -4,6 +4,7 @@ import { database } from 'firebase';
 import { DOCUMENTS } from '@the-source-of-truth/shared/constants';
 import Loading from '../components/Loading';
 import FirepadContainer from '../containers/FirepadContainer';
+import UrimContainer from '../containers/UrimContainer';
 
 export default class EditorContainer extends Component {
   static propTypes = {
@@ -56,6 +57,6 @@ export default class EditorContainer extends Component {
     if (this.state.firepad) {
       return (<FirepadContainer {...this.props} />);
     }
-    return (<div>Urim</div>);
+    return (<UrimContainer {...this.props} />);
   }
 }
