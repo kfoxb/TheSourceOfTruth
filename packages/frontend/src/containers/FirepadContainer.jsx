@@ -11,6 +11,7 @@ const { fromCodeMirror } = require('firepad/dist/firepad');
 
 class FirepadContainer extends Component {
   static propTypes = {
+    claims: PropTypes.string.isRequired,
     history: PropTypes.shape({
       replace: PropTypes.func.isRequired,
     }).isRequired,
