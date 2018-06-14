@@ -6,7 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { APPROVE, DELETE, ENG, REJECT, SUBMIT } from '@the-source-of-truth/shared/constants';
-import upperFirst from 'lodash/upperFirst';
 import Dialog from './Dialog';
 import colors from '../constants/colors';
 

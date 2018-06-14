@@ -24,6 +24,9 @@ import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
 
 const styles = {
+  root: {
+    maxHeight: '25px',
+  },
   button: {
     backgroundColor: `${colors.purple}`,
     color: `${colors.white}`,
@@ -135,12 +138,14 @@ class Firepad extends Component {
                   : <div />}
               <PhaseBar phase={phase} />
               { (!readOnly && phase !== APPROVE) &&
-              <Button onClick={this.handleDialog(SUBMIT, true)} className="buttons">Submit</Button>
+              <Button onClick={this.handleDialog(SUBMIT, true)} className={`buttons ${classes.root}`}>Submit</Button>
               }
               { (!readOnly && phase === APPROVE) &&
-                <div>
+                <div style={{ paddingLeft: '10px', paddingBottom: '10px' }}>
                   <Button onClick={this.handleDialog(APPROVE, true)} className="buttons" style={{ marginBottom: '4px' }}>Approve</Button>
-                  <Button onClick={this.handleDialog(REJECT, true)} className={classes.button}>Re-edit</Button>
+                  <Button onClick={this.handleDialog(REJECT, true)} className={classes.button}>
+                    Re-edit
+                  </Button>
                 </div>
               }
             </TaskHeader>
