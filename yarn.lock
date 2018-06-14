@@ -11642,7 +11642,7 @@ uri-js@^3.0.2:
 
 "urim@https://github.com/kfoxb/urim.git":
   version "1.4.0"
-  resolved "https://github.com/kfoxb/urim.git#94ba52f086c46de5f4d3099fe2e76d5b945e9451"
+  resolved "https://github.com/kfoxb/urim.git#bc9872305f950a7ce099fea3cae1a3fdf3ae01d3"
   dependencies:
     firebase "^3 || ^4"
     jsdom ">3"
