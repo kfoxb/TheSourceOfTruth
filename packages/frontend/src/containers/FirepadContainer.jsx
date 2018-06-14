@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
 import { CHANGING_PHASE, CREATE, DELETED, DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
-import Firepad from '../components/Firepad';
+import Editor from '../components/Editor';
 
 global.CodeMirror = CodeMirror;
 const { fromCodeMirror } = require('firepad/dist/firepad');
@@ -204,9 +204,10 @@ class FirepadContainer extends Component {
   render() {
     const loading = !this.props.isAuthenticated || this.state.loading;
     return (
-      <Firepad
+      <Editor
         changingPhase={this.state.changingPhase}
         claims={this.props.claims}
+        elementId="firepad-container"
         error={this.state.error}
         firepadInst={this.firepadInst}
         handleTask={this.handleTask}

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { CHANGING_PHASE, CREATE, DELETED, DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
 import { connect } from 'react-redux';
 import 'quill/dist/quill.snow.css';
-import Urim from '../components/Urim';
+import Editor from '../components/Editor';
 
 window.Quill = Quill;
 const { fromQuill } = require('urim/dist/firepad');
@@ -155,6 +155,7 @@ class UrimContainer extends Component {
   initUrim() {
     const readOnly = this.isReadOnly();
 
+    const d = document.querySelector('#editor-container');
     const editor = new Quill('#editor-container', {
       modules: {
         toolbar: toolbarOptions,
@@ -208,9 +209,10 @@ class UrimContainer extends Component {
   render() {
     const loading = !this.props.isAuthenticated || this.state.loading;
     return (
-      <Urim
+      <Editor
         changingPhase={this.state.changingPhase}
         claims={this.props.claims}
+        elementId="editor-container"
         error={this.state.error}
         firepadInst={this.firepadInst}
         handleTask={this.handleTask}

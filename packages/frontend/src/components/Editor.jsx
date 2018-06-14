@@ -184,7 +184,7 @@ export default class Firepad extends Component {
                   value={title}
                 />
             }
-            <StyledFirepad id="firepad-container" />
+            <StyledFirepad id={this.props.elementId} />
           </TaskContentBody>
         </div>
       </Fragment>
@@ -198,6 +198,7 @@ Firepad.propTypes = {
     editor: PropTypes.bool,
     author: PropTypes.bool,
   }),
+  elementId: PropTypes.string.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.shape({
