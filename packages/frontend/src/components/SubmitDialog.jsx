@@ -80,7 +80,7 @@ const SubmitDialog = ({
         onClick={handleAccept}
         style={{ color: `${colors.blue}` }}
       >
-        {upperFirst(type)}
+        Okay
       </Button>
       {taskInProgress && <CircularProgress size={24} className={classes.buttonProgress} />}
     </div>,
