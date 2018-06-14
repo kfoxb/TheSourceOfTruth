@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Delete from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,6 +14,7 @@ import 'quill/dist/quill.snow.css';
 import './Editor.css';
 import colors from '../constants/colors';
 import GenericError from './errors/GenericError';
+import ImageUploader from '../containers/ImageUploader';
 import Loading from './Loading';
 import NotFound from '../components/NotFound';
 import PhaseError from './errors/PhaseError';
@@ -20,7 +22,15 @@ import PhaseBar from './PhaseBar';
 import SubmitDialog from './SubmitDialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
-import ImageUploader from '../containers/ImageUploader';
+import { APPROVE } from '../../../shared/constants/index';
+
+const styles = {
+  button: {
+    backgroundColor: `${colors.purple}`,
+    color: `${colors.white}`,
+    padding: '8px 11px',
+  },
+};
 
 const StyledEditor = styled.div`
   height: '100%';
@@ -28,7 +38,7 @@ const StyledEditor = styled.div`
 `;
 
 
-export default class Firepad extends Component {
+class Firepad extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,6 +54,7 @@ export default class Firepad extends Component {
   render() {
     const {
       claims,
+      classes,
       error,
       firepadInst,
       handleTask,
@@ -106,8 +117,14 @@ export default class Firepad extends Component {
                 </Tooltip>
                   : <div />}
               <PhaseBar phase={phase} />
-              { !readOnly &&
+              { (!readOnly && phase !== APPROVE) &&
               <Button onClick={this.handleDialog(SUBMIT, true)} className="buttons">Submit</Button>
+              }
+              { (!readOnly && phase === APPROVE) &&
+                <div>
+                  <Button onClick={this.handleDialog(APPROVE, true)} className="buttons">Approve</Button>
+                  <Button className={classes.button}>Send Back</Button>
+                </div>
               }
             </TaskHeader>
             { readOnly ?
@@ -136,6 +153,9 @@ export default class Firepad extends Component {
 }
 
 Firepad.propTypes = {
+  classes: PropTypes.shape({
+    button: PropTypes.string.isRequired,
+  }).isRequired,
   claims: PropTypes.shape({
     editor: PropTypes.bool,
     author: PropTypes.bool,
@@ -172,3 +192,5 @@ Firepad.defaultProps = {
   readOnly: true,
   title: '',
 };
+
+export default withStyles(styles)(Firepad);
