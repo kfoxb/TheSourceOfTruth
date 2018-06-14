@@ -112,7 +112,7 @@ SubmitDialog.propTypes = {
   }).isRequired,
   taskComplete: PropTypes.bool.isRequired,
   taskInProgress: PropTypes.bool.isRequired,
-  type: PropTypes.oneOf([SUBMIT, DELETE]).isRequired,
+  type: PropTypes.oneOf([APPROVE, DELETE, REJECT, SUBMIT]).isRequired,
 };
 
 export default withStyles(styles)(withRouter(SubmitDialog));
