@@ -22,7 +22,7 @@ const createBackup = refToBackup =>
       console.error(error);
     });
 
-const handleSubmit = (payload, context) => {
+const handlePhaseChange = (payload, context) => {
   const ref = database().ref(DOCUMENTS).child(payload.id);
   return ref.once('value')
     .then((snapshot) => {
@@ -57,4 +57,4 @@ const handleSubmit = (payload, context) => {
     });
 };
 
-export default handleSubmit;
+export default handlePhaseChange;
