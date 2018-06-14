@@ -14,6 +14,7 @@ import { APPROVE, CREATE, DOCUMENTS, EDIT } from '@the-source-of-truth/shared/co
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import colors from '../constants/colors';
 import DocumentsContainer from '../containers/DocumentsContainer';
+import Badge from './Badge';
 
 const styles = {
   root: {
@@ -33,6 +34,7 @@ function Tasks({ claims, classes }) {
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <h3>New Publications (Creations)</h3>
+          <Badge phase={CREATE} />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.root}>
           { isAuthor &&
@@ -57,6 +59,7 @@ function Tasks({ claims, classes }) {
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <h3>Publications in Progress (Editing)</h3>
+          <Badge phase={EDIT} />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.root}>
           <DocumentsContainer phase={EDIT} />
@@ -65,6 +68,7 @@ function Tasks({ claims, classes }) {
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <h3>Publications Awaiting Approval</h3>
+          <Badge phase={APPROVE} />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.root}>
           <DocumentsContainer phase={APPROVE} />
