@@ -10,7 +10,7 @@ const styles = {
   [APPROVE]: { backgroundColor: `${colors.green}` },
 };
 
-export default function Badge({ phase }) {
+export default function Badge({ count, phase }) {
   return (
     <Paper style={{
         backgroundColor: styles[phase].backgroundColor,
@@ -31,7 +31,7 @@ export default function Badge({ phase }) {
       paddingTop: '3px',
       }}
       >
-      5
+        {count}
       </p>
     </Paper>
   );
@@ -39,6 +39,7 @@ export default function Badge({ phase }) {
 
 
 Badge.propTypes = {
+  count: PropTypes.number.isRequired,
   phase: PropTypes.oneOf([
     CREATE, EDIT, APPROVE,
   ]).isRequired,
