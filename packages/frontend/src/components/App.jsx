@@ -7,7 +7,7 @@ import { SidebarLeftOverlay, SidebarTopOverlay } from './Navigation';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
 import ConnectionError from './errors/ConnectionError';
 import Home from './Home';
-import FirepadContainer from '../containers/FirepadContainer';
+import EditorContainer from '../containers/EditorContainer';
 import Tasks from './Tasks';
 import Library from './Library';
 import NotFound from '../components/NotFound';
@@ -19,7 +19,7 @@ const generatePhaseRoutes = phase => (
     exact
     key={`phase_route_${phase}`}
     path={`/${DOCUMENTS}/:${PHASE}(${phase})/:${phase === CREATE ? 'id?' : 'id'}`}
-    render={props => (<ConnectionError {...props} component={FirepadContainer} />)}
+    render={props => (<ConnectionError {...props} component={EditorContainer} />)}
   />);
 
 function App({
