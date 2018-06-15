@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Quill from 'quill';
 import firebase, { database } from 'firebase';
 import PropTypes from 'prop-types';
-import { CHANGING_PHASE, CREATE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, VIEW } from '@the-source-of-truth/shared/constants';
+import { CREATE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, VIEW } from '@the-source-of-truth/shared/constants';
 import { connect } from 'react-redux';
 import 'quill/dist/quill.snow.css';
 import Editor from '../components/Editor';
@@ -50,7 +50,6 @@ class UrimContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      [CHANGING_PHASE]: false,
       loading: true,
       notFound: false,
       [PHASE]: '',
@@ -91,6 +90,7 @@ class UrimContainer extends Component {
     this.ref = database().ref(`${docPath}/${CREATE}/${this.primaryRef.key}`);
     const data = {
       date: database.ServerValue.TIMESTAMP,
+      locked: false,
       title: '',
     };
     const primaryData = {
@@ -125,14 +125,13 @@ class UrimContainer extends Component {
   handleSnapshot = (snapshot) => {
     const data = snapshot.val();
     if (data !== null) {
-      const { changingPhase, phase, title } = data;
+      const { phase, title } = data;
       if (this.verifyPhase(phase)) {
         if (!this.state.urimInitialized) {
           this.setState({ urimInitialized: true }, this.initUrim);
         }
       }
       this.setState({
-        changingPhase,
         phase,
         title,
       });
@@ -201,9 +200,6 @@ class UrimContainer extends Component {
               id: this.ref.key,
             },
           }),
-        this.ref.update({
-          [CHANGING_PHASE]: true,
-        }),
       ])
         .then(() => {
           this.setState({
@@ -219,7 +215,6 @@ class UrimContainer extends Component {
     const loading = !this.props.isAuthenticated || this.state.loading;
     return (
       <Editor
-        changingPhase={this.state.changingPhase}
         claims={this.props.claims}
         elementId="editor-container"
         error={this.state.error}
