@@ -11,7 +11,11 @@
     },
     "eng": {
       ".read": "auth != null",
-      ".write": "auth != null"
+      ".write": "auth != null",
+      "documents": {
+        ".read": "auth!= null",
+        ".write": "auth.token.author === true || auth.token.editor === true || auth.token.approver === true"
+      }
     }
   }
 }
