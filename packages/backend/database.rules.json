@@ -31,6 +31,12 @@
             ".write": "(!data.exists() && auth.token.editor === true) || (auth.token.approver === true && data.child('locked').val() !== true)"
           }
         },
+        "published": {
+          ".read": "auth != null",
+          "$doc": {
+            ".write": "(!data.exists() && auth.token.approver === true)"
+          }
+        },
         "primary": {
           ".read": "auth != null",
           ".write": "(!data.child('phase').exists() || data.child('phase').val() === 'create') && auth.token.author === true"
