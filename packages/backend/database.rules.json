@@ -25,6 +25,12 @@
             ".write": "(!data.exists() && auth.token.author === true) || (auth.token.editor === true && data.child('locked').val() !== true)"
           }
         },
+        "approve": {
+          ".read": "auth != null",
+          "$doc": {
+            ".write": "(!data.exists() && auth.token.editor === true) || (auth.token.approver === true && data.child('locked').val() !== true)"
+          }
+        },
         "primary": {
           ".read": "auth != null",
           ".write": "(!data.child('phase').exists() || data.child('phase').val() === 'create') && auth.token.author === true"
