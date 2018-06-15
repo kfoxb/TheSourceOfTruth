@@ -15,7 +15,9 @@
         ".read": "auth != null",
         "create": {
           ".read": "auth != null",
-          ".write": "auth.token.author === true"
+          "$doc": {
+            ".write": "auth.token.author === true && data.child('locked').val() !== true"
+          }
         },
         "edit": {
           ".read": "auth != null",

@@ -200,7 +200,7 @@ class UrimContainer extends Component {
       // this.ref.off();
       // set lock on current ref
       this.ref.update({
-        // locked: true,
+        locked: true,
       });
       // write current refs value to a doc in the new phase
       this.ref.once('value').then((snap) => {
@@ -208,7 +208,7 @@ class UrimContainer extends Component {
         database()
           .ref(`${docPath}/${getNextPhase(this.state.phase)}/${this.primaryRef.key}`)
           .update(data)
-          .catch(err => console.log('err', err));
+          .catch(this.handleError);
       });
       // set phase in primary doc
       // Promise.all([
