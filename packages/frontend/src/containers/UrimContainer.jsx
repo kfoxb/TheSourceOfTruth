@@ -81,7 +81,6 @@ class UrimContainer extends Component {
       return this.createUrimDocument();
     }
     this.primaryRef = database().ref(`${docPath}/${PRIMARY}/${id}`);
-    this.ref = database().ref(`${docPath}/${phase}/${id}`);
     return Promise.resolve();
   }
 
@@ -128,7 +127,7 @@ class UrimContainer extends Component {
       const { phase, title } = data;
       if (this.verifyPhase(phase)) {
         if (!this.state.urimInitialized) {
-          this.setState({ urimInitialized: true }, this.initUrim);
+          this.setState({ urimInitialized: true }, this.initUrim(phase));
         }
       }
       this.setState({
@@ -162,7 +161,11 @@ class UrimContainer extends Component {
     return false;
   }
 
-  initUrim() {
+  initUrim(phase) {
+    if (!this.ref) {
+      const { id } = this.props.match.params;
+      this.ref = database().ref(`${docPath}/${phase}/${id}`);
+    }
     const readOnly = this.isReadOnly();
     const editor = new Quill('#editor-container', {
       modules: {
