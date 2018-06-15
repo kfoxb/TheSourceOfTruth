@@ -19,7 +19,7 @@
         },
         "primary": {
           ".read": "auth != null",
-          ".write": "auth != null"
+          ".write": "auth.token.author === true"
         }
       }
     }
