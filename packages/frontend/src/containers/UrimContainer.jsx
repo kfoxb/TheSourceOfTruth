@@ -15,13 +15,12 @@ const { fromQuill } = require('urim/dist/firepad');
 const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],
   ['blockquote'],
-  ['image', 'video'],
+  ['link', 'image', 'video'],
   [{ list: 'ordered' }, { list: 'bullet' }],
   [{ script: 'sub' }, { script: 'super' }],
   [{ indent: '-1' }, { indent: '+1' }],
   // enable in rtl languages for translation
   // [{ direction: 'rtl' }],
-  ['link'],
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
   [{ color: [] }, { background: [] }],
   [{ align: [] }],
