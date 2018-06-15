@@ -77,15 +77,12 @@ class UrimContainer extends Component {
   }
 
   getOrCreateUrimDocument() {
-    console.log('getOrCreateUrimDocument');
     const { phase, id } = this.props.match.params;
     if (phase === CREATE && !id) {
-      console.log('creating doc');
       return this.createUrimDocument();
     }
     this.primaryRef = database().ref(`${docPath}/${PRIMARY}/${id}`);
     this.ref = database().ref(`${docPath}/${phase}/${id}`);
-    console.log('getting ref', this.ref.toString());
     return Promise.resolve();
   }
 
