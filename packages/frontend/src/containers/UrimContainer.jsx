@@ -186,6 +186,8 @@ class UrimContainer extends Component {
     this.setState(newTitle, () => {
       this.ref.update(newTitle)
         .catch(this.handleError);
+      this.primaryRef.update(newTitle)
+        .catch(this.handleError);
     });
   }
 
