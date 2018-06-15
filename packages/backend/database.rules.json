@@ -11,10 +11,16 @@
     },
     "eng": {
       ".read": "auth != null",
-      ".write": "auth != null",
       "documents": {
-        ".read": "auth!= null",
-        ".write": "auth.token.author === true || auth.token.editor === true || auth.token.approver === true"
+        ".read": "auth != null",
+        "create": {
+          ".read": "auth != null",
+          ".write": "auth.token.author === true"
+        },
+        "primary": {
+          ".read": "auth != null",
+          ".write": "auth != null"
+        }
       }
     }
   }
