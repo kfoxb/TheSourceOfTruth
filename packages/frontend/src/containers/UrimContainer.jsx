@@ -154,13 +154,11 @@ class UrimContainer extends Component {
 
   initUrim() {
     const readOnly = this.isReadOnly();
-
-    const d = document.querySelector('#editor-container');
     const editor = new Quill('#editor-container', {
       modules: {
-        toolbar: toolbarOptions,
+        toolbar: readOnly ? !readOnly : toolbarOptions,
       },
-      theme: 'snow', // or 'bubble'
+      theme: 'snow',
       readOnly,
     });
     this.urimInst = fromQuill(this.ref, editor, null);
