@@ -19,7 +19,9 @@
         },
         "edit": {
           ".read": "auth != null",
-          ".write": "auth.token.author === true"
+          "$doc": {
+            ".write": "!data.exists() && auth.token.author === true"
+          }
         },
         "primary": {
           ".read": "auth != null",
