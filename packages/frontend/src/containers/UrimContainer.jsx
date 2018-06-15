@@ -73,7 +73,12 @@ class UrimContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.ref.off();
+    if (this.ref) {
+      this.ref.off();
+    }
+    if (this.primaryRef) {
+      this.primaryRef.off();
+    }
   }
 
   getOrCreateUrimDocument() {
