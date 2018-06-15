@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Quill from 'quill';
-import { database } from 'firebase';
+import firebase, { database } from 'firebase';
 import PropTypes from 'prop-types';
-import { CHANGING_PHASE, CREATE, DELETED, DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
+import { CHANGING_PHASE, CREATE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, VIEW } from '@the-source-of-truth/shared/constants';
 import { connect } from 'react-redux';
 import 'quill/dist/quill.snow.css';
 import Editor from '../components/Editor';
 
 window.Quill = Quill;
+window.firebase = firebase;
 const { fromQuill } = require('urim/dist/firepad');
 
 const toolbarOptions = [
@@ -21,6 +22,7 @@ const toolbarOptions = [
   ['clean'],
 ];
 
+const docPath = `${ENG}/${DOCUMENTS}`;
 class UrimContainer extends Component {
   static propTypes = {
     claims: PropTypes.shape({
@@ -75,34 +77,46 @@ class UrimContainer extends Component {
   }
 
   getOrCreateUrimDocument() {
+    console.log('getOrCreateUrimDocument');
     const { phase, id } = this.props.match.params;
     if (phase === CREATE && !id) {
+      console.log('creating doc');
       return this.createUrimDocument();
     }
-    this.ref = database().ref(DOCUMENTS).child(id);
-    this.listenForDocChanges();
+    this.primaryRef = database().ref(`${docPath}/${PRIMARY}/${id}`);
+    this.ref = database().ref(`${docPath}/${phase}/${id}`);
+    console.log('getting ref', this.ref.toString());
     return Promise.resolve();
   }
 
   createUrimDocument() {
-    this.ref = database().ref(DOCUMENTS).push();
+    this.primaryRef = database().ref(`${docPath}/${PRIMARY}`).push();
+    this.ref = database().ref(`${docPath}/${CREATE}/${this.primaryRef.key}`);
+    const data = {
+      date: database.ServerValue.TIMESTAMP,
+      title: '',
+    };
+    const primaryData = {
+      ...data,
+      categories: {},
+      description: '',
+      image: '',
+      phase: CREATE,
+      pinned: false,
+      readTime: 0,
+    };
     return Promise.all([
-      this.ref.child(PHASE).set(CREATE),
-      this.ref.child('title').set(''),
-      this.ref.child(CHANGING_PHASE).set(false),
-      this.ref.child(TIME).child(CREATE).set(database.ServerValue.TIMESTAMP),
-      // add security rule for this
-      this.ref.child('editor').set('urim'),
+      this.ref.update(data),
+      this.primaryRef.update(primaryData),
     ])
       .then(() => {
         this.props.history.replace(`/${DOCUMENTS}/${CREATE}/${this.ref.key}`);
-        this.listenForDocChanges();
       })
       .catch(this.handleError);
   }
 
   listenForDocChanges() {
-    this.ref.on('value', this.handleSnapshot, this.handleError);
+    this.primaryRef.on('value', this.handleSnapshot, this.handleError);
   }
 
   handleError = (error) => {
