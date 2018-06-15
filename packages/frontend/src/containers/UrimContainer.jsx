@@ -202,19 +202,18 @@ class UrimContainer extends Component {
       //
       if (type === SUBMIT) {
         const nextPhase = getNextPhase(this.state.phase);
-        Promise.all([
-          this.ref.update({
+        // write current refs value to a doc in the new phase
+        console.log('nextPhase', nextPhase);
+        this.ref.once('value').then((snap) => {
+          const { users, ...data } = snap.val();
+          return database()
+            .ref(`${docPath}/${nextPhase}/${this.primaryRef.key}`)
+            .update(data)
+            .catch(this.handleError);
+        })
+          .then(() => this.ref.update({
             locked: true,
-          }),
-          // write current refs value to a doc in the new phase
-          this.ref.once('value').then((snap) => {
-            const { users, ...data } = snap.val();
-            return database()
-              .ref(`${docPath}/${nextPhase}/${this.primaryRef.key}`)
-              .update(data)
-              .catch(this.handleError);
-          }),
-        ])
+          }))
           .then(() => this.primaryRef.update({
             [PHASE]: nextPhase,
           }));
