@@ -3,6 +3,7 @@ import Quill from 'quill';
 import firebase, { database } from 'firebase';
 import PropTypes from 'prop-types';
 import { CREATE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, VIEW } from '@the-source-of-truth/shared/constants';
+import { getNextPhase } from '@the-source-of-truth/shared/helpers';
 import { connect } from 'react-redux';
 import 'quill/dist/quill.snow.css';
 import Editor from '../components/Editor';
@@ -196,23 +197,36 @@ class UrimContainer extends Component {
 
   handleTask = type => () => {
     this.setState({ taskInProgress: true }, () => {
-      this.ref.off();
-      Promise.all([
+      // this.ref.off();
+      // set lock on current ref
+      this.ref.update({
+        // locked: true,
+      });
+      // write current refs value to a doc in the new phase
+      this.ref.once('value').then((snap) => {
+        const { users, ...data } = snap.val();
         database()
-          .ref('tasks').push({
-            type,
-            payload: {
-              id: this.ref.key,
-            },
-          }),
-      ])
-        .then(() => {
-          this.setState({
-            taskInProgress: false,
-            taskComplete: true,
-          });
-        })
-        .catch(this.handleError);
+          .ref(`${docPath}/${getNextPhase(this.state.phase)}/${this.primaryRef.key}`)
+          .update(data)
+          .catch(err => console.log('err', err));
+      });
+      // set phase in primary doc
+      // Promise.all([
+      //   database()
+      //     .ref('tasks').push({
+      //       type,
+      //       payload: {
+      //         id: this.ref.key,
+      //       },
+      //     }),
+      // ])
+      //   .then(() => {
+      //     this.setState({
+      //       taskInProgress: false,
+      //       taskComplete: true,
+      //     });
+      //   })
+      //   .catch(this.handleError);
     });
   }
 
