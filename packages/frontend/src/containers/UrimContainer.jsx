@@ -202,13 +202,8 @@ class UrimContainer extends Component {
 
   handleTask = type => () => {
     this.setState({ taskInProgress: true }, () => {
-      // this.ref.off();
-      // set lock on current ref
-      //
       if (type === SUBMIT) {
         const nextPhase = getNextPhase(this.state.phase);
-        // write current refs value to a doc in the new phase
-        console.log('nextPhase', nextPhase);
         this.ref.once('value').then((snap) => {
           const { users, ...data } = snap.val();
           return database()
@@ -223,23 +218,6 @@ class UrimContainer extends Component {
             [PHASE]: nextPhase,
           }));
       }
-      // set phase in primary doc
-      // Promise.all([
-      //   database()
-      //     .ref('tasks').push({
-      //       type,
-      //       payload: {
-      //         id: this.ref.key,
-      //       },
-      //     }),
-      // ])
-      //   .then(() => {
-      //     this.setState({
-      //       taskInProgress: false,
-      //       taskComplete: true,
-      //     });
-      //   })
-      //   .catch(this.handleError);
     });
   }
 
