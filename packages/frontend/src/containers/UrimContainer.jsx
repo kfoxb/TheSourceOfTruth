@@ -112,7 +112,7 @@ class UrimContainer extends Component {
       this.primaryRef.update(primaryData),
     ])
       .then(() => {
-        this.props.history.replace(`/${DOCUMENTS}/${CREATE}/${this.ref.key}`);
+        this.props.history.replace(`/${ENG}/${DOCUMENTS}/${CREATE}/${this.ref.key}`);
       })
       .catch(this.handleError);
   }

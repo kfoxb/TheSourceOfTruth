@@ -18,7 +18,7 @@ const generatePhaseRoutes = phase => (
   <Route
     exact
     key={`phase_route_${phase}`}
-    path={`/${DOCUMENTS}/:${PHASE}(${phase})/:${phase === CREATE ? 'id?' : 'id'}`}
+    path={`/eng/${DOCUMENTS}/:${PHASE}(${phase})/:${phase === CREATE ? 'id?' : 'id'}`}
     render={props => (<ConnectionError {...props} component={UrimContainer} />)}
   />);
 
@@ -36,11 +36,12 @@ function App({
       <div style={{ height: '40px' }} />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/eng" component={Home} />
         <View>
           { [EDIT, VIEW, APPROVE, CREATE].map(generatePhaseRoutes) }
-          <Route exact path={`/${LIBRARY}`} component={Library} />
-          <Route exact path="/sign(up|in)" component={AuthenticateContainer} />
-          <Route exact path="/tasks" component={Tasks} />
+          <Route exact path={`/eng/${LIBRARY}`} component={Library} />
+          <Route exact path="/eng/sign(up|in)" component={AuthenticateContainer} />
+          <Route exact path="/eng/tasks" component={Tasks} />
         </View>
         <Route component={NotFound} />
       </Switch>
