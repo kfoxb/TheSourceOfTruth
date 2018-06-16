@@ -14,7 +14,6 @@ import 'quill/dist/quill.snow.css';
 import './Editor.css';
 import colors from '../constants/colors';
 import GenericError from './errors/GenericError';
-import ImageUploader from '../containers/ImageUploader';
 import Loading from './Loading';
 import NotFound from '../components/NotFound';
 import PhaseError from './errors/PhaseError';
