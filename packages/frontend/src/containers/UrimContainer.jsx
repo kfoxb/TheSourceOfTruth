@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Quill from 'quill';
 import firebase, { database } from 'firebase';
 import PropTypes from 'prop-types';
-import { APPROVE, CREATE, DATE, DELETE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, SUBMIT, VIEW } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CREATE, DATE, DELETE, DELETED, DOCUMENTS, EDIT, ENG, PHASE, PRIMARY, REJECT, SUBMIT, VIEW } from '@the-source-of-truth/shared/constants';
 import { getNextPhase } from '@the-source-of-truth/shared/helpers';
 import { connect } from 'react-redux';
 import Editor from '../components/Editor';
@@ -90,6 +90,9 @@ class UrimContainer extends Component {
     }
     if (type === SUBMIT || type === APPROVE) {
       return getNextPhase(this.state.phase);
+    }
+    if (type === REJECT) {
+      return EDIT;
     }
     throw new Error('Unknown type');
   }
@@ -216,20 +219,38 @@ class UrimContainer extends Component {
   handleTask = type => () => {
     this.setState({ taskInProgress: true }, () => {
       const nextPhase = this.getNextPhase(type);
+      const isReject = type === REJECT;
       this.ref.once('value').then((snap) => {
+        // get current contents
+        // set current doc in last phase
+        const method = isReject ? 'set' : 'update';
+        // delete current document (approve)
         const { users, ...data } = snap.val();
+        console.log('data', data);
         return database()
           .ref(`${docPath}/${nextPhase}/${this.primaryRef.key}`)
-          .update({ ...data, [DATE]: database.ServerValue.TIMESTAMP })
+          // eslint-disable-next-line no-unexpected-multiline
+          [method]({ ...data, [DATE]: database.ServerValue.TIMESTAMP })
           .catch(this.handleError);
       })
-        .then(() => this.ref.update({
-          locked: true,
-        }))
-        .then(() => this.primaryRef.update({
-          [PHASE]: nextPhase,
-          [DATE]: database.ServerValue.TIMESTAMP,
-        }))
+        .then(() => {
+          console.log('copied data');
+          if (isReject) {
+            console.log('deleting self');
+            return this.ref.remove();
+          }
+          return this.ref.update({
+            locked: true,
+          });
+        })
+        .then(() => {
+          console.log('updating primaryRef');
+          return this.primaryRef.update({
+            // update phase in primary doc
+            [PHASE]: nextPhase,
+            [DATE]: database.ServerValue.TIMESTAMP,
+          });
+        })
         .then(() => {
           this.props.history.replace(`/${ENG}/tasks`);
         });
