@@ -38,12 +38,15 @@ function App({
         <Route exact path="/" component={Home} />
         <Route exact path="/eng" component={Home} />
         <View>
-          { [EDIT, VIEW, APPROVE, CREATE].map(generatePhaseRoutes) }
-          <Route exact path={`/eng/${LIBRARY}`} component={Library} />
-          <Route exact path="/eng/sign(up|in)" component={AuthenticateContainer} />
-          <Route exact path="/eng/tasks" component={Tasks} />
-          <Route component={NotFound} />
+          <Switch>
+            { [EDIT, VIEW, APPROVE, CREATE].map(generatePhaseRoutes) }
+            <Route exact path={`/eng/${LIBRARY}`} component={Library} />
+            <Route exact path="/eng/sign(up|in)" component={AuthenticateContainer} />
+            <Route exact path="/eng/tasks" component={Tasks} />
+            <Route component={NotFound} />
+          </Switch>
         </View>
+        <Route component={NotFound} />
       </Switch>
     </Fragment>
   );
