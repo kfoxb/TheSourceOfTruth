@@ -84,6 +84,16 @@ class UrimContainer extends Component {
     }
   }
 
+  getNextPhase = (type) => {
+    if (type === DELETE) {
+      return DELETED;
+    }
+    if (type === SUBMIT) {
+      return getNextPhase(this.state.phase);
+    }
+    throw new Error('Unknown type');
+  }
+
   getOrCreateUrimDocument() {
     const { phase, id } = this.props.match.params;
     if (phase === CREATE && !id) {
@@ -201,16 +211,6 @@ class UrimContainer extends Component {
       this.primaryRef.update(newTitle)
         .catch(this.handleError);
     });
-  }
-
-  getNextPhase = (type) => {
-    if (type === DELETE) {
-      return DELETED;
-    }
-    if (type === SUBMIT) {
-      return getNextPhase(this.state.phase);
-    }
-    throw new Error('Unknown type');
   }
 
   handleTask = type => () => {
