@@ -42,8 +42,8 @@ function App({
           <Route exact path={`/eng/${LIBRARY}`} component={Library} />
           <Route exact path="/eng/sign(up|in)" component={AuthenticateContainer} />
           <Route exact path="/eng/tasks" component={Tasks} />
+          <Route component={NotFound} />
         </View>
-        <Route component={NotFound} />
       </Switch>
     </Fragment>
   );
