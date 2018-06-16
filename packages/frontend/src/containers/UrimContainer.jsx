@@ -221,12 +221,8 @@ class UrimContainer extends Component {
       const nextPhase = this.getNextPhase(type);
       const isReject = type === REJECT;
       this.ref.once('value').then((snap) => {
-        // get current contents
-        // set current doc in last phase
         const method = isReject ? 'set' : 'update';
-        // delete current document (approve)
         const { users, ...data } = snap.val();
-        console.log('data', data);
         return database()
           .ref(`${docPath}/${nextPhase}/${this.primaryRef.key}`)
           // eslint-disable-next-line no-unexpected-multiline
@@ -234,23 +230,17 @@ class UrimContainer extends Component {
           .catch(this.handleError);
       })
         .then(() => {
-          console.log('copied data');
           if (isReject) {
-            console.log('deleting self');
             return this.ref.remove();
           }
           return this.ref.update({
             locked: true,
           });
         })
-        .then(() => {
-          console.log('updating primaryRef');
-          return this.primaryRef.update({
-            // update phase in primary doc
-            [PHASE]: nextPhase,
-            [DATE]: database.ServerValue.TIMESTAMP,
-          });
-        })
+        .then(() => this.primaryRef.update({
+          [PHASE]: nextPhase,
+          [DATE]: database.ServerValue.TIMESTAMP,
+        }))
         .then(() => {
           this.props.history.replace(`/${ENG}/tasks`);
         });
