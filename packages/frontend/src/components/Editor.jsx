@@ -60,7 +60,6 @@ class Firepad extends Component {
       claims,
       classes,
       error,
-      firepadInst,
       handleTask,
       taskComplete,
       taskInProgress,
@@ -189,12 +188,6 @@ Firepad.propTypes = {
       code: PropTypes.string.isRequired,
     }),
   ]),
-  firepadInst: PropTypes.shape({
-    firepadWrapper_: PropTypes.shape({
-      removeChild: PropTypes.func.isRequired,
-    }),
-    makeImageDialog_: PropTypes.func.isRequired,
-  }),
   handleTask: PropTypes.func.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -209,7 +202,6 @@ Firepad.propTypes = {
 Firepad.defaultProps = {
   claims: {},
   error: false,
-  firepadInst: null,
   readOnly: true,
   title: '',
 };
