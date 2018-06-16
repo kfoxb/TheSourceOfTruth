@@ -93,7 +93,6 @@ class Firepad extends Component {
       <Fragment>
         { error && <PhaseError phase={phase} />}
         { loading && (<Loading />) }
-        <ImageUploader firepadInst={firepadInst} />
         <div style={displayStyle}>
           <SubmitDialog
             dialogIsOpen={this.state.submitDialogIsOpen}
@@ -166,7 +165,7 @@ class Firepad extends Component {
                   value={title}
                 />
             }
-            <StyledEditor style={{ border: 'none', fontSize: '20px' }}id={this.props.elementId} />
+            <StyledEditor style={{ border: 'none', fontSize: '20px', height: '700px' }}id={this.props.elementId} />
           </TaskContentBody>
         </div>
       </Fragment>
