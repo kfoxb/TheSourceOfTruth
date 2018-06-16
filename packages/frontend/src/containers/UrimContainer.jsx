@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Quill from 'quill';
 import firebase, { database } from 'firebase';
 import PropTypes from 'prop-types';
-import { CREATE, DATE, DELETE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, SUBMIT, VIEW } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CREATE, DATE, DELETE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, SUBMIT, VIEW } from '@the-source-of-truth/shared/constants';
 import { getNextPhase } from '@the-source-of-truth/shared/helpers';
 import { connect } from 'react-redux';
 import Editor from '../components/Editor';
@@ -88,7 +88,7 @@ class UrimContainer extends Component {
     if (type === DELETE) {
       return DELETED;
     }
-    if (type === SUBMIT) {
+    if (type === SUBMIT || type === APPROVE) {
       return getNextPhase(this.state.phase);
     }
     throw new Error('Unknown type');
